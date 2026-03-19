@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>阿贝贝 · 你的情绪阿贝贝</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans SC','PingFang SC',-apple-system,sans-serif;background:#FFF8F3;color:#4A4A4A;max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:72px;}
+:root{--pink:#FF8FAB;--pl:#FFD6E5;--pg:linear-gradient(135deg,#FFB5C8,#FF8FAB);--green:#5CB88A;--bg:#FFF8F3;--card:#fff;--sub:#9B9B9B;--bd:#F0E6E6;--sh:0 2px 16px rgba(255,143,171,0.10);--r:18px;}
+.card{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:14px;box-shadow:var(--sh);}
+.clabel{font-size:11px;color:var(--sub);margin-bottom:6px;}
+.ctitle{font-size:15px;font-weight:700;margin-bottom:14px;}
+textarea,input[type=text],input[type=date],select{width:100%;border:1.5px solid var(--bd);border-radius:12px;padding:11px 14px;font-family:inherit;font-size:14px;color:#4A4A4A;background:var(--bg);outline:none;resize:none;}
+textarea{min-height:78px;display:block;}
+textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff;}
+.btn{display:block;width:100%;padding:13px;border:none;border-radius:50px;background:var(--pg);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;text-align:center;box-shadow:0 4px 14px rgba(255,107,157,.3);}
+#toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:rgba(50,50,50,.9);color:#fff;padding:9px 20px;border-radius:50px;font-size:13px;opacity:0;pointer-events:none;white-space:nowrap;z-index:99999;transition:opacity .3s;}
+#toast.show{opacity:1;}
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid var(--bd);display:flex;z-index:1000;padding:6px 0 10px;box-shadow:0 -2px 12px rgba(0,0,0,.06);}
+.ti{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:var(--sub);cursor:pointer;padding:2px 0;border:none;background:none;font-family:inherit;}
+.ti.act{color:var(--pink);}
+.ti .ico{font-size:22px;line-height:1.2;}
+.pg{display:none;}
+.pg.act{display:block;}
+.topbar{background:var(--pg);padding:20px 18px 18px;}
+.toprow{display:flex;align-items:center;justify-content:space-between;}
+.toprow h1{color:#fff;font-size:20px;font-weight:800;}
+.toprow p{color:rgba(255,255,255,.8);font-size:12px;margin-top:3px;}
+.uchip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.22);border-radius:50px;padding:5px 10px 5px 6px;cursor:pointer;border:none;font-family:inherit;}
+.uchip .uav{font-size:20px;}
+.uchip .unm{color:#fff;font-size:12px;font-weight:600;}
+#ob{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;}
+#ob.hidden{display:none;}
+.obcard{background:#fff;border-radius:22px;padding:24px 20px;width:100%;max-width:340px;box-shadow:0 16px 48px rgba(0,0,0,.22);}
+.obcard h2{font-size:17px;font-weight:800;color:var(--pink);text-align:center;margin-bottom:4px;}
+.obsub{font-size:12px;color:var(--sub);text-align:center;margin-bottom:18px;line-height:1.6;}
+.oblabel{font-size:12px;color:var(--sub);margin-bottom:8px;}
+.avgrid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
+.avbtn{font-size:20px;width:44px;height:44px;border-radius:50%;border:2px solid var(--bd);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.avbtn.sel{border-color:var(--pink);background:var(--pl);}
+.obnamewrap{margin-bottom:16px;}
+.moodrow{display:flex;gap:5px;margin-bottom:14px;}
+.mbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border-radius:12px;border:1.5px solid var(--bd);background:var(--bg);font-size:10px;color:var(--sub);cursor:pointer;font-family:inherit;}
+.mbtn .em{font-size:21px;line-height:1.2;}
+.mbtn.sel{border-color:var(--pink);background:var(--pl);color:var(--pink);font-weight:600;}
+#chart{width:100%;display:block;}
+.tipbox{background:linear-gradient(135deg,#FFF0F5,#FFE4EE);border-radius:12px;padding:14px;border-left:3px solid var(--pink);font-size:13px;line-height:1.8;color:#6B3A4A;white-space:pre-line;}
+.tipmeta{font-size:11px;color:var(--pink);font-weight:600;margin-bottom:5px;}
+.writebar{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:50px;padding:10px 10px 10px 16px;margin-bottom:14px;box-shadow:var(--sh);cursor:pointer;border:none;width:100%;font-family:inherit;}
+.wph{font-size:13px;color:#ccc;}
+.wbtn{background:var(--pg);color:#fff;font-size:12px;font-weight:700;padding:6px 14px;border-radius:50px;border:none;cursor:pointer;font-family:inherit;}
+.tagsrow{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px;}
+.tagsrow::-webkit-scrollbar{display:none;}
+.ftag{padding:5px 12px;border-radius:50px;font-size:12px;font-weight:500;border:1.5px solid;white-space:nowrap;cursor:pointer;background:none;font-family:inherit;}
+.ftag.sel{font-weight:700;box-shadow:0 0 0 1px currentColor;}
+.t-all{border-color:var(--pink);color:var(--pink);}
+.t-迷茫{border-color:#D4BBFF;color:#7B5EA7;}
+.t-压力{border-color:var(--pink);color:#C04F6E;}
+.t-疲惫{border-color:#FFD6A5;color:#B07A2A;}
+.t-寻求平衡{border-color:#B5E5CF;color:#2D8A60;}
+.t-小确幸{border-color:#FFB3C6;color:#C04F6E;}
+.pc{background:#fff;border-radius:var(--r);padding:15px;margin-bottom:12px;box-shadow:var(--sh);}
+.ptop{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.pav{width:36px;height:36px;border-radius:50%;flex-shrink:0;background:var(--pg);display:flex;align-items:center;justify-content:center;font-size:18px;}
+.pname{font-size:13px;font-weight:600;}
+.ptime{font-size:11px;color:var(--sub);}
+.ptag{margin-left:auto;font-size:10px;padding:2px 8px;border-radius:50px;border:1px solid;}
+.pbody{font-size:13px;line-height:1.75;margin-bottom:11px;}
+.pacts{display:flex;gap:10px;}
+.pabtn{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--sub);padding:5px 12px;border-radius:50px;border:1.5px solid var(--bd);background:none;cursor:pointer;font-family:inherit;}
+.pabtn.liked{border-color:var(--green);color:var(--green);}
+.pabtn.healed{border-color:var(--pink);color:var(--pink);}
+.cmts{margin-top:10px;display:none;}
+.cmts.open{display:block;}
+.citem{background:var(--bg);border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:12px;line-height:1.6;}
+.cauthor{color:var(--pink);font-weight:600;}
+.crow{display:flex;gap:8px;margin-top:8px;}
+.crow input{flex:1;}
+.csend{padding:8px 13px;border-radius:50px;border:1.5px solid var(--bd);background:none;color:var(--sub);cursor:pointer;font-family:inherit;font-size:12px;white-space:nowrap;}
+#pmodal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:8000;display:none;align-items:flex-end;justify-content:center;}
+#pmodal.open{display:flex;}
+.pmsheet{background:#fff;border-radius:22px 22px 0 0;padding:20px 18px 32px;width:100%;max-width:480px;}
+.pmtitle{font-size:15px;font-weight:700;margin-bottom:12px;}
+.pmtags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.ftop{background:linear-gradient(160deg,#6B3FA0,#4A2080);padding:22px 18px 18px;color:#fff;}
+.ftop h1{font-size:20px;font-weight:800;margin-bottom:4px;}
+.ftop p{font-size:12px;opacity:.7;}
+.fcard{background:linear-gradient(160deg,#2D1B69,#6B2FA0);border-radius:var(--r);padding:20px;color:#fff;margin-bottom:14px;}
+.fbadge{display:inline-block;padding:4px 14px;border-radius:50px;background:rgba(255,255,255,.2);font-size:12px;font-weight:600;margin-bottom:14px;}
+.fring{text-align:center;margin:8px 0 14px;}
+.frnum{font-size:36px;font-weight:800;line-height:1;}
+.frsub{font-size:11px;opacity:.6;margin-top:2px;}
+.fgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
+.fsec{background:rgba(255,255,255,.12);border-radius:10px;padding:10px 6px;text-align:center;}
+.fsic{font-size:18px;margin-bottom:4px;}
+.fsnm{font-size:9px;opacity:.7;margin-bottom:2px;}
+.fsst{font-size:11px;color:#FFD700;}
+.flucky{display:flex;justify-content:space-around;margin-bottom:12px;}
+.fli{text-align:center;}
+.fll{font-size:10px;opacity:.6;}
+.flv{font-size:13px;font-weight:700;margin-top:2px;}
+.fquote{background:rgba(255,255,255,.1);border-radius:10px;padding:12px;font-size:12px;line-height:1.8;border-left:2px solid rgba(255,215,0,.5);}
+#floading{display:none;text-align:center;padding:36px;background:#fff;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:14px;}
+.fspin{font-size:28px;display:inline-block;animation:sp 1s linear infinite;}
+@keyframes sp{0%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.3)}100%{transform:rotate(360deg) scale(1)}}
+#fresult{display:none;}
+.myprofile{background:var(--pg);padding:28px 18px 22px;text-align:center;color:#fff;}
+.myav{font-size:50px;margin-bottom:8px;}
+.mynamel{font-size:20px;font-weight:800;margin-bottom:4px;}
+.mysub{font-size:12px;opacity:.8;}
+.mystats{display:flex;justify-content:space-around;margin-top:14px;}
+.stitem{text-align:center;}
+.stnum{font-size:22px;font-weight:800;}
+.stlbl{font-size:10px;opacity:.8;margin-top:2px;}
+.mitem{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--bd);cursor:pointer;}
+.mitem:last-child{border-bottom:none;}
+.mleft{display:flex;align-items:center;gap:10px;font-size:14px;}
+.mic{font-size:18px;width:26px;text-align:center;}
+</style>
+</head>
+<body>
+
+<div id="ob">
+  <div class="obcard">
+    <div style="text-align:center;font-size:34px;margin-bottom:10px">🌸</div>
+    <h2>你好，我是阿贝贝</h2>
+    <p class="obsub">你的情绪阿贝贝<br>先告诉我怎么称呼你吧～</p>
+    <p class="oblabel">选一个头像</p>
+    <div class="avgrid">
+      <button class="avbtn sel" data-av="🦊" onclick="pickAv(this)">🦊</button>
+      <button class="avbtn" data-av="🐰" onclick="pickAv(this)">🐰</button>
+      <button class="avbtn" data-av="🐼" onclick="pickAv(this)">🐼</button>
+      <button class="avbtn" data-av="🐸" onclick="pickAv(this)">🐸</button>
+      <button class="avbtn" data-av="🦋" onclick="pickAv(this)">🦋</button>
+      <button class="avbtn" data-av="🌸" onclick="pickAv(this)">🌸</button>
+      <button class="avbtn" data-av="⭐" onclick="pickAv(this)">⭐</button>
+      <button class="avbtn" data-av="🍀" onclick="pickAv(this)">🍀</button>
+    </div>
+    <div class="obnamewrap">
+      <p class="oblabel">起个昵称</p>
+      <input type="text" id="obname" placeholder="比如：打工人小李..." maxlength="10">
+    </div>
+    <button class="btn" onclick="finishOb()">进入阿贝贝 🌸</button>
+  </div>
+</div>
+
+<div id="pg-today" class="pg act">
+  <div class="topbar">
+    <div class="toprow">
+      <div><h1>🌸 阿贝贝</h1><p id="topdate"></p></div>
+      <button class="uchip" onclick="goTab('my')">
+        <span class="uav" id="topav">🦊</span>
+        <span class="unm" id="topnm">我</span>
+      </button>
+    </div>
+  </div>
+  <div style="padding:16px 16px 0">
+    <div class="card">
+      <p class="clabel">今日签到</p>
+      <p class="ctitle">今天感觉怎么样？</p>
+      <div class="moodrow">
+        <button class="mbtn" onclick="pickMood(1,this)"><span class="em">😔</span>低落</button>
+        <button class="mbtn" onclick="pickMood(2,this)"><span class="em">😕</span>有点难</button>
+        <button class="mbtn" onclick="pickMood(3,this)"><span class="em">😐</span>还好</button>
+        <button class="mbtn" onclick="pickMood(4,this)"><span class="em">🙂</span>不错</button>
+        <button class="mbtn" onclick="pickMood(5,this)"><span class="em">😊</span>很棒</button>
+      </div>
+      <textarea id="mnote" placeholder="今天发生了什么，写下来吧..." style="margin-bottom:12px"></textarea>
+      <button class="btn" onclick="saveMood()">告诉阿贝贝 ✨</button>
+    </div>
+    <div class="card">
+      <p c
+...(truncated)...
+
+
