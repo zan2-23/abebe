@@ -122,53 +122,71 @@ textarea:focus,input:focus{border-color:var(--coral);background:#fff;}
 .pmtags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
 
 /* ── 呼吸训练 ── */
-#pg-breath{background:var(--bg);}
-.breath-hero{background:var(--bg-breath);padding:32px 20px 28px;border-radius:0 0 32px 32px;text-align:center;position:relative;overflow:hidden;}
-.breath-hero::before{content:'';position:absolute;top:-40px;left:-40px;width:180px;height:180px;background:rgba(255,255,255,.12);border-radius:50%;}
-.breath-hero::after{content:'';position:absolute;bottom:-60px;right:-30px;width:220px;height:220px;background:rgba(255,255,255,.08);border-radius:50%;}
-.breath-hero h1{color:#fff;font-size:22px;font-weight:800;margin-bottom:6px;position:relative;z-index:1;}
-.breath-hero p{color:rgba(255,255,255,.85);font-size:13px;position:relative;z-index:1;}
-.breath-ring-wrap{position:relative;width:200px;height:200px;margin:28px auto 24px;display:flex;align-items:center;justify-content:center;}
-.breath-ring-svg{position:absolute;inset:0;width:100%;height:100%;}
-.breath-ring-track{fill:none;stroke:rgba(255,255,255,.2);stroke-width:8;}
-.breath-ring-prog{fill:none;stroke:#fff;stroke-width:8;stroke-linecap:round;transform-origin:center;transform:rotate(-90deg);transition:stroke-dashoffset .1s linear,stroke .5s;}
-.breath-inner{display:flex;flex-direction:column;align-items:center;justify-content:center;width:144px;height:144px;border-radius:50%;background:rgba(255,255,255,.22);backdrop-filter:blur(8px);}
-.breath-circle{width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(123,191,234,.4);transition:transform .5s ease;}
-.breath-circle.expand{animation:bExpand 4s ease-in-out forwards;}
-.breath-circle.hold{animation:bHold 2s linear forwards;}
-.breath-circle.shrink{animation:bShrink 6s ease-in-out forwards;}
-@keyframes bExpand{0%{transform:scale(1);}100%{transform:scale(1.28);}}
-@keyframes bHold{0%,100%{transform:scale(1.28);}}
-@keyframes bShrink{0%{transform:scale(1.28);}100%{transform:scale(1);}}
-.breath-word{font-size:17px;font-weight:800;color:var(--blue);line-height:1;}
-.breath-count{font-size:13px;color:var(--sub);margin-top:3px;}
-.breath-phase{font-size:26px;font-weight:800;color:#fff;margin-bottom:4px;letter-spacing:.5px;}
-.breath-phase-sub{font-size:13px;color:rgba(255,255,255,.8);}
-.breath-timer{color:#fff;font-size:28px;font-weight:800;letter-spacing:.5px;margin-top:6px;}
-.breath-hint{color:rgba(255,255,255,.75);font-size:12px;margin-top:4px;}
-.breath-prog-wrap{padding:0 20px 4px;}
-.breath-prog-bar{height:4px;background:rgba(123,191,234,.2);border-radius:50px;overflow:hidden;margin-bottom:6px;}
-.breath-prog-fill{height:100%;background:var(--blue);border-radius:50px;transition:width .5s linear;}
-.breath-prog-lbl{font-size:11px;color:var(--sub);text-align:right;}
-.breath-btns{display:flex;gap:10px;padding:0 20px 20px;}
+#pg-breath{background:#FBF6F0;min-height:100vh;}
+.breath-scene{position:relative;background:#FBF6F0;padding:36px 20px 0;text-align:center;overflow:hidden;min-height:520px;}
 
-/* 呼吸插画 (纯CSS) */
-.breath-illus{position:relative;z-index:1;margin:0 auto 8px;width:72px;height:72px;}
-.illus-body{width:48px;height:44px;background:rgba(255,255,255,.9);border-radius:50% 50% 44% 44%;margin:0 auto;position:relative;}
-.illus-head{width:30px;height:30px;background:rgba(255,255,255,.9);border-radius:50%;margin:0 auto 2px;position:relative;}
-.illus-head::after{content:'❤️';position:absolute;top:-14px;left:50%;transform:translateX(-50%);font-size:16px;animation:heartPulse 1.2s ease-in-out infinite;}
-@keyframes heartPulse{0%,100%{transform:translateX(-50%) scale(1);}50%{transform:translateX(-50%) scale(1.25);}}
-.illus-legs{display:flex;justify-content:center;gap:6px;margin-top:2px;}
-.illus-leg{width:12px;height:10px;background:rgba(255,255,255,.9);border-radius:0 0 6px 6px;}
+/* 云朵装饰 */
+.cloud{position:absolute;border-radius:50px;background:#D6EAF5;}
+.cloud-tl{width:110px;height:50px;top:28px;left:-20px;transform:rotate(-8deg);}
+.cloud-tl::before{content:'';position:absolute;width:60px;height:60px;background:#D6EAF5;border-radius:50%;top:-20px;left:20px;}
+.cloud-tl::after{content:'';position:absolute;width:40px;height:40px;background:#D6EAF5;border-radius:50%;top:-10px;left:55px;}
+.cloud-tr{width:90px;height:42px;top:48px;right:-10px;transform:rotate(6deg);}
+.cloud-tr::before{content:'';position:absolute;width:50px;height:50px;background:#D6EAF5;border-radius:50%;top:-18px;left:15px;}
+.cloud-tr::after{content:'';position:absolute;width:35px;height:35px;background:#D6EAF5;border-radius:50%;top:-8px;left:45px;}
+.cloud-bl{width:130px;height:55px;bottom:60px;left:-30px;transform:rotate(4deg);}
+.cloud-bl::before{content:'';position:absolute;width:65px;height:65px;background:#D6EAF5;border-radius:50%;top:-25px;left:22px;}
+.cloud-bl::after{content:'';position:absolute;width:48px;height:48px;background:#D6EAF5;border-radius:50%;top:-12px;left:62px;}
+.cloud-br{width:120px;height:52px;bottom:50px;right:-25px;transform:rotate(-5deg);}
+.cloud-br::before{content:'';position:absolute;width:60px;height:60px;background:#D6EAF5;border-radius:50%;top:-22px;left:20px;}
+.cloud-br::after{content:'';position:absolute;width:42px;height:42px;background:#D6EAF5;border-radius:50%;top:-10px;left:58px;}
 
-/* 分享弹窗 */
-#shareModal{position:fixed;inset:0;background:rgba(61,53,48,.5);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+/* 标题区 */
+.breath-title{font-size:13px;color:var(--sub);letter-spacing:.5px;margin-bottom:4px;position:relative;z-index:2;}
+.breath-h1{font-size:28px;font-weight:900;color:var(--text);line-height:1.2;margin-bottom:8px;position:relative;z-index:2;}
+.breath-sub{font-size:12px;color:var(--sub);line-height:1.8;margin-bottom:24px;position:relative;z-index:2;}
+
+/* 打坐爱心插画 SVG */
+.breath-avatar{position:relative;z-index:2;margin:0 auto 0;width:200px;height:200px;}
+.breath-avatar svg{width:100%;height:100%;}
+
+/* 呼吸光圈 */
+.breath-aura{position:absolute;top:50%;left:50%;width:160px;height:160px;border-radius:50%;background:rgba(255,127,110,.12);transform:translate(-50%,-50%);transition:transform 4s ease-in-out,opacity 1s;z-index:1;}
+.breath-aura.expand{transform:translate(-50%,-50%) scale(1.4);opacity:.6;}
+.breath-aura.hold{transform:translate(-50%,-50%) scale(1.4);opacity:.6;}
+.breath-aura.shrink{transform:translate(-50%,-50%) scale(1);opacity:.2;}
+
+/* 状态文字 */
+.breath-state-wrap{position:relative;z-index:2;margin-top:20px;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.breath-state-word{font-size:32px;font-weight:900;color:var(--coral);letter-spacing:2px;}
+.breath-state-count{font-size:15px;color:var(--sub);margin-top:4px;}
+.breath-state-idle{font-size:14px;color:var(--sub);line-height:1.8;}
+
+/* 进度条 */
+.breath-prog-area{padding:16px 24px 8px;position:relative;z-index:2;}
+.breath-prog-bar{height:5px;background:#EDE7E0;border-radius:50px;overflow:hidden;margin-bottom:6px;}
+.breath-prog-fill{height:100%;background:linear-gradient(90deg,var(--coral-l),var(--coral));border-radius:50px;transition:width .5s linear;width:0%;}
+.breath-prog-lbl{font-size:11px;color:var(--sub);text-align:center;}
+
+/* 按钮区 */
+.breath-btn-area{padding:12px 24px 24px;display:flex;gap:12px;}
+
+/* 分享弹窗 - 信封风格 */
+#shareModal{position:fixed;inset:0;background:rgba(61,53,48,.45);z-index:9000;display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
 #shareModal.open{display:flex;}
-.share-card{background:#fff;border-radius:26px;padding:28px 22px;width:100%;max-width:320px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.15);}
-.share-card h3{font-size:18px;font-weight:800;color:var(--text);margin-bottom:6px;}
-.share-card p{font-size:13px;color:var(--sub);line-height:1.7;margin-bottom:20px;}
-.share-actions{display:flex;gap:10px;}
-.share-actions .btn{flex:1;font-size:13px;padding:12px;}
+.share-card{background:#FBF6F0;border-radius:26px;overflow:hidden;width:100%;max-width:320px;box-shadow:0 24px 64px rgba(0,0,0,.18);position:relative;}
+.share-top{padding:32px 24px 20px;text-align:center;}
+.share-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--bd);background:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--sub);}
+.share-card h3{font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;}
+.share-card p{font-size:13px;color:var(--sub);line-height:1.75;margin-bottom:20px;}
+.share-input{border:1.5px solid var(--coral-l);border-radius:50px;padding:12px 18px;width:100%;font-family:inherit;font-size:13px;color:var(--text);background:#fff;outline:none;text-align:center;margin-bottom:12px;}
+.share-input::placeholder{color:var(--coral-l);}
+/* 信封底部 */
+.share-envelope{position:relative;height:100px;overflow:hidden;margin-top:-10px;}
+.env-body{position:absolute;bottom:0;left:0;right:0;height:80px;background:#2ECC71;}
+.env-flap-l{position:absolute;bottom:20px;left:0;width:0;height:0;border-style:solid;border-width:60px 0 0 160px;border-color:transparent transparent transparent #27AE60;}
+.env-flap-r{position:absolute;bottom:20px;right:0;width:0;height:0;border-style:solid;border-width:60px 160px 0 0;border-color:transparent #27AE60 transparent transparent;}
+.env-letter{position:absolute;bottom:50px;left:50%;transform:translateX(-50%);width:160px;height:60px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:var(--coral);box-shadow:0 2px 12px rgba(0,0,0,.1);}
+.share-send-btn{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:var(--coral);color:#fff;border:none;border-radius:50px;padding:10px 32px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(255,127,110,.4);z-index:2;white-space:nowrap;}
 
 /* ── 能量 ── */
 .ftop{background:linear-gradient(160deg,#6B3FA0,#4A2080);padding:24px 18px 20px;border-radius:0 0 24px 24px;color:#fff;}
@@ -333,52 +351,72 @@ textarea:focus,input:focus{border-color:var(--coral);background:#fff;}
 
 <!-- 呼吸训练 -->
 <div id="pg-breath" class="pg">
-  <div class="breath-hero">
-    <!-- 插画 -->
-    <div class="breath-illus">
-      <div class="illus-head"></div>
-      <div class="illus-body"></div>
-      <div class="illus-legs"><div class="illus-leg"></div><div class="illus-leg"></div></div>
-    </div>
-    <h1>呼吸练习</h1>
-    <p>4秒吸气 · 2秒屏息 · 6秒呼气</p>
+  <div class="breath-scene">
+    <!-- 云朵装饰 -->
+    <div class="cloud cloud-tl"></div>
+    <div class="cloud cloud-tr"></div>
+    <div class="cloud cloud-bl"></div>
+    <div class="cloud cloud-br"></div>
 
-    <!-- 环形进度 + 呼吸圆 -->
-    <div class="breath-ring-wrap">
-      <svg class="breath-ring-svg" viewBox="0 0 200 200">
-        <circle class="breath-ring-track" cx="100" cy="100" r="88"/>
-        <circle class="breath-ring-prog" id="bRingProg" cx="100" cy="100" r="88"
-          stroke-dasharray="553" stroke-dashoffset="553"/>
+    <!-- 标题 -->
+    <p class="breath-title">4 · 2 · 6</p>
+    <h1 class="breath-h1">呼吸练习</h1>
+    <p class="breath-sub">吸气4秒 · 屏息2秒 · 呼气6秒<br>给自己2分钟</p>
+
+    <!-- 打坐爱心人 SVG插画 -->
+    <div class="breath-avatar">
+      <div class="breath-aura" id="bAura"></div>
+      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- 身体（心形+打坐） -->
+        <!-- 心形身体 -->
+        <path d="M100 158 C60 130 30 110 30 80 C30 58 48 44 68 44 C82 44 94 52 100 62 C106 52 118 44 132 44 C152 44 170 58 170 80 C170 110 140 130 100 158Z" fill="#FF7F6E"/>
+        <!-- 闭眼 左 -->
+        <path d="M78 82 Q83 78 88 82" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <!-- 闭眼 右 -->
+        <path d="M112 82 Q117 78 122 82" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <!-- 微笑 -->
+        <path d="M90 96 Q100 104 110 96" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+        <!-- 左臂 -->
+        <path d="M50 105 Q38 118 42 132 Q46 142 56 138" stroke="#FF7F6E" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <!-- 右臂 -->
+        <path d="M150 105 Q162 118 158 132 Q154 142 144 138" stroke="#FF7F6E" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <!-- 左手 (禅定手势) -->
+        <circle cx="48" cy="136" r="8" fill="#FF9A8B"/>
+        <!-- 右手 -->
+        <circle cx="152" cy="136" r="8" fill="#FF9A8B"/>
+        <!-- 左腿 -->
+        <path d="M68 155 Q58 168 72 174 Q86 180 92 165" stroke="#FF7F6E" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <!-- 右腿 -->
+        <path d="M132 155 Q142 168 128 174 Q114 180 108 165" stroke="#FF7F6E" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <!-- 左脚 -->
+        <ellipse cx="82" cy="170" rx="10" ry="6" fill="#FF9A8B"/>
+        <!-- 右脚 -->
+        <ellipse cx="118" cy="170" rx="10" ry="6" fill="#FF9A8B"/>
       </svg>
-      <div class="breath-inner">
-        <div class="breath-circle" id="bCircle">
-          <div class="breath-word" id="bWord">准备</div>
-          <div class="breath-count" id="bCount">·</div>
-        </div>
+    </div>
+
+    <!-- 状态文字 -->
+    <div class="breath-state-wrap">
+      <div id="bStateIdle" class="breath-state-idle">点击开始，跟着节奏呼吸 🌬️</div>
+      <div id="bStateActive" style="display:none;text-align:center">
+        <div class="breath-state-word" id="bWord">吸气</div>
+        <div class="breath-state-count" id="bCount">4s</div>
       </div>
     </div>
-
-    <div class="breath-phase" id="bPhase">准备好了吗？</div>
-    <div class="breath-phase-sub" id="bPhaseSub">点击开始，跟着节奏呼吸</div>
-    <div class="breath-timer" id="bTimer" style="display:none"></div>
-    <div class="breath-hint" id="bHint" style="display:none">总时长 2 分钟</div>
   </div>
 
-  <div style="padding:16px">
-    <div class="breath-prog-wrap card" style="padding:16px">
-      <p class="clabel" style="margin-bottom:8px">训练进度</p>
-      <div class="breath-prog-bar">
-        <div class="breath-prog-fill" id="bProgFill" style="width:0%"></div>
-      </div>
-      <div class="breath-prog-lbl" id="bProgLbl">0 / 10 轮</div>
-    </div>
-    <div class="breath-btns">
-      <button class="btn btn-blue" id="bStartBtn" onclick="breathStart()" style="flex:2">开始练习 🌬️</button>
-      <button class="btn" id="bStopBtn" onclick="breathStop()" style="flex:1;display:none;background:rgba(160,152,144,.3);box-shadow:none;color:var(--sub)">停止</button>
-    </div>
-    <div class="card" style="text-align:center;padding:20px 18px">
-      <div style="font-size:28px;margin-bottom:8px">🧘</div>
-      <p style="font-size:13px;color:var(--sub);line-height:1.8">4-2-6 呼吸法能快速激活副交感神经<br>帮助平复焦虑、放松身心<br>建议每天练习 1-2 次 🌿</p>
+  <!-- 进度 + 按钮 -->
+  <div class="breath-prog-area">
+    <div class="breath-prog-bar"><div class="breath-prog-fill" id="bProgFill"></div></div>
+    <div class="breath-prog-lbl" id="bProgLbl">0 / 10 轮</div>
+  </div>
+  <div class="breath-btn-area">
+    <button class="btn btn-blue" id="bStartBtn" onclick="breathStart()">开始练习 🌬️</button>
+    <button class="btn" id="bStopBtn" onclick="breathStop()" style="display:none;background:#EDE7E0;box-shadow:none;color:var(--sub);flex:0 0 80px">停止</button>
+  </div>
+  <div style="padding:0 24px 24px">
+    <div class="card" style="text-align:center;padding:16px 14px;background:#fff">
+      <p style="font-size:12px;color:var(--sub);line-height:1.9">4-2-6 呼吸法激活副交感神经<br>帮你平复焦虑、放松身心 🌿<br>建议每天练习 1-2 次</p>
     </div>
   </div>
 </div>
@@ -386,12 +424,18 @@ textarea:focus,input:focus{border-color:var(--coral);background:#fff;}
 <!-- 完成分享弹窗 -->
 <div id="shareModal" onclick="closeShare(event)">
   <div class="share-card">
-    <div style="font-size:48px;margin-bottom:12px">🎉</div>
-    <h3>练习完成！</h3>
-    <p>你完成了 2 分钟的呼吸练习<br>身体和心灵都放松了一点点 🌸</p>
-    <div class="share-actions">
-      <button class="btn" style="background:rgba(160,152,144,.18);box-shadow:none;color:var(--sub)" onclick="closeShare()">关闭</button>
-      <button class="btn" onclick="shareBreath()">分享到广场</button>
+    <button class="share-close" onclick="closeShare()">×</button>
+    <div class="share-top">
+      <h3>分享给需要的人</h3>
+      <p>如果这个练习帮你平静了下来<br>把它传递给身边的人吧 🌸</p>
+      <input class="share-input" placeholder="输入朋友的微信昵称..." readonly onfocus="this.blur()">
+    </div>
+    <div class="share-envelope">
+      <div class="env-body"></div>
+      <div class="env-flap-l"></div>
+      <div class="env-flap-r"></div>
+      <div class="env-letter">🌸 传递</div>
+      <button class="share-send-btn" onclick="shareBreath()">分享到广场</button>
     </div>
   </div>
 </div>
@@ -642,75 +686,54 @@ function submitPost(){
 }
 
 // ── 呼吸训练 ──
-var BREATH_TOTAL=120; // 2分钟
-var BREATH_CYCLE=12;  // 4+2+6
-var BREATH_ROUNDS=Math.floor(BREATH_TOTAL/BREATH_CYCLE); // 10轮
-var bTimer=null,bElapsed=0,bRunning=false;
-var CIRC=2*Math.PI*88; // SVG r=88
+var BREATH_TOTAL=120;
+var BREATH_CYCLE=12;
+var BREATH_ROUNDS=Math.floor(BREATH_TOTAL/BREATH_CYCLE);
+var bTimerID=null,bElapsed=0,bRunning=false;
 
 function breathStart(){
   if(bRunning)return;
   bRunning=true;bElapsed=0;
   $('bStartBtn').style.display='none';
   $('bStopBtn').style.display='block';
-  $('bTimer').style.display='block';
-  $('bHint').style.display='block';
-  $('bPhase').style.display='none';
-  $('bPhaseSub').style.display='none';
+  $('bStateIdle').style.display='none';
+  $('bStateActive').style.display='block';
   bTick();
-  bTimer=setInterval(bTick,100);
+  bTimerID=setInterval(bTick,100);
 }
 
 function breathStop(){
-  if(bTimer)clearInterval(bTimer);
+  if(bTimerID)clearInterval(bTimerID);
   bRunning=false;bElapsed=0;
   $('bStartBtn').style.display='block';
   $('bStopBtn').style.display='none';
-  $('bTimer').style.display='none';
-  $('bHint').style.display='none';
-  $('bPhase').style.display='block';
-  $('bPhaseSub').style.display='block';
-  $('bPhase').textContent='准备好了吗？';
-  $('bPhaseSub').textContent='点击开始，跟着节奏呼吸';
-  $('bWord').textContent='准备';$('bCount').textContent='·';
-  $('bRingProg').style.strokeDashoffset=CIRC;
-  $('bProgFill').style.width='0%';$('bProgLbl').textContent='0 / '+BREATH_ROUNDS+' 轮';
-  $('bCircle').className='breath-circle';
+  $('bStateIdle').style.display='block';
+  $('bStateActive').style.display='none';
+  $('bProgFill').style.width='0%';
+  $('bProgLbl').textContent='0 / '+BREATH_ROUNDS+' 轮';
+  var aura=$('bAura');
+  aura.className='breath-aura';
 }
 
 function bTick(){
-  var rem=BREATH_TOTAL-bElapsed/10;
-  var mins=Math.floor(rem/60);var secs=Math.floor(rem%60);
-  $('bTimer').textContent=(mins>0?mins+'分':'')+(secs<10?'0':'')+secs+'秒';
-  // 整体进度环
-  var prog=bElapsed/10/BREATH_TOTAL;
-  $('bRingProg').style.strokeDashoffset=CIRC*(1-prog);
-  // 轮次进度
   var roundDone=Math.floor(bElapsed/10/BREATH_CYCLE);
   $('bProgFill').style.width=(roundDone/BREATH_ROUNDS*100)+'%';
   $('bProgLbl').textContent=roundDone+' / '+BREATH_ROUNDS+' 轮';
-  // 当前阶段
   var pos=(bElapsed/10)%BREATH_CYCLE;
-  var circle=$('bCircle');
+  var aura=$('bAura');
   if(pos<4){
-    // 吸气
-    if(circle.dataset.phase!=='in'){circle.dataset.phase='in';circle.className='breath-circle expand';}
-    $('bWord').textContent='吸气';$('bCount').textContent=Math.ceil(4-pos)+'s';
-    $('bRingProg').style.stroke='#7BBFEA';
+    if(aura.dataset.phase!=='in'){aura.dataset.phase='in';aura.className='breath-aura expand';}
+    $('bWord').textContent='吸　气';$('bCount').textContent=Math.ceil(4-pos)+'s';
   }else if(pos<6){
-    // 屏息
-    if(circle.dataset.phase!=='hold'){circle.dataset.phase='hold';circle.className='breath-circle hold';}
-    $('bWord').textContent='屏息';$('bCount').textContent=Math.ceil(6-pos)+'s';
-    $('bRingProg').style.stroke='#B8DCF5';
+    if(aura.dataset.phase!=='hold'){aura.dataset.phase='hold';aura.className='breath-aura hold';}
+    $('bWord').textContent='屏　息';$('bCount').textContent=Math.ceil(6-pos)+'s';
   }else{
-    // 呼气
-    if(circle.dataset.phase!=='out'){circle.dataset.phase='out';circle.className='breath-circle shrink';}
-    $('bWord').textContent='呼气';$('bCount').textContent=Math.ceil(12-pos)+'s';
-    $('bRingProg').style.stroke='#FF9A8B';
+    if(aura.dataset.phase!=='out'){aura.dataset.phase='out';aura.className='breath-aura shrink';}
+    $('bWord').textContent='呼　气';$('bCount').textContent=Math.ceil(12-pos)+'s';
   }
   bElapsed++;
   if(bElapsed/10>=BREATH_TOTAL){
-    clearInterval(bTimer);bRunning=false;
+    clearInterval(bTimerID);bRunning=false;
     breathStop();
     $('shareModal').classList.add('open');
   }
