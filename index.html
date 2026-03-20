@@ -4,67 +4,51 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>阿贝贝 · 你的情绪阿贝贝</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans SC','PingFang SC',-apple-system,sans-serif;background:#FFF8F3;color:#4A4A4A;max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:72px;}
+body{font-family:'PingFang SC','Helvetica Neue',-apple-system,sans-serif;background:#FFF8F3;color:#4A4A4A;max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:72px;}
 :root{--pink:#FF8FAB;--pl:#FFD6E5;--pg:linear-gradient(135deg,#FFB5C8,#FF8FAB);--green:#5CB88A;--bg:#FFF8F3;--card:#fff;--sub:#9B9B9B;--bd:#F0E6E6;--sh:0 2px 16px rgba(255,143,171,0.10);--r:18px;}
-
-/* 通用 */
 .card{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:14px;box-shadow:var(--sh);}
 .clabel{font-size:11px;color:var(--sub);margin-bottom:6px;}
 .ctitle{font-size:15px;font-weight:700;margin-bottom:14px;}
-textarea,input[type=text],input[type=date],select{width:100%;border:1.5px solid var(--bd);border-radius:12px;padding:11px 14px;font-family:inherit;font-size:14px;color:#4A4A4A;background:var(--bg);outline:none;resize:none;}
+textarea,input[type=text],input[type=date],input[type=time],select{width:100%;border:1.5px solid var(--bd);border-radius:12px;padding:11px 14px;font-family:inherit;font-size:14px;color:#4A4A4A;background:var(--bg);outline:none;resize:none;}
 textarea{min-height:78px;display:block;}
 textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff;}
 .btn{display:block;width:100%;padding:13px;border:none;border-radius:50px;background:var(--pg);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;text-align:center;box-shadow:0 4px 14px rgba(255,107,157,.3);}
-.btn:hover{opacity:.92;}
-
-/* Toast */
 #toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);background:rgba(50,50,50,.9);color:#fff;padding:9px 20px;border-radius:50px;font-size:13px;opacity:0;pointer-events:none;white-space:nowrap;z-index:99999;transition:opacity .3s;}
 #toast.show{opacity:1;}
-
-/* 底部导航 */
 .tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid var(--bd);display:flex;z-index:1000;padding:6px 0 10px;box-shadow:0 -2px 12px rgba(0,0,0,.06);}
 .ti{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:var(--sub);cursor:pointer;padding:2px 0;border:none;background:none;font-family:inherit;}
 .ti.act{color:var(--pink);}
 .ti .ico{font-size:22px;line-height:1.2;}
-
-/* 页面 */
 .pg{display:none;}
 .pg.act{display:block;}
-
-/* 顶栏 */
 .topbar{background:var(--pg);padding:20px 18px 18px;}
 .toprow{display:flex;align-items:center;justify-content:space-between;}
-.toprow h1{color:#fff;font-size:20px;font-weight:800;letter-spacing:1px;}
+.toprow h1{color:#fff;font-size:20px;font-weight:800;}
 .toprow p{color:rgba(255,255,255,.8);font-size:12px;margin-top:3px;}
 .uchip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.22);border-radius:50px;padding:5px 10px 5px 6px;cursor:pointer;border:none;font-family:inherit;}
 .uchip .uav{font-size:20px;}
 .uchip .unm{color:#fff;font-size:12px;font-weight:600;}
 
-/* 引导弹窗 — 用 hidden 控制，不用 display:none */
-#ob{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;}
+/* 引导页 */
+#ob{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto;}
 #ob.hidden{display:none;}
-.obcard{background:#fff;border-radius:22px;padding:24px 20px;width:100%;max-width:340px;box-shadow:0 16px 48px rgba(0,0,0,.22);}
+.obcard{background:#fff;border-radius:22px;padding:22px 18px;width:100%;max-width:340px;box-shadow:0 16px 48px rgba(0,0,0,.22);my-auto:1;}
 .obcard h2{font-size:17px;font-weight:800;color:var(--pink);text-align:center;margin-bottom:4px;}
-.obcard .obsub{font-size:12px;color:var(--sub);text-align:center;margin-bottom:18px;line-height:1.6;}
-.oblabel{font-size:12px;color:var(--sub);margin-bottom:8px;}
-.avgrid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;}
-.avbtn{font-size:20px;width:44px;height:44px;border-radius:50%;border:2px solid var(--bd);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .15s,background .15s;}
+.obsub{font-size:12px;color:var(--sub);text-align:center;margin-bottom:16px;line-height:1.6;}
+.oblabel{font-size:12px;color:var(--sub);margin-bottom:6px;}
+.avgrid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+.avbtn{font-size:20px;width:42px;height:42px;border-radius:50%;border:2px solid var(--bd);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .avbtn.sel{border-color:var(--pink);background:var(--pl);}
-.obnamewrap{margin-bottom:16px;}
+.obrow{margin-bottom:12px;}
 
-/* 情绪按钮 */
+/* 情绪 */
 .moodrow{display:flex;gap:5px;margin-bottom:14px;}
 .mbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 2px;border-radius:12px;border:1.5px solid var(--bd);background:var(--bg);font-size:10px;color:var(--sub);cursor:pointer;font-family:inherit;}
 .mbtn .em{font-size:21px;line-height:1.2;}
 .mbtn.sel{border-color:var(--pink);background:var(--pl);color:var(--pink);font-weight:600;}
-
-/* 趋势图 */
 #chart{width:100%;display:block;}
-
-/* 建议框 */
 .tipbox{background:linear-gradient(135deg,#FFF0F5,#FFE4EE);border-radius:12px;padding:14px;border-left:3px solid var(--pink);font-size:13px;line-height:1.8;color:#6B3A4A;white-space:pre-line;}
 .tipmeta{font-size:11px;color:var(--pink);font-weight:600;margin-bottom:5px;}
 
@@ -82,8 +66,6 @@ textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff
 .t-疲惫{border-color:#FFD6A5;color:#B07A2A;}
 .t-寻求平衡{border-color:#B5E5CF;color:#2D8A60;}
 .t-小确幸{border-color:#FFB3C6;color:#C04F6E;}
-
-/* 帖子 */
 .pc{background:#fff;border-radius:var(--r);padding:15px;margin-bottom:12px;box-shadow:var(--sh);}
 .ptop{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
 .pav{width:36px;height:36px;border-radius:50%;flex-shrink:0;background:var(--pg);display:flex;align-items:center;justify-content:center;font-size:18px;}
@@ -94,7 +76,7 @@ textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff
 .pacts{display:flex;gap:10px;}
 .pabtn{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--sub);padding:5px 12px;border-radius:50px;border:1.5px solid var(--bd);background:none;cursor:pointer;font-family:inherit;}
 .pabtn.liked{border-color:var(--green);color:var(--green);}
-.pabtn.healed{border-color:var(--pink);color:var(--pink);}
+.pabtn.commented{border-color:var(--pink);color:var(--pink);}
 .cmts{margin-top:10px;display:none;}
 .cmts.open{display:block;}
 .citem{background:var(--bg);border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:12px;line-height:1.6;}
@@ -102,9 +84,6 @@ textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff
 .crow{display:flex;gap:8px;margin-top:8px;}
 .crow input{flex:1;}
 .csend{padding:8px 13px;border-radius:50px;border:1.5px solid var(--bd);background:none;color:var(--sub);cursor:pointer;font-family:inherit;font-size:12px;white-space:nowrap;}
-.csend:hover{border-color:var(--pink);color:var(--pink);}
-
-/* 发帖弹窗 */
 #pmodal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:8000;display:none;align-items:flex-end;justify-content:center;}
 #pmodal.open{display:flex;}
 .pmsheet{background:#fff;border-radius:22px 22px 0 0;padding:20px 18px 32px;width:100%;max-width:480px;}
@@ -115,10 +94,24 @@ textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff
 .ftop{background:linear-gradient(160deg,#6B3FA0,#4A2080);padding:22px 18px 18px;color:#fff;}
 .ftop h1{font-size:20px;font-weight:800;margin-bottom:4px;}
 .ftop p{font-size:12px;opacity:.7;}
+.ftabs{display:flex;gap:0;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1.5px solid rgba(255,255,255,.2);}
+.ftab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;border:none;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);font-family:inherit;}
+.ftab.act{background:rgba(255,255,255,.25);color:#fff;}
+
+/* 占卜对话 */
+.chat-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;}
+.chat-msg{max-width:82%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.7;}
+.chat-msg.ai{background:rgba(255,255,255,.15);color:#fff;border-bottom-left-radius:4px;align-self:flex-start;}
+.chat-msg.user{background:rgba(255,255,255,.9);color:#4A4A4A;border-bottom-right-radius:4px;align-self:flex-end;}
+.chat-input{display:flex;gap:8px;margin-top:8px;}
+.chat-input input{flex:1;border-radius:50px;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;padding:10px 16px;font-family:inherit;font-size:13px;outline:none;}
+.chat-input input::placeholder{color:rgba(255,255,255,.5);}
+.chat-input button{padding:10px 16px;border-radius:50px;border:none;background:rgba(255,255,255,.9);color:#6B3FA0;font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;white-space:nowrap;}
+
+/* 每日运势 */
 .fcard{background:linear-gradient(160deg,#2D1B69,#6B2FA0);border-radius:var(--r);padding:20px;color:#fff;margin-bottom:14px;}
 .fbadge{display:inline-block;padding:4px 14px;border-radius:50px;background:rgba(255,255,255,.2);font-size:12px;font-weight:600;margin-bottom:14px;}
 .fring{text-align:center;margin:8px 0 14px;}
-.fring svg{display:block;margin:0 auto;}
 .frnum{font-size:36px;font-weight:800;line-height:1;}
 .frsub{font-size:11px;opacity:.6;margin-top:2px;}
 .fgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
@@ -131,10 +124,8 @@ textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff
 .fll{font-size:10px;opacity:.6;}
 .flv{font-size:13px;font-weight:700;margin-top:2px;}
 .fquote{background:rgba(255,255,255,.1);border-radius:10px;padding:12px;font-size:12px;line-height:1.8;border-left:2px solid rgba(255,215,0,.5);}
-#floading{display:none;text-align:center;padding:36px;background:#fff;border-radius:var(--r);box-shadow:var(--sh);margin-bottom:14px;}
 .fspin{font-size:28px;display:inline-block;animation:sp 1s linear infinite;}
 @keyframes sp{0%{transform:rotate(0) scale(1)}50%{transform:rotate(180deg) scale(1.3)}100%{transform:rotate(360deg) scale(1)}}
-#fresult{display:none;}
 
 /* 我的 */
 .myprofile{background:var(--pg);padding:28px 18px 22px;text-align:center;color:#fff;}
@@ -153,14 +144,14 @@ textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff
 </head>
 <body>
 
-<!-- ══ 引导页 ══ -->
+<!-- 引导页 -->
 <div id="ob">
   <div class="obcard">
-    <div style="text-align:center;font-size:34px;margin-bottom:10px;">🌸</div>
+    <div style="text-align:center;font-size:32px;margin-bottom:8px">🌸</div>
     <h2>你好，我是阿贝贝</h2>
-    <p class="obsub">你的情绪阿贝贝<br>先告诉我怎么称呼你吧～</p>
+    <p class="obsub">你的情绪阿贝贝，先认识一下吧～</p>
     <p class="oblabel">选一个头像</p>
-    <div class="avgrid" id="avgrid">
+    <div class="avgrid">
       <button class="avbtn sel" data-av="🦊" onclick="pickAv(this)">🦊</button>
       <button class="avbtn" data-av="🐰" onclick="pickAv(this)">🐰</button>
       <button class="avbtn" data-av="🐼" onclick="pickAv(this)">🐼</button>
@@ -170,15 +161,27 @@ textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff
       <button class="avbtn" data-av="⭐" onclick="pickAv(this)">⭐</button>
       <button class="avbtn" data-av="🍀" onclick="pickAv(this)">🍀</button>
     </div>
-    <div class="obnamewrap">
+    <div class="obrow">
       <p class="oblabel">起个昵称</p>
       <input type="text" id="obname" placeholder="比如：打工人小李..." maxlength="10">
+    </div>
+    <div class="obrow">
+      <p class="oblabel">出生日期（用于能量占卜）</p>
+      <input type="date" id="obbdate" max="2010-01-01">
+    </div>
+    <div class="obrow">
+      <p class="oblabel">出生时辰（可选）</p>
+      <input type="time" id="obbtime" placeholder="00:00">
+    </div>
+    <div class="obrow">
+      <p class="oblabel">出生地（可选）</p>
+      <input type="text" id="obbplace" placeholder="比如：北京、上海...">
     </div>
     <button class="btn" onclick="finishOb()">进入阿贝贝 🌸</button>
   </div>
 </div>
 
-<!-- ══ 今日 ══ -->
+<!-- 今日 -->
 <div id="pg-today" class="pg act">
   <div class="topbar">
     <div class="toprow">
@@ -211,19 +214,16 @@ textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff
     <div class="card">
       <p class="clabel">阿贝贝说</p>
       <div class="tipbox" id="tipbox">
-        <div class="tipmeta">💌 今日小建议</div>
-        先记录今天的心情，阿贝贝会给你专属建议～
+        <div class="tipmeta">💌 今日小建议</div>先记录今天的心情，阿贝贝会给你专属建议～
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══ 广场 ══ -->
+<!-- 广场 -->
 <div id="pg-community" class="pg">
   <div class="topbar">
-    <div class="toprow">
-      <div><h1>🍀 治愈广场</h1><p>你不是一个人</p></div>
-    </div>
+    <div class="toprow"><div><h1>🍀 治愈广场</h1><p>你不是一个人</p></div></div>
   </div>
   <div style="padding:16px 16px 0">
     <button class="writebar" onclick="openPM()">
@@ -258,42 +258,38 @@ textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff
   </div>
 </div>
 
-<!-- ══ 能量 ══ -->
+<!-- 能量 -->
 <div id="pg-fortune" class="pg">
   <div class="ftop">
     <h1>🔮 今日能量</h1>
-    <p>运用东方命理，读懂你的当下</p>
+    <p>东方命理 · 读懂你的当下</p>
   </div>
   <div style="padding:16px 16px 0">
-    <div class="card">
-      <p class="clabel">告诉阿贝贝</p>
-      <div style="margin-bottom:12px">
-        <p style="font-size:12px;color:var(--sub);margin-bottom:6px">出生日期</p>
-        <input type="date" id="bdate" max="2010-01-01">
+    <div class="fcard">
+      <div class="ftabs">
+        <button class="ftab act" id="ftab-chat" onclick="switchFTab('chat')">✨ AI占卜对话</button>
+        <button class="ftab" id="ftab-daily" onclick="switchFTab('daily')">📅 每日运势</button>
       </div>
-      <div style="margin-bottom:16px">
-        <p style="font-size:12px;color:var(--sub);margin-bottom:6px">最近最困扰你的是</p>
-        <select id="concern">
-          <option value="">请选择...</option>
-          <option value="work">工作压力</option>
-          <option value="career">职业迷茫</option>
-          <option value="social">人际关系</option>
-          <option value="love">感情困惑</option>
-          <option value="money">财运规划</option>
-          <option value="overall">整体运势</option>
-        </select>
+
+      <!-- AI对话 -->
+      <div id="fchat">
+        <div class="chat-wrap" id="chatWrap"></div>
+        <div class="chat-input">
+          <input type="text" id="chatInput" placeholder="问问阿贝贝..." onkeydown="if(event.key==='Enter')sendChat()">
+          <button onclick="sendChat()">发送</button>
+        </div>
       </div>
-      <button class="btn" style="background:linear-gradient(135deg,#9B6ED4,#6B3FA0);box-shadow:0 4px 14px rgba(107,63,160,.3)" onclick="doFortune()">解读我的能量 ✨</button>
+
+      <!-- 每日运势 -->
+      <div id="fdaily" style="display:none">
+        <div id="fdailyContent"></div>
+        <button class="btn" style="background:rgba(255,255,255,.2);box-shadow:none;margin-top:4px" onclick="genDaily()">重新解读 🔄</button>
+      </div>
     </div>
-    <div id="floading">
-      <div class="fspin">⭐</div>
-      <p style="font-size:13px;color:var(--sub);margin-top:10px">命理师正在解读你的能量...</p>
-    </div>
-    <div id="fresult"></div>
   </div>
 </div>
 
-<!-- ══ 我的 ══ -->
+<!-- 我的 -->
 <div id="pg-my" class="pg">
   <div class="myprofile">
     <div class="myav" id="myav">🦊</div>
@@ -308,7 +304,7 @@ textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff
   <div style="padding:16px">
     <div class="card">
       <div class="mitem" onclick="editProfile()">
-        <div class="mleft"><span class="mic">✏️</span>编辑昵称和头像</div>
+        <div class="mleft"><span class="mic">✏️</span>编辑资料</div>
         <span style="color:var(--sub)">›</span>
       </div>
       <div class="mitem" onclick="clearData()">
@@ -316,28 +312,26 @@ textarea:focus,input:focus,select:focus{border-color:var(--pink);background:#fff
         <span style="color:var(--sub)">›</span>
       </div>
     </div>
-    <p style="text-align:center;font-size:12px;color:#ccc;margin-top:10px">阿贝贝 v1.0 · 你的情绪日记本 🌸</p>
+    <p style="text-align:center;font-size:12px;color:#ccc;margin-top:10px">阿贝贝 v2.0 · 你的情绪日记本 🌸</p>
   </div>
 </div>
 
-<!-- ══ 底部导航 ══ -->
+<!-- 底部导航 -->
 <div class="tabbar">
   <button class="ti act" id="ti-today" onclick="goTab('today')"><span class="ico">🌸</span>今日</button>
   <button class="ti" id="ti-community" onclick="goTab('community')"><span class="ico">🍀</span>广场</button>
   <button class="ti" id="ti-fortune" onclick="goTab('fortune')"><span class="ico">🔮</span>能量</button>
   <button class="ti" id="ti-my" onclick="goTab('my')"><span class="ico">👤</span>我的</button>
 </div>
-
 <div id="toast"></div>
 
 <script>
-// ── 工具 ──────────────────────
 function $(id){return document.getElementById(id);}
 function toast(msg){var el=$('toast');el.textContent=msg;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},2400);}
 function todayStr(){return new Date().toISOString().slice(0,10);}
 function timeAgo(ts){var s=(Date.now()-ts)/1000;if(s<60)return'刚刚';if(s<3600)return Math.floor(s/60)+'分钟前';if(s<86400)return Math.floor(s/3600)+'小时前';return Math.floor(s/86400)+'天前';}
 
-// ── 用户 ──────────────────────
+// ── 用户 ──
 var user=JSON.parse(localStorage.getItem('u')||'null');
 var selAv='🦊';
 
@@ -350,45 +344,38 @@ function pickAv(btn){
 function finishOb(){
   var nm=$('obname').value.trim();
   if(!nm){toast('给自己起个昵称吧 🌸');return;}
-  user={av:selAv,name:nm};
+  user={av:selAv,name:nm,bdate:$('obbdate').value,btime:$('obbtime').value,bplace:$('obbplace').value.trim()};
   localStorage.setItem('u',JSON.stringify(user));
   $('ob').classList.add('hidden');
   refreshUser();
+  initChat();
 }
 
 function refreshUser(){
   if(!user)return;
-  $('topav').textContent=user.av;
-  $('topnm').textContent=user.name;
-  $('myav').textContent=user.av;
-  $('mynm').textContent=user.name;
+  $('topav').textContent=user.av;$('topnm').textContent=user.name;
+  $('myav').textContent=user.av;$('mynm').textContent=user.name;
   var moods=getMoods();
   $('stdays').textContent=moods.length;
   $('stposts').textContent=getPosts().filter(function(p){return p.isMe;}).length;
-  if(moods.length){
-    var avg=(moods.reduce(function(s,x){return s+x.val;},0)/moods.length).toFixed(1);
-    $('stavg').textContent=avg;
-  }
+  if(moods.length){$('stavg').textContent=(moods.reduce(function(s,x){return s+x.val;},0)/moods.length).toFixed(1);}
 }
 
 function editProfile(){
   $('ob').classList.remove('hidden');
   if(user){
     $('obname').value=user.name;
-    document.querySelectorAll('.avbtn').forEach(function(b){
-      b.classList.toggle('sel',b.getAttribute('data-av')===user.av);
-    });
+    $('obbdate').value=user.bdate||'';
+    $('obbtime').value=user.btime||'';
+    $('obbplace').value=user.bplace||'';
+    document.querySelectorAll('.avbtn').forEach(function(b){b.classList.toggle('sel',b.getAttribute('data-av')===user.av);});
     selAv=user.av;
   }
 }
 
-// 启动时检查
-if(user){
-  $('ob').classList.add('hidden');
-  refreshUser();
-}
+if(user){$('ob').classList.add('hidden');refreshUser();}
 
-// ── Tab ──────────────────────
+// ── Tab ──
 function goTab(name){
   ['today','community','fortune','my'].forEach(function(n){
     $('pg-'+n).classList.toggle('act',n===name);
@@ -397,108 +384,113 @@ function goTab(name){
   if(name==='today')drawChart();
   if(name==='community')renderPosts();
   if(name==='my')refreshUser();
+  if(name==='fortune'){initChat();genDaily();}
   window.scrollTo(0,0);
 }
 
-// ── 日期 ──────────────────────
 (function(){
-  var d=new Date();
-  var wk=['日','一','二','三','四','五','六'];
+  var d=new Date();var wk=['日','一','二','三','四','五','六'];
   $('topdate').textContent=d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日 · 星期'+wk[d.getDay()];
 })();
 
-// ── 情绪 ──────────────────────
+// ── 情绪 ──
 var selMood=0;
-var TIPS={
-  1:'😔 今天一定很辛苦。\n\n路过花店时，送自己一朵小雏菊吧。或者去买一杯最喜欢的饮料，犒劳一下撑过今天的自己。你已经很棒了。🌸',
-  2:'😕 有点难熬，那些卡住的事不用今天全解决。\n\n泡一杯热茶，找一部轻松的节目看20分钟，让脑子放个小假。明天的困难，留给明天的自己。🍵',
-  3:'😐 平稳的一天，也是珍贵的一天。\n\n傍晚出门散步15分钟，不用带目的，就是走走看看。清醒会悄悄回来的。🌿',
-  4:'🙂 状态不错，今天的你发着光。\n\n把这份好心情记下来，写一句话或截个图。低谷时翻出来，这是你给未来自己的礼物。⭐',
-  5:'😊 今天很棒！\n\n把这份快乐分享给一个你在乎的人，快乐会翻倍的。💛'
-};
+
+// 根据心情值 + 日记内容生成建议
+function genTip(val, note){
+  var moodWords=['','低落难受','有些难熬','平稳普通','状态不错','非常棒'];
+  var base={
+    1:['今天感觉很低落，这很正常，每个人都有这样的时刻。\n\n先照顾好自己的身体——喝杯热水，吃点东西。不需要今天解决所有问题，能撑过今天就很好了。🌸',
+       '低落的时候，试着做一件很小的事：整理一下桌面，或者出门走5分钟。不是为了振作，只是换换空气。🌿',
+       '心里很沉的时候，把情绪写下来会轻一点。你刚才写的那些，已经是在帮自己了。💌'],
+    2:['有点难熬的一天。那些让你困扰的事，今晚可以先放一放。\n\n泡杯热茶，找一个让你放松的节目，给自己20分钟的休息时间。🍵',
+       '卡住的感觉很折磨人。但很多时候，休息之后再看，事情没有想象的那么难。今晚好好睡一觉。🌙',
+       '今天不容易，但你撑过来了。这已经很了不起。明天的困难留给明天解决，今晚好好休息。💪'],
+    3:['平稳的一天，这种感觉也很好。\n\n傍晚如果有时间，出门走走吧。不用带任何目的，就是感受一下风和空气。🌿',
+       '普通的日子也值得好好过。今天有没有一件小事让你觉得还不错？把它记下来。⭐',
+       '状态平稳是一种能量的储备。今天可以做一件一直想做但没做的小事。📝'],
+    4:['今天状态不错！保持这个感觉。\n\n把今天让你开心的事记下来，截图或者写一句话都好。低谷的时候翻出来看，这是你给未来自己的礼物。⭐',
+       '好状态的时候，做一件平时没勇气做的小事吧——发消息给想联系的朋友，或者尝试一个新食物。🌟',
+       '今天的你在发光。把这份能量传递给一个你在乎的人，快乐会翻倍的。💛'],
+    5:['今天很棒！好好记住这种感觉。\n\n把这份快乐分享出去——给朋友发条消息，或者做一件一直想做的事。今天是个好日子。🎉',
+       '状态满满！趁着这股劲，做一件有点挑战但你一直想尝试的事。🚀',
+       '今天的你充满能量。把这份好心情传递给身边的人，你的笑容会感染他们。🌸']
+  };
+  var tips=base[val];
+  var tip=tips[Math.floor(Math.random()*tips.length)];
+
+  // 根据日记内容做个性化调整
+  if(note){
+    var n=note;
+    if(n.match(/生病|发烧|头疼|不舒服|难受|感冒/)){
+      tip='身体不舒服真的很消耗人。\n\n今天最重要的事是好好休息，多喝水，不要勉强自己做其他事。先把身体养好，其他的都可以等。希望你快点好起来 🌸';
+    } else if(n.match(/加班|工作|领导|同事|项目|deadline|ddl/)){
+      tip='工作上的压力很重，你已经很努力了。\n\n今天下班后给自己划一条线——离开工位就不再想工作的事。哪怕只有2小时的放松，也能让明天的你状态更好。💪';
+    } else if(n.match(/分手|失恋|感情|喜欢|暗恋|心动/)){
+      tip='感情上的事最消耗心力。\n\n不管现在是什么情况，先照顾好自己。吃点好吃的，看一部让你轻松的电影。感情的事慢慢来，你值得被好好对待。🌸';
+    } else if(n.match(/焦虑|迷茫|不知道|迷失|方向|未来/)){
+      tip='迷茫是很多人在你这个阶段都会有的感受，不是你一个人这样。\n\n不需要今天就找到答案。把注意力放回今天——今天做好一件小事就够了，方向会慢慢清晰的。🌿';
+    } else if(n.match(/开心|快乐|高兴|好消息|成功|做到|完成/)){
+      tip='看到你今天有好事发生，真的很替你开心！\n\n好好庆祝一下自己的小成就，不要低调。你值得为自己骄傲。🎉';
+    } else if(n.match(/累|疲惫|疲倦|没力气|撑不住/)){
+      tip='你已经很累了，这是身体在告诉你需要休息。\n\n今晚早点睡，不要带着手机上床。好好睡一觉，明天的你会感谢今晚早休息的自己。🌙';
+    }
+  }
+  return tip;
+}
 
 function pickMood(val,btn){
   selMood=val;
   document.querySelectorAll('.mbtn').forEach(function(b){b.classList.remove('sel');});
   btn.classList.add('sel');
-  var box=$('tipbox');
-  box.innerHTML='<div class="tipmeta">💌 今日小建议</div>'+TIPS[val];
+  var note=$('mnote').value.trim();
+  var tip=genTip(val,note);
+  $('tipbox').innerHTML='<div class="tipmeta">💌 今日小建议</div>'+tip;
 }
+
+// 日记内容变化时实时更新建议
+$('mnote').addEventListener('input',function(){
+  if(selMood){
+    var tip=genTip(selMood,this.value.trim());
+    $('tipbox').innerHTML='<div class="tipmeta">💌 今日小建议</div>'+tip;
+  }
+});
 
 function getMoods(){return JSON.parse(localStorage.getItem('moods')||'[]');}
 
 function saveMood(){
   if(!selMood){toast('先选一个今天的心情吧 💭');return;}
-  var list=getMoods();
-  var note=$('mnote').value.trim();
-  var t=todayStr();
+  var list=getMoods();var note=$('mnote').value.trim();var t=todayStr();
   var idx=list.findIndex(function(x){return x.date===t;});
   if(idx>=0)list[idx]={date:t,val:selMood,note:note};
   else list.push({date:t,val:selMood,note:note});
   list.sort(function(a,b){return a.date>b.date?1:-1;});
   if(list.length>30)list.splice(0,list.length-30);
   localStorage.setItem('moods',JSON.stringify(list));
-  toast('已记录 🌸');
-  $('mnote').value='';
-  drawChart();
-  refreshUser();
+  toast('已记录 🌸');$('mnote').value='';drawChart();refreshUser();
 }
 
 function drawChart(){
-  var canvas=$('chart');
-  if(!canvas)return;
-  var ctx=canvas.getContext('2d');
-  var dpr=window.devicePixelRatio||1;
-  var W=canvas.parentElement.clientWidth-36;
-  var H=140;
-  canvas.width=W*dpr;canvas.height=H*dpr;
-  canvas.style.width=W+'px';canvas.style.height=H+'px';
+  var canvas=$('chart');if(!canvas)return;
+  var ctx=canvas.getContext('2d');var dpr=window.devicePixelRatio||1;
+  var W=canvas.parentElement.clientWidth-36;var H=140;
+  canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
   ctx.scale(dpr,dpr);
-  var moods=getMoods();
-  var days=[];
-  for(var i=6;i>=0;i--){
-    var d=new Date();d.setDate(d.getDate()-i);
-    var key=d.toISOString().slice(0,10);
-    var rec=moods.find(function(x){return x.date===key;});
-    days.push({val:rec?rec.val:null,label:(d.getMonth()+1)+'/'+d.getDate()});
-  }
+  var moods=getMoods();var days=[];
+  for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var key=d.toISOString().slice(0,10);var rec=moods.find(function(x){return x.date===key;});days.push({val:rec?rec.val:null,label:(d.getMonth()+1)+'/'+d.getDate()});}
   var pl=28,pr=10,pt=10,pb=26,gw=W-pl-pr,gh=H-pt-pb;
   ctx.clearRect(0,0,W,H);
-  for(var j=1;j<=5;j++){
-    var y=pt+gh-((j-1)/4)*gh;
-    ctx.strokeStyle='#F5E6E6';ctx.lineWidth=1;ctx.setLineDash([3,3]);
-    ctx.beginPath();ctx.moveTo(pl,y);ctx.lineTo(W-pr,y);ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillStyle='#CCC';ctx.font='9px sans-serif';ctx.textAlign='right';
-    ctx.fillText(j,pl-3,y+3);
-  }
+  for(var j=1;j<=5;j++){var y=pt+gh-((j-1)/4)*gh;ctx.strokeStyle='#F5E6E6';ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(pl,y);ctx.lineTo(W-pr,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#CCC';ctx.font='9px sans-serif';ctx.textAlign='right';ctx.fillText(j,pl-3,y+3);}
   ctx.fillStyle='#BBB';ctx.font='9px sans-serif';ctx.textAlign='center';
   days.forEach(function(d,i){ctx.fillText(d.label,pl+(i/6)*gw,H-5);});
   var pts=days.map(function(d,i){return{x:pl+(i/6)*gw,y:d.val!=null?pt+gh-((d.val-1)/4)*gh:null,v:d.val};});
   var valid=pts.filter(function(p){return p.y!=null;});
-  if(!valid.length){
-    ctx.fillStyle='#DDD';ctx.font='12px sans-serif';ctx.textAlign='center';
-    ctx.fillText('记录几天后这里会出现趋势图 ✨',W/2,H/2);return;
-  }
-  if(valid.length>1){
-    var g=ctx.createLinearGradient(0,pt,0,H-pb);
-    g.addColorStop(0,'rgba(255,143,171,.25)');g.addColorStop(1,'rgba(255,143,171,0)');
-    ctx.beginPath();ctx.moveTo(valid[0].x,H-pb);
-    valid.forEach(function(p){ctx.lineTo(p.x,p.y);});
-    ctx.lineTo(valid[valid.length-1].x,H-pb);
-    ctx.closePath();ctx.fillStyle=g;ctx.fill();
-    ctx.beginPath();
-    valid.forEach(function(p,i){if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);});
-    ctx.strokeStyle='#FF8FAB';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();
-  }
-  valid.forEach(function(p){
-    ctx.beginPath();ctx.arc(p.x,p.y,4.5,0,Math.PI*2);
-    ctx.fillStyle=p.v>=4?'#5CB88A':p.v<=2?'#FF8FAB':'#FFD6A5';
-    ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
-  });
+  if(!valid.length){ctx.fillStyle='#DDD';ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText('记录几天后这里会出现趋势图 ✨',W/2,H/2);return;}
+  if(valid.length>1){var g=ctx.createLinearGradient(0,pt,0,H-pb);g.addColorStop(0,'rgba(255,143,171,.25)');g.addColorStop(1,'rgba(255,143,171,0)');ctx.beginPath();ctx.moveTo(valid[0].x,H-pb);valid.forEach(function(p){ctx.lineTo(p.x,p.y);});ctx.lineTo(valid[valid.length-1].x,H-pb);ctx.closePath();ctx.fillStyle=g;ctx.fill();ctx.beginPath();valid.forEach(function(p,i){if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);});ctx.strokeStyle='#FF8FAB';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();}
+  valid.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,4.5,0,Math.PI*2);ctx.fillStyle=p.v>=4?'#5CB88A':p.v<=2?'#FF8FAB':'#FFD6A5';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();});
 }
 
-// ── 广场 ──────────────────────
+// ── 广场 ──
 var SEED=[
   {id:1,av:'🦊',nick:'努力打工人',tag:'疲惫',t:Date.now()-7200000,body:'又加班到10点。坐地铁回家，看着窗外夜景，突然想问，我这么拼到底是为了什么？',likes:34,comments:[{av:'🐟',nick:'平静的咸鱼',text:'感同身受，先好好休息，答案会慢慢来的 💚'}]},
   {id:2,av:'🐰',nick:'迷途小鹿',tag:'迷茫',t:Date.now()-18000000,body:'室友都拿到offer了，我投了几十份简历还没有回音。焦虑到睡不着，感觉自己是不是太差了...',likes:56,comments:[{av:'🌸',nick:'小小冒险家',text:'不是你差，是市场在筛选。每次投递都是积累，加油 🌸'},{av:'🐣',nick:'职场新手村',text:'我当时投了三个月才拿到，你不孤单！'}]},
@@ -506,197 +498,160 @@ var SEED=[
   {id:4,av:'🌙',nick:'五点下班梦',tag:'寻求平衡',t:Date.now()-50400000,body:'入职两年了，突然意识到除了工作我什么都没有。上次好好吃顿饭是什么时候？',likes:67,comments:[]},
   {id:5,av:'⭐',nick:'薪资焦虑猫',tag:'小确幸',t:Date.now()-72000000,body:'今天随手买了束9块9的小雏菊放工位，整个下午心情都好好。快乐可以这么简单 🌼',likes:103,comments:[{av:'🐰',nick:'迷途小鹿',text:'我也要去买！！'},{av:'🐼',nick:'不卷的我',text:'这就是治愈的力量 🌸'}]},
 ];
-
-var curFilter='all';
-var pmTag='';
-
+var curFilter='all';var pmTag='';
 function getPosts(){return JSON.parse(localStorage.getItem('posts')||'null')||SEED;}
 function setPosts(p){localStorage.setItem('posts',JSON.stringify(p));}
-
-function filterTag(tag,btn){
-  curFilter=tag;
-  document.querySelectorAll('#filterrow .ftag').forEach(function(b){b.classList.remove('sel');});
-  btn.classList.add('sel');
-  renderPosts();
-}
-
+function filterTag(tag,btn){curFilter=tag;document.querySelectorAll('#filterrow .ftag').forEach(function(b){b.classList.remove('sel');});btn.classList.add('sel');renderPosts();}
 function renderPosts(){
-  var all=getPosts();
-  var list=curFilter==='all'?all:all.filter(function(p){return p.tag===curFilter;});
-  var wrap=$('postlist');
-  wrap.innerHTML='';
-  var rev=[].concat(list).reverse();
-  rev.forEach(function(p){
-    var div=document.createElement('div');
-    div.className='pc';
-    div.innerHTML=
-      '<div class="ptop">'+
-        '<div class="pav">'+p.av+'</div>'+
-        '<div><div class="pname">'+p.nick+'</div><div class="ptime">'+timeAgo(p.t)+'</div></div>'+
-        '<span class="ptag t-'+p.tag+'" style="pointer-events:none;border-color:currentColor">'+p.tag+'</span>'+
-      '</div>'+
-      '<div class="pbody">'+p.body+'</div>'+
-      '<div class="pacts">'+
-        '<button class="pabtn'+(p.liked?' liked':'')+'" onclick="doLike('+p.id+')">🍀 '+p.likes+'</button>'+
-        '<button class="pabtn'+(p.open?' healed':'')+'" onclick="toggleCmt('+p.id+')">💚 治愈 '+p.comments.length+'</button>'+
-      '</div>'+
-      '<div class="cmts'+(p.open?' open':'')+'" id="cmt-'+p.id+'">'+
-        '<div>'+p.comments.map(function(c){return'<div class="citem"><span class="cauthor">'+c.av+' '+c.nick+'：</span>'+c.text+'</div>';}).join('')+'</div>'+
-        '<div class="crow">'+
-          '<input type="text" id="ci-'+p.id+'" placeholder="送上你的治愈 💚">'+
-          '<button class="csend" onclick="sendCmt('+p.id+')">发送</button>'+
-        '</div>'+
-      '</div>';
+  var all=getPosts();var list=curFilter==='all'?all:all.filter(function(p){return p.tag===curFilter;});
+  var wrap=$('postlist');wrap.innerHTML='';
+  [].concat(list).reverse().forEach(function(p){
+    var div=document.createElement('div');div.className='pc';
+    div.innerHTML='<div class="ptop"><div class="pav">'+p.av+'</div><div><div class="pname">'+p.nick+'</div><div class="ptime">'+timeAgo(p.t)+'</div></div><span class="ptag t-'+p.tag+'" style="pointer-events:none;border-color:currentColor">'+p.tag+'</span></div><div class="pbody">'+p.body+'</div><div class="pacts"><button class="pabtn'+(p.liked?' liked':'')+'" onclick="doLike('+p.id+')">🍀 '+p.likes+'</button><button class="pabtn'+(p.open?' commented':'')+'" onclick="toggleCmt('+p.id+')">💬 评论 '+p.comments.length+'</button></div><div class="cmts'+(p.open?' open':'')+'" id="cmt-'+p.id+'"><div>'+p.comments.map(function(c){return'<div class="citem"><span class="cauthor">'+c.av+' '+c.nick+'：</span>'+c.text+'</div>';}).join('')+'</div><div class="crow"><input type="text" id="ci-'+p.id+'" placeholder="写下你的评论..."><button class="csend" onclick="sendCmt('+p.id+')">发送</button></div></div>';
     wrap.appendChild(div);
   });
 }
-
-function doLike(id){
-  var posts=getPosts();
-  var p=posts.find(function(x){return x.id===id;});
-  if(!p)return;
-  if(p.liked){p.likes--;p.liked=false;}else{p.likes++;p.liked=true;}
-  setPosts(posts);renderPosts();
-}
-
-function toggleCmt(id){
-  var posts=getPosts();
-  var p=posts.find(function(x){return x.id===id;});
-  if(!p)return;
-  p.open=!p.open;
-  setPosts(posts);renderPosts();
-}
-
-function sendCmt(id){
-  var inp=$('ci-'+id);
-  var txt=inp?inp.value.trim():'';
-  if(!txt)return;
-  var posts=getPosts();
-  var p=posts.find(function(x){return x.id===id;});
-  if(!p)return;
-  p.comments.push({av:user?user.av:'🌸',nick:user?user.name:'匿名',text:txt});
-  setPosts(posts);renderPosts();
-}
-
+function doLike(id){var posts=getPosts();var p=posts.find(function(x){return x.id===id;});if(!p)return;if(p.liked){p.likes--;p.liked=false;}else{p.likes++;p.liked=true;}setPosts(posts);renderPosts();}
+function toggleCmt(id){var posts=getPosts();var p=posts.find(function(x){return x.id===id;});if(!p)return;p.open=!p.open;setPosts(posts);renderPosts();}
+function sendCmt(id){var inp=$('ci-'+id);var txt=inp?inp.value.trim():'';if(!txt)return;var posts=getPosts();var p=posts.find(function(x){return x.id===id;});if(!p)return;p.comments.push({av:user?user.av:'🌸',nick:user?user.name:'匿名',text:txt});setPosts(posts);renderPosts();}
 function openPM(){$('pmodal').classList.add('open');}
 function closePM(e){if(e.target===$('pmodal'))$('pmodal').classList.remove('open');}
-
-function pmPickTag(btn,tag){
-  document.querySelectorAll('#pmtags .ftag').forEach(function(b){b.classList.remove('sel');});
-  btn.classList.add('sel');
-  pmTag=tag;
-}
-
+function pmPickTag(btn,tag){document.querySelectorAll('#pmtags .ftag').forEach(function(b){b.classList.remove('sel');});btn.classList.add('sel');pmTag=tag;}
 function submitPost(){
-  var body=$('pmtext').value.trim();
-  if(!body){toast('说说你的感受吧 💭');return;}
-  if(!pmTag){toast('请选一个标签');return;}
-  var posts=getPosts();
-  posts.push({id:Date.now(),av:user?user.av:'🌸',nick:user?user.name:'匿名',tag:pmTag,t:Date.now(),body:body,likes:0,comments:[],isMe:true});
-  setPosts(posts);
-  $('pmtext').value='';pmTag='';
-  document.querySelectorAll('#pmtags .ftag').forEach(function(b){b.classList.remove('sel');});
-  $('pmodal').classList.remove('open');
-  toast('发布成功 🍀');
-  renderPosts();
-  refreshUser();
+  var body=$('pmtext').value.trim();if(!body){toast('说说你的感受吧 💭');return;}if(!pmTag){toast('请选一个标签');return;}
+  var posts=getPosts();posts.push({id:Date.now(),av:user?user.av:'🌸',nick:user?user.name:'匿名',tag:pmTag,t:Date.now(),body:body,likes:0,comments:[],isMe:true});
+  setPosts(posts);$('pmtext').value='';pmTag='';document.querySelectorAll('#pmtags .ftag').forEach(function(b){b.classList.remove('sel');});$('pmodal').classList.remove('open');toast('发布成功 🍀');renderPosts();refreshUser();
 }
 
-// ── 能量占卜 ──────────────────
+// ── 能量占卜 ──
 var WX={0:'金',1:'木',2:'水',3:'火',4:'土',5:'土',6:'金',7:'金',8:'木',9:'木'};
-var WXI={'金':{c:'#FFD700',e:'⚙️',t:'坚毅果断、逻辑清晰'},'木':{c:'#5CB88A',e:'🌱',t:'富有创意、温和包容'},'水':{c:'#74B9FF',e:'💧',t:'智慧灵动、洞察力强'},'火':{c:'#FF7675',e:'🔥',t:'热情奔放、行动力强'},'土':{c:'#FDCB6E',e:'🏔️',t:'稳重踏实、值得信赖'}};
-var FD={
-  work:{h:{adv:'准备一份2分钟的自我介绍'},m:{adv:'每天30分钟学一个新知识点'},l:{adv:'专注完成最重要的一件事'}},
-  career:{h:{adv:'约一位前辈聊聊'},m:{adv:'写下3件你做起来不累的事'},l:{adv:'给自己一天不思考未来的假期'}},
-  social:{h:{adv:'给许久未联系的朋友发消息'},m:{adv:'专注自己的节奏'},l:{adv:'给自己留出独处充电的时间'}},
-  love:{h:{adv:'给在乎的人发一条暖心消息'},m:{adv:'安排一次简单的见面'},l:{adv:'做一件只为自己开心的事'}},
-  money:{h:{adv:'制定一个月的存钱目标'},m:{adv:'记录本周每笔支出'},l:{adv:'整理一下自己的账单'}},
-  overall:{h:{adv:'把拖了很久的事今天做掉'},m:{adv:'今晚早些休息'},l:{adv:'给自己泡一杯热茶'}}
-};
+var WXI={'金':{c:'#FFD700',e:'⚙️',t:'坚毅果断、逻辑清晰',desc:'你天生具备决断力，做事雷厉风行。金命之人适合在需要逻辑与规则的领域发光发热。'},'木':{c:'#5CB88A',e:'🌱',t:'富有创意、温和包容',desc:'你内心充满生命力，善于生长和延伸。木命之人天生具备同理心，能感受到他人未说出口的情绪。'},'水':{c:'#74B9FF',e:'💧',t:'智慧灵动、洞察力强',desc:'你像水一样灵活，能适应各种环境。水命之人思维活跃，善于发现常人忽略的细节。'},'火':{c:'#FF7675',e:'🔥',t:'热情奔放、行动力强',desc:'你充满热情和感染力，能点燃周围的人。火命之人勇于尝试，是天生的行动派。'},'土':{c:'#FDCB6E',e:'🏔️',t:'稳重踏实、值得信赖',desc:'你是大家的定海神针，稳定可靠。土命之人有强大的内心，无论外界如何变化都能保持沉稳。'}};
+
+// AI占卜对话预设
+var chatHistory=[];
+var chatInited=false;
+
+function getUserContext(){
+  if(!user)return'用户';
+  var ctx=user.name;
+  if(user.bdate){var yr=parseInt(user.bdate.slice(0,4));var wx=WX[yr%10];ctx+='（'+yr+'年生，'+wx+'命）';}
+  if(user.bplace)ctx+='，来自'+user.bplace;
+  return ctx;
+}
+
+function getWxInfo(){
+  if(!user||!user.bdate)return null;
+  var yr=parseInt(user.bdate.slice(0,4));
+  return{wx:WX[yr%10],inf:WXI[WX[yr%10]],yr:yr};
+}
+
+var AI_RESPONSES=[
+  function(q){
+    var info=getWxInfo();
+    var wx=info?info.wx:'木';
+    var inf=info?info.inf:WXI['木'];
+    if(q.match(/运势|今天|最近|如何/)){
+      return'根据你的'+wx+'命能量，今天整体运势平稳中带有上升趋势。\n\n'+inf.e+' 今日重点：'+inf.desc+'\n\n建议你今天多关注自己内心的声音，有一个决定可以放心去做了。';
+    }
+    if(q.match(/工作|事业|职场|升职|跳槽/)){
+      return'从命理角度来看，'+wx+'命之人在职场上'+inf.t+'。\n\n近期工作上可能有一个小的转机在靠近，保持耐心，不要因为眼前的困难放弃。你的努力已经被看见了，只是时机还没到。';
+    }
+    if(q.match(/感情|恋爱|喜欢|暗恋|分手|失恋/)){
+      return wx+'命之人在感情上'+inf.t+'，重情重义。\n\n感情这件事，急不得。现在最重要的是把自己过好，让自己发光。真正适合你的人，会被你的光吸引过来的。🌸';
+    }
+    if(q.match(/财运|钱|工资|升职|赚钱/)){
+      return'财运方面，'+wx+'命近期偏稳健型。\n\n不适合冒险投资，但适合积累和沉淀。把握好手边已有的资源，细水长流胜过一夜暴富。幸运数字是'+（Math.floor(Math.random()*9)+1)+'。';
+    }
+    if(q.match(/迷茫|方向|未来|不知道|怎么办/)){
+      return'迷茫是'+wx+'命之人在成长阶段必经的旅程，说明你开始认真思考自己的人生了。\n\n不需要今天就找到答案。试着问自己：什么事情做起来不累？顺着这个感觉走，方向会慢慢清晰。🌿';
+    }
+    return null;
+  }
+];
+
+var FALLBACK_RESPONSES=[
+  '从你的命格来看，这个问题的答案其实已经在你心里了。你觉得呢？',
+  '星象告诉我，你现在需要的不是答案，而是一点时间和空间给自己。',
+  '你的'+（getWxInfo()?getWxInfo().wx:'木')+'命能量今天很强，相信自己的直觉。',
+  '阿贝贝感受到你内心有些纠结。不管结果如何，你的出发点是好的，这就够了。🌸',
+  '命理能给出方向，但最终的答案在你自己手里。你内心深处已经知道该怎么做了。'
+];
+
+function addChatMsg(text, role){
+  var wrap=$('chatWrap');
+  var div=document.createElement('div');
+  div.className='chat-msg '+role;
+  div.textContent=text;
+  wrap.appendChild(div);
+  wrap.scrollTop=wrap.scrollHeight;
+}
+
+function initChat(){
+  if(chatInited)return;
+  chatInited=true;
+  var info=getWxInfo();
+  var name=user?user.name:'朋友';
+  var greeting='你好，'+name+'！我是阿贝贝的命理助手。✨\n\n';
+  if(info){
+    greeting+='我看到你是'+info.yr+'年生的'+info.wx+'命之人——'+info.inf.t+'。\n\n';
+  }
+  greeting+='你可以问我关于运势、感情、工作、财运的问题，也可以倾诉最近的困惑，我会结合你的命格给出解读。';
+  setTimeout(function(){addChatMsg(greeting,'ai');},300);
+}
+
+function sendChat(){
+  var inp=$('chatInput');
+  var q=inp.value.trim();
+  if(!q)return;
+  inp.value='';
+  addChatMsg(q,'user');
+  var thinking=document.createElement('div');
+  thinking.className='chat-msg ai';
+  thinking.textContent='正在解读命盘...✨';
+  thinking.id='thinking';
+  $('chatWrap').appendChild(thinking);
+  $('chatWrap').scrollTop=$('chatWrap').scrollHeight;
+  setTimeout(function(){
+    var el=$('thinking');if(el)el.remove();
+    var ans=null;
+    for(var i=0;i<AI_RESPONSES.length;i++){ans=AI_RESPONSES[i](q);if(ans)break;}
+    if(!ans)ans=FALLBACK_RESPONSES[Math.floor(Math.random()*FALLBACK_RESPONSES.length)];
+    addChatMsg(ans,'ai');
+  },1200);
+}
+
+function switchFTab(tab){
+  $('ftab-chat').classList.toggle('act',tab==='chat');
+  $('ftab-daily').classList.toggle('act',tab==='daily');
+  $('fchat').style.display=tab==='chat'?'block':'none';
+  $('fdaily').style.display=tab==='daily'?'block':'none';
+  if(tab==='daily')genDaily();
+}
+
+// 每日运势
 var LC=['珊瑚粉🌸','薄荷绿🌿','奶油黄🌼','星空蓝🌌','暖橙色🍊','丁香紫💜'];
 var LD=['东南方','正东方','西北方','正南方','东北方','正西方'];
-
-function doFortune(){
-  var birth=$('bdate').value;
-  var concern=$('concern').value;
-  if(!birth){toast('请输入你的出生日期 📅');return;}
-  if(!concern){toast('请选择你的困扰方向 💭');return;}
-  $('fresult').style.display='none';
-  $('floading').style.display='block';
-  setTimeout(function(){$('floading').style.display='none';showFortune(birth,concern);},1800);
-}
-
-function showFortune(birth,concern){
-  var yr=parseInt(birth.slice(0,4));
-  var wx=WX[yr%10];var inf=WXI[wx];
-  var eng=70+Math.floor(Math.random()*26);
-  var lv=eng>=85?'h':eng>=75?'m':'l';
-  var fd=FD[concern][lv];
-  var lc=LC[Math.floor(Math.random()*LC.length)];
-  var ln=Math.floor(Math.random()*9)+1;
-  var ld=LD[Math.floor(Math.random()*LD.length)];
+function genDaily(){
+  var info=getWxInfo();
+  var wx=info?info.wx:'木';var inf=info?info.inf:WXI['木'];
+  var yr=info?info.yr:2000;
+  var eng=65+Math.floor(Math.random()*31);
   var st=function(n){return'★'.repeat(n)+'☆'.repeat(5-n);};
-  var cs=lv==='h'?4:lv==='m'?3:2;
-  var ls=2+Math.floor(Math.random()*3);
-  var ms=2+Math.floor(Math.random()*3);
-  var QS={
-    work:'职场的路不是直线，每次卡住都是在积蓄力量。'+wx+'命之人骨子里自带韧劲，继续走。',
-    career:'迷茫是选择之前必经的旅程。'+wx+'命之人直觉敏锐，相信那个内心没有消失的声音。',
-    social:'人与人之间的缘分，遇见了就是礼物。'+wx+'命带来温润的人格，放轻松，真正的连接不需要用力。',
-    love:'感情这件事，急不得。'+wx+'命之人重情重义，先把自己过好，爱情自然会以美好的方式出现。',
-    money:'财富是能量的流动。'+wx+'命之人懂得积累，打好基础，财运正在悄悄发生。',
-    overall:wx+'命之人，'+inf.t+'。无论顺境逆境，你都有能力穿越它。好好照顾自己，是一切的基础。'
-  };
+  var cs=2+Math.floor(Math.random()*3);var ls=2+Math.floor(Math.random()*3);var ms=2+Math.floor(Math.random()*3);
+  var lc=LC[Math.floor(Math.random()*LC.length)];var ln=Math.floor(Math.random()*9)+1;var ld=LD[Math.floor(Math.random()*LD.length)];
   var circ=2*Math.PI*40;var off=circ*(1-eng/100);
-  $('fresult').innerHTML=
-    '<div class="fcard">'+
-      '<div style="font-size:11px;opacity:.7;margin-bottom:6px">'+yr+'年出生 · '+wx+'命之人</div>'+
-      '<div class="fbadge">'+inf.e+' '+wx+'命 · '+inf.t+'</div>'+
-      '<div class="fring">'+
-        '<div style="font-size:11px;opacity:.7;margin-bottom:6px">本周整体能量</div>'+
-        '<svg width="100" height="100" viewBox="0 0 100 100" style="transform:rotate(-90deg)">'+
-          '<circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="8"/>'+
-          '<circle id="rc" cx="50" cy="50" r="40" fill="none" stroke="'+inf.c+'" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'"/>'+
-        '</svg>'+
-        '<div style="margin-top:-62px;position:relative;z-index:1;padding-bottom:44px;text-align:center">'+
-          '<div class="frnum" id="rn">0</div><div class="frsub">/ 100</div>'+
-        '</div>'+
-      '</div>'+
-      '<div class="fgrid">'+
-        '<div class="fsec"><div class="fsic">💼</div><div class="fsnm">事业运</div><div class="fsst">'+st(cs)+'</div></div>'+
-        '<div class="fsec"><div class="fsic">💖</div><div class="fsnm">情感运</div><div class="fsst">'+st(ls)+'</div></div>'+
-        '<div class="fsec"><div class="fsic">💰</div><div class="fsnm">财运</div><div class="fsst">'+st(ms)+'</div></div>'+
-      '</div>'+
-      '<div class="flucky">'+
-        '<div class="fli"><div class="fll">幸运色</div><div class="flv">'+lc+'</div></div>'+
-        '<div class="fli"><div class="fll">幸运数字</div><div class="flv">'+ln+'</div></div>'+
-        '<div class="fli"><div class="fll">幸运方位</div><div class="flv">'+ld+'</div></div>'+
-      '</div>'+
-      '<div class="fquote">📜 '+QS[concern]+'<br><br>🌟 今日建议：'+fd.adv+'</div>'+
-    '</div>';
-  $('fresult').style.display='block';
-  requestAnimationFrame(function(){
-    var c=$('rc');
-    if(c){c.style.transition='stroke-dashoffset 1.2s ease';c.style.strokeDashoffset=off;}
-  });
-  var cur=0;
-  var tm=setInterval(function(){
-    cur=Math.min(cur+2,eng);
-    var el=$('rn');if(el)el.textContent=cur;
-    if(cur>=eng)clearInterval(tm);
-  },24);
+  var dailyTexts=['今天是积蓄能量的好时机，不需要大动作，做好眼前的事就足够了。','命盘显示今天适合沟通和连接，主动联系一个许久未见的朋友吧。','今天的你有一种特别的洞察力，相信自己的第一直觉。','稳中求进是今天的关键词，不用着急，按自己的节奏来。','今天会有一个小惊喜，保持开放的心态去接受。'];
+  var dailyText=dailyTexts[Math.floor(Math.random()*dailyTexts.length)];
+  $('fdailyContent').innerHTML='<div style="font-size:11px;opacity:.7;margin-bottom:8px">'+yr+'年生 · '+wx+'命之人 · 今日运势</div><div class="fbadge">'+inf.e+' '+wx+'命</div><div style="text-align:center;margin:10px 0 14px"><div style="font-size:11px;opacity:.7;margin-bottom:6px">今日整体能量</div><svg width="90" height="90" viewBox="0 0 100 100" style="display:block;margin:0 auto;transform:rotate(-90deg)"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="8"/><circle id="drc" cx="50" cy="50" r="40" fill="none" stroke="'+inf.c+'" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'"/></svg><div style="margin-top:-54px;position:relative;z-index:1;padding-bottom:38px;text-align:center"><div style="font-size:30px;font-weight:800;line-height:1" id="drn">0</div><div style="font-size:10px;opacity:.6;margin-top:2px">/ 100</div></div></div><div class="fgrid"><div class="fsec"><div class="fsic">💼</div><div class="fsnm">事业运</div><div class="fsst">'+st(cs)+'</div></div><div class="fsec"><div class="fsic">💖</div><div class="fsnm">情感运</div><div class="fsst">'+st(ls)+'</div></div><div class="fsec"><div class="fsic">💰</div><div class="fsnm">财运</div><div class="fsst">'+st(ms)+'</div></div></div><div class="flucky"><div class="fli"><div class="fll">幸运色</div><div class="flv">'+lc+'</div></div><div class="fli"><div class="fll">幸运数字</div><div class="flv">'+ln+'</div></div><div class="fli"><div class="fll">幸运方位</div><div class="flv">'+ld+'</div></div></div><div class="fquote">📜 '+dailyText+'</div>';
+  requestAnimationFrame(function(){var c=$('drc');if(c){c.style.transition='stroke-dashoffset 1.2s ease';c.style.strokeDashoffset=off;}});
+  var cur=0;var tm=setInterval(function(){cur=Math.min(cur+2,eng);var el=$('drn');if(el)el.textContent=cur;if(cur>=eng)clearInterval(tm);},24);
 }
 
-// ── 我的 ──────────────────────
-function clearData(){
-  if(!confirm('确定清空所有数据吗？'))return;
-  localStorage.clear();
-  location.reload();
-}
+function clearData(){if(!confirm('确定清空所有数据吗？'))return;localStorage.clear();location.reload();}
 
-// ── 初始化 ────────────────────
 drawChart();
 renderPosts();
+if(user)initChat();
 </script>
 </body>
 </html>
