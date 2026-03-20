@@ -188,6 +188,14 @@ textarea:focus,input:focus{border-color:var(--coral);background:#fff;}
 .env-letter{position:absolute;bottom:50px;left:50%;transform:translateX(-50%);width:160px;height:60px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:var(--coral);box-shadow:0 2px 12px rgba(0,0,0,.1);}
 .share-send-btn{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:var(--coral);color:#fff;border:none;border-radius:50px;padding:10px 32px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(255,127,110,.4);z-index:2;white-space:nowrap;}
 
+/* 木鱼敲击动画 */
+@keyframes muyuPress{0%{transform:scale(1);}40%{transform:scale(.88);}100%{transform:scale(1);}}
+@keyframes muyuMerit{0%{opacity:1;transform:translateX(-50%) translateY(0);}100%{opacity:0;transform:translateX(-50%) translateY(-36px);}}
+@keyframes hammerSwing{0%{transform:rotate(0deg);}40%{transform:rotate(-28deg);}100%{transform:rotate(0deg);}}
+.muyu-hit{animation:muyuPress .18s ease-out;}
+.muyu-merit-fly{animation:muyuMerit .6s ease-out forwards;}
+.hammer-swing{animation:hammerSwing .18s ease-out;}
+
 /* ── 能量 ── */
 .ftop{background:linear-gradient(160deg,#6B3FA0,#4A2080);padding:24px 18px 20px;border-radius:0 0 24px 24px;color:#fff;}
 .ftop h1{font-size:21px;font-weight:800;margin-bottom:4px;}
@@ -419,6 +427,61 @@ textarea:focus,input:focus{border-color:var(--coral);background:#fff;}
       <p style="font-size:12px;color:var(--sub);line-height:1.9">4-2-6 呼吸法激活副交感神经<br>帮你平复焦虑、放松身心 🌿<br>建议每天练习 1-2 次</p>
     </div>
   </div>
+
+  <!-- 木鱼区块 -->
+  <div style="padding:0 16px 32px">
+    <div class="card" style="text-align:center;padding:24px 20px 20px">
+      <p class="clabel" style="margin-bottom:2px">功德无量</p>
+      <p class="ctitle" style="text-align:center;margin-bottom:0">敲木鱼</p>
+      <p style="font-size:12px;color:var(--sub);margin-bottom:20px">心烦意乱时，咚咚咚</p>
+
+      <!-- 木鱼 SVG -->
+      <div style="position:relative;display:inline-block;margin-bottom:16px">
+        <!-- 功德飞起 -->
+        <div id="muyu-merit" style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:700;color:var(--coral);opacity:0;pointer-events:none;white-space:nowrap;transition:none">+1 功德</div>
+        <button id="muyuBtn" onclick="knockMuyu()" style="background:none;border:none;cursor:pointer;padding:0;display:block;transition:transform .08s;">
+          <svg width="140" height="140" viewBox="0 0 140 140" fill="none">
+            <!-- 木鱼身体 -->
+            <ellipse cx="70" cy="80" rx="54" ry="42" fill="#C8843A"/>
+            <ellipse cx="70" cy="78" rx="50" ry="38" fill="#D4943E"/>
+            <!-- 光泽 -->
+            <ellipse cx="58" cy="62" rx="16" ry="10" fill="rgba(255,255,255,.18)" transform="rotate(-20 58 62)"/>
+            <!-- 开口缝 -->
+            <path d="M38 80 Q70 88 102 80" stroke="#A06828" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <!-- 眼睛 左 -->
+            <circle cx="52" cy="72" r="5" fill="#7A4A1A"/>
+            <circle cx="53" cy="71" r="2" fill="#fff" opacity=".5"/>
+            <!-- 眼睛 右 -->
+            <circle cx="88" cy="72" r="5" fill="#7A4A1A"/>
+            <circle cx="89" cy="71" r="2" fill="#fff" opacity=".5"/>
+            <!-- 木鱼柄/顶部 -->
+            <ellipse cx="70" cy="40" rx="10" ry="14" fill="#C8843A"/>
+            <ellipse cx="70" cy="38" rx="8" ry="11" fill="#D4943E"/>
+            <circle cx="70" cy="28" r="7" fill="#C8843A"/>
+            <!-- 木槌 -->
+            <g id="muyuHammer" style="transform-origin:30px 20px;transform:rotate(0deg);transition:transform .08s">
+              <line x1="100" y1="30" x2="118" y2="50" stroke="#8B6340" stroke-width="6" stroke-linecap="round"/>
+              <ellipse cx="122" cy="54" rx="10" ry="8" fill="#A07040" transform="rotate(40 122 54)"/>
+            </g>
+          </svg>
+        </button>
+      </div>
+
+      <!-- 计数显示 -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px">
+        <div style="text-align:center">
+          <div id="muyuCount" style="font-size:40px;font-weight:900;color:var(--coral);line-height:1">0</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:2px">今日功德</div>
+        </div>
+        <div style="width:1px;height:40px;background:var(--bd)"></div>
+        <div style="text-align:center">
+          <div id="muyuTotal" style="font-size:24px;font-weight:700;color:var(--sub);line-height:1">0</div>
+          <div style="font-size:11px;color:var(--sub);margin-top:2px">累计功德</div>
+        </div>
+      </div>
+      <div id="muyuTitle" style="font-size:12px;color:var(--coral);font-weight:600;min-height:18px"></div>
+    </div>
+  </div>
 </div>
 
 <!-- 完成分享弹窗 -->
@@ -556,7 +619,7 @@ function editProfile(){
   }
 }
 
-if(user){$('ob').classList.add('hidden');refreshUser();}
+if(user){$('ob').classList.add('hidden');}
 
 // ── Tab ──
 var TABS=['today','community','breath','fortune','my'];
@@ -830,6 +893,83 @@ function genDaily(){
 
 function clearData(){if(!confirm('确定清空所有数据吗？'))return;localStorage.clear();location.reload();}
 
+// ── 木鱼 ──
+var muyuAC=null;
+function getMuyuAC(){if(!muyuAC)muyuAC=new(window.AudioContext||window.webkitAudioContext)();return muyuAC;}
+
+function playMuyu(){
+  try{
+    var ac=getMuyuAC();
+    // 主体"咚"— 低频正弦衰减
+    var osc=ac.createOscillator();
+    var gain=ac.createGain();
+    osc.connect(gain);gain.connect(ac.destination);
+    osc.type='sine';
+    osc.frequency.setValueAtTime(220,ac.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(80,ac.currentTime+0.3);
+    gain.gain.setValueAtTime(0.8,ac.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+0.5);
+    osc.start(ac.currentTime);osc.stop(ac.currentTime+0.5);
+    // 敲击瞬态"咔"— 短噪音
+    var buf=ac.createBuffer(1,ac.sampleRate*0.04,ac.sampleRate);
+    var data=buf.getChannelData(0);
+    for(var i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2);
+    var src=ac.createBufferSource();
+    var g2=ac.createGain();
+    src.buffer=buf;src.connect(g2);g2.connect(ac.destination);
+    g2.gain.setValueAtTime(0.3,ac.currentTime);
+    src.start(ac.currentTime);
+  }catch(e){}
+}
+
+var muyuCount=parseInt(localStorage.getItem('muyu_today_count')||'0');
+var muyuDate=localStorage.getItem('muyu_today_date')||'';
+var muyuTotal=parseInt(localStorage.getItem('muyu_total')||'0');
+var MUYU_TITLES=['','初心功德','静心一刻','心如止水','功德圆满','佛光普照','木鱼大师','得道高僧'];
+
+// 今日计数跨天重置
+if(muyuDate!==todayStr()){muyuCount=0;localStorage.setItem('muyu_today_count','0');localStorage.setItem('muyu_today_date',todayStr());}
+
+function updateMuyuUI(){
+  $('muyuCount').textContent=muyuCount;
+  $('muyuTotal').textContent=muyuTotal;
+  var lvl=Math.min(Math.floor(muyuCount/10),MUYU_TITLES.length-1);
+  $('muyuTitle').textContent=lvl>0?MUYU_TITLES[lvl]:'';
+}
+
+function knockMuyu(){
+  // 音效
+  playMuyu();
+  // 动画——木鱼压缩
+  var btn=$('muyuBtn');
+  btn.classList.remove('muyu-hit');
+  void btn.offsetWidth;
+  btn.classList.add('muyu-hit');
+  btn.addEventListener('animationend',function(){btn.classList.remove('muyu-hit');},{once:true});
+  // 木槌挥动
+  var hammer=$('muyuHammer');
+  hammer.classList.remove('hammer-swing');
+  void hammer.offsetWidth;
+  hammer.classList.add('hammer-swing');
+  hammer.addEventListener('animationend',function(){hammer.classList.remove('hammer-swing');},{once:true});
+  // 功德飞起
+  var merit=$('muyu-merit');
+  merit.classList.remove('muyu-merit-fly');
+  void merit.offsetWidth;
+  merit.classList.add('muyu-merit-fly');
+  merit.addEventListener('animationend',function(){merit.classList.remove('muyu-merit-fly');},{once:true});
+  // 手机震动
+  if(navigator.vibrate)navigator.vibrate(18);
+  // 计数
+  muyuCount++;muyuTotal++;
+  localStorage.setItem('muyu_today_count',muyuCount);
+  localStorage.setItem('muyu_today_date',todayStr());
+  localStorage.setItem('muyu_total',muyuTotal);
+  updateMuyuUI();
+}
+updateMuyuUI();
+
+if(user)refreshUser();
 drawChart();
 renderPosts();
 if(user)initChat();
