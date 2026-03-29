@@ -899,9 +899,20 @@ async function callDS(messages,maxTokens){
   return data.choices[0].message.content.trim();
 }
 
+function renderMd(text){
+  // 粗体 **text** → <strong>
+  text=text.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  // 换行 \n → <br>，同时给数字列表项（1. 2. 3.）前加换行
+  text=text.replace(/(\d+\.\s)/g,'\n$1');
+  text=text.replace(/\n/g,'<br>');
+  return text;
+}
+
 function addChatMsg(text,role){
   var wrap=$('chatWrap');var div=document.createElement('div');
-  div.className='chat-msg '+role;div.textContent=text;
+  div.className='chat-msg '+role;
+  if(role==='ai'){div.innerHTML=renderMd(text);}
+  else{div.textContent=text;}
   wrap.appendChild(div);wrap.scrollTop=wrap.scrollHeight;
 }
 
@@ -915,7 +926,7 @@ function initChat(){
   var todayGZ=getTodayGZ();
 
   // 构造系统提示
-  var sysPrompt='你是阿贝贝，一位精通奇门遁甲、八字命理、紫微斗数的温暖命理师。用简洁、现代、温暖的语气，结合传统玄学为用户解答。每次回复不超过120字。在解读中适当引用奇门遁甲的值使、值符、九宫、八门等专业概念，让回答有专业感。对话结尾不要加免责声明（免责声明仅在每日运势卡片底部显示）。';
+  var sysPrompt='你是阿贝贝，一位精通奇门遁甲、八字命理、紫微斗数的温暖命理师。用简洁、现代、温暖的语气，结合传统玄学为用户解答。每次回复不超过150字。在解读中适当引用奇门遁甲的值使、值符、九宫、八门等专业概念，让回答有专业感。回复时如果有多个要点，请用换行分点表达（如：1. xxx\\n2. xxx），不要把所有内容堆在一段。不要使用**粗体**等markdown符号，直接用文字表达重点。对话结尾不要加免责声明。';
 
   var userInfo='用户信息：姓名'+name+'，出生日期'+bdate+(btime?'，出生时辰'+btime:'')+(bplace?'，出生地'+bplace:'')+(info?'，年柱'+yzg+'，'+info.wx+'命（'+info.inf.t+'）':'')+'，今日干支：'+todayGZ+'。';
 
