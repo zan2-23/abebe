@@ -3,976 +3,848 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>阿贝贝 · 你的情绪伴侣</title>
+<title>阿贝贝 · 产品原型</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'PingFang SC','Helvetica Neue',-apple-system,sans-serif;background:var(--bg);color:var(--text);max-width:480px;margin:0 auto;min-height:100vh;padding-bottom:76px;}
-
-:root{
-  --coral:#FF7F6E;
-  --coral-l:#FFB5AB;
-  --coral-ll:#FFE8E5;
-  --blue:#7BBFEA;
-  --blue-l:#B8DCF5;
-  --blue-ll:#E8F4FD;
-  --cream:#FFF8F2;
-  --bg:#F7F3EE;
-  --card:#FFFFFF;
-  --text:#3D3530;
-  --sub:#A09890;
-  --bd:#EDE7E0;
-  --pg:linear-gradient(135deg,#FF9A8B,#FF7F6E);
-  --bg-breath:linear-gradient(160deg,#7BBFEA,#A8D8F0,#C5E8FF);
-  --sh:0 4px 20px rgba(255,127,110,.12);
-  --sh-b:0 4px 20px rgba(123,191,234,.18);
-  --r:20px;
-  --r-sm:12px;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'PingFang SC', -apple-system, sans-serif;
+  background: #F0EBE3;
+  min-height: 100vh;
+  padding: 32px 16px 60px;
 }
 
-/* ── 通用 ── */
-.card{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:14px;box-shadow:var(--sh);}
-.clabel{font-size:11px;color:var(--sub);margin-bottom:5px;letter-spacing:.5px;}
-.ctitle{font-size:15px;font-weight:700;margin-bottom:14px;color:var(--text);}
-textarea,input[type=text],input[type=date],input[type=time]{width:100%;border:1.5px solid var(--bd);border-radius:var(--r-sm);padding:11px 14px;font-family:inherit;font-size:14px;color:var(--text);background:var(--bg);outline:none;resize:none;transition:border-color .2s;}
-textarea{min-height:76px;display:block;}
-textarea:focus,input:focus{border-color:var(--coral);background:#fff;}
-.btn{display:block;width:100%;padding:14px;border:none;border-radius:50px;background:var(--pg);color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;text-align:center;box-shadow:0 6px 20px rgba(255,127,110,.32);transition:transform .15s,box-shadow .15s;}
-.btn:active{transform:scale(.97);box-shadow:0 2px 10px rgba(255,127,110,.2);}
-.btn-blue{background:linear-gradient(135deg,#7BBFEA,#5AAAD8);box-shadow:0 6px 20px rgba(123,191,234,.35);}
+h1.page-title {
+  text-align: center;
+  font-size: 15px;
+  color: #888;
+  margin-bottom: 28px;
+  letter-spacing: 1px;
+}
 
-#toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:rgba(61,53,48,.88);color:#fff;padding:9px 22px;border-radius:50px;font-size:13px;opacity:0;pointer-events:none;white-space:nowrap;z-index:99999;transition:opacity .3s;}
-#toast.show{opacity:1;}
+/* 三屏横排 */
+.screens {
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
 
-/* ── 底栏 ── */
-.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:#fff;border-top:1px solid var(--bd);display:flex;z-index:1000;padding:6px 0 12px;box-shadow:0 -4px 20px rgba(0,0,0,.06);}
-.ti{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;color:var(--sub);cursor:pointer;padding:2px 0;border:none;background:none;font-family:inherit;transition:color .2s;}
-.ti.act{color:var(--coral);}
-.ti .ico{font-size:22px;line-height:1.3;}
-.pg{display:none;}
-.pg.act{display:block;}
+/* 手机外壳 */
+.phone {
+  width: 320px;
+  background: #fff;
+  border-radius: 36px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+  position: relative;
+  border: 6px solid #222;
+}
+.phone-notch {
+  width: 80px; height: 22px;
+  background: #222;
+  border-radius: 0 0 14px 14px;
+  margin: 0 auto;
+  position: relative; z-index: 10;
+}
+.phone-screen {
+  height: 620px;
+  overflow: hidden;
+  position: relative;
+  background: #FFF8F3;
+}
+.phone-label {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: #666;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
 
-/* ── 顶栏 ── */
-.topbar{background:var(--pg);padding:22px 18px 20px;border-radius:0 0 24px 24px;}
-.toprow{display:flex;align-items:center;justify-content:space-between;}
-.toprow h1{color:#fff;font-size:21px;font-weight:800;letter-spacing:-.3px;}
-.toprow p{color:rgba(255,255,255,.8);font-size:12px;margin-top:4px;}
-.uchip{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.25);border-radius:50px;padding:6px 12px 6px 7px;cursor:pointer;border:none;font-family:inherit;transition:background .2s;}
-.uchip:active{background:rgba(255,255,255,.38);}
-.uchip .uav{font-size:20px;}
-.uchip .unm{color:#fff;font-size:12px;font-weight:600;}
+/* ── 通用组件 ── */
+.s-header {
+  background: linear-gradient(160deg, #FFB5C8 0%, #FF8FAB 100%);
+  padding: 14px 18px 16px;
+  position: relative;
+}
+.s-header-top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 6px;
+}
+.app-name { color: #fff; font-size: 18px; font-weight: 800; letter-spacing: 1px; }
+.app-sub  { color: rgba(255,255,255,0.8); font-size: 11px; }
+.header-avatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+}
 
-/* ── 引导页 ── */
-#ob{position:fixed;inset:0;background:rgba(61,53,48,.5);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto;backdrop-filter:blur(4px);}
-#ob.hidden{display:none;}
-.obcard{background:#fff;border-radius:26px;padding:26px 20px 22px;width:100%;max-width:340px;box-shadow:0 20px 60px rgba(0,0,0,.18);}
-.obcard h2{font-size:18px;font-weight:800;color:var(--coral);text-align:center;margin-bottom:4px;}
-.obsub{font-size:12px;color:var(--sub);text-align:center;margin-bottom:18px;line-height:1.7;}
-.oblabel{font-size:12px;color:var(--sub);margin-bottom:7px;font-weight:500;}
-.avgrid{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:16px;}
-.avbtn{font-size:21px;width:44px;height:44px;border-radius:50%;border:2px solid var(--bd);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;}
-.avbtn.sel{border-color:var(--coral);background:var(--coral-ll);transform:scale(1.1);}
-.obrow{margin-bottom:13px;}
+.s-body { padding: 14px 14px 70px; overflow-y: auto; height: 100%; }
 
-/* ── 今日 ── */
-.moodrow{display:flex;gap:6px;margin-bottom:14px;}
-.mbtn{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 2px;border-radius:14px;border:1.5px solid var(--bd);background:var(--bg);font-size:10px;color:var(--sub);cursor:pointer;font-family:inherit;transition:all .18s;}
-.mbtn .em{font-size:22px;line-height:1.2;}
-.mbtn.sel{border-color:var(--coral);background:var(--coral-ll);color:var(--coral);font-weight:700;transform:translateY(-2px);box-shadow:0 4px 12px rgba(255,127,110,.2);}
-.tipbox{background:linear-gradient(135deg,var(--coral-ll),#FFF0EE);border-radius:14px;padding:14px 16px;border-left:3px solid var(--coral);font-size:13px;line-height:1.85;color:#6B3A35;white-space:pre-line;}
-.tipmeta{font-size:11px;color:var(--coral);font-weight:700;margin-bottom:6px;letter-spacing:.3px;}
+/* 卡片 */
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 12px rgba(255,143,171,0.1);
+}
+.card-label {
+  font-size: 11px; color: #bbb; font-weight: 500; margin-bottom: 8px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.card-title { font-size: 14px; font-weight: 700; color: #4A4A4A; margin-bottom: 10px; }
 
-/* ── 广场 ── */
-.writebar{display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:50px;padding:10px 10px 10px 18px;margin-bottom:14px;box-shadow:var(--sh);cursor:pointer;border:none;width:100%;font-family:inherit;}
-.wph{font-size:13px;color:#C5B8B0;}
-.wbtn{background:var(--pg);color:#fff;font-size:12px;font-weight:700;padding:7px 16px;border-radius:50px;border:none;cursor:pointer;font-family:inherit;}
-.tagsrow{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:2px;}
-.tagsrow::-webkit-scrollbar{display:none;}
-.ftag{padding:6px 14px;border-radius:50px;font-size:12px;font-weight:500;border:1.5px solid;white-space:nowrap;cursor:pointer;background:none;font-family:inherit;transition:all .15s;}
-.ftag.sel{font-weight:700;background:currentColor;}
-.ftag.sel span{color:#fff;display:block;}
-.t-all{border-color:var(--coral);color:var(--coral);}
-.t-迷茫{border-color:#B39DDB;color:#7E57C2;}
-.t-压力{border-color:var(--coral);color:#D84040;}
-.t-疲惫{border-color:#FFCC80;color:#E65100;}
-.t-寻求平衡{border-color:#80CBC4;color:#00695C;}
-.t-小确幸{border-color:var(--coral-l);color:#C2185B;}
-.pc{background:#fff;border-radius:var(--r);padding:16px;margin-bottom:12px;box-shadow:0 2px 16px rgba(0,0,0,.06);}
-.ptop{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
-.pav{width:38px;height:38px;border-radius:50%;flex-shrink:0;background:var(--pg);display:flex;align-items:center;justify-content:center;font-size:19px;}
-.pname{font-size:13px;font-weight:600;color:var(--text);}
-.ptime{font-size:11px;color:var(--sub);}
-.ptag{margin-left:auto;font-size:10px;padding:3px 9px;border-radius:50px;border:1px solid;white-space:nowrap;}
-.pbody{font-size:13px;line-height:1.8;margin-bottom:12px;color:var(--text);}
-.pacts{display:flex;gap:8px;}
-.pabtn{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--sub);padding:6px 14px;border-radius:50px;border:1.5px solid var(--bd);background:none;cursor:pointer;font-family:inherit;transition:all .15s;}
-.pabtn.liked{border-color:#80CBC4;color:#00695C;}
-.pabtn.commented{border-color:var(--coral-l);color:var(--coral);}
-.cmts{margin-top:10px;display:none;}
-.cmts.open{display:block;}
-.citem{background:var(--bg);border-radius:10px;padding:8px 12px;margin-bottom:6px;font-size:12px;line-height:1.7;}
-.cauthor{color:var(--coral);font-weight:600;}
-.crow{display:flex;gap:8px;margin-top:8px;}
-.crow input{flex:1;}
-.csend{padding:8px 14px;border-radius:50px;border:1.5px solid var(--bd);background:none;color:var(--sub);cursor:pointer;font-family:inherit;font-size:12px;white-space:nowrap;transition:all .15s;}
-.csend:active{background:var(--coral);color:#fff;border-color:var(--coral);}
-#pmodal{position:fixed;inset:0;background:rgba(61,53,48,.45);z-index:8000;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px);}
-#pmodal.open{display:flex;}
-.pmsheet{background:#fff;border-radius:26px 26px 0 0;padding:22px 20px 36px;width:100%;max-width:480px;}
-.pmtitle{font-size:16px;font-weight:700;margin-bottom:14px;color:var(--text);}
-.pmtags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+/* ── 首页 ── */
+.date-bar {
+  font-size: 12px; color: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.15);
+  border-radius: 50px; padding: 4px 12px;
+  display: inline-block; margin-top: 4px;
+}
 
-/* ── 呼吸训练 ── */
-#pg-breath{background:#FBF6F0;min-height:100vh;}
-.breath-scene{position:relative;background:#FBF6F0;padding:36px 20px 0;text-align:center;overflow:hidden;min-height:520px;}
+.mood-row {
+  display: flex; justify-content: space-between; gap: 4px; margin-bottom: 12px;
+}
+.mood-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  padding: 8px 2px; border-radius: 12px;
+  border: 1.5px solid #F0E6E6;
+  background: #FFF8F3;
+  font-size: 9px; color: #bbb; gap: 3px;
+}
+.mood-item.sel {
+  border-color: #FF8FAB; background: #FFE0EC; color: #FF8FAB; font-weight: 600;
+}
+.mood-em { font-size: 20px; }
 
-/* 云朵装饰 */
-.cloud{position:absolute;border-radius:50px;background:#D6EAF5;}
-.cloud-tl{width:110px;height:50px;top:28px;left:-20px;transform:rotate(-8deg);}
-.cloud-tl::before{content:'';position:absolute;width:60px;height:60px;background:#D6EAF5;border-radius:50%;top:-20px;left:20px;}
-.cloud-tl::after{content:'';position:absolute;width:40px;height:40px;background:#D6EAF5;border-radius:50%;top:-10px;left:55px;}
-.cloud-tr{width:90px;height:42px;top:48px;right:-10px;transform:rotate(6deg);}
-.cloud-tr::before{content:'';position:absolute;width:50px;height:50px;background:#D6EAF5;border-radius:50%;top:-18px;left:15px;}
-.cloud-tr::after{content:'';position:absolute;width:35px;height:35px;background:#D6EAF5;border-radius:50%;top:-8px;left:45px;}
-.cloud-bl{width:130px;height:55px;bottom:60px;left:-30px;transform:rotate(4deg);}
-.cloud-bl::before{content:'';position:absolute;width:65px;height:65px;background:#D6EAF5;border-radius:50%;top:-25px;left:22px;}
-.cloud-bl::after{content:'';position:absolute;width:48px;height:48px;background:#D6EAF5;border-radius:50%;top:-12px;left:62px;}
-.cloud-br{width:120px;height:52px;bottom:50px;right:-25px;transform:rotate(-5deg);}
-.cloud-br::before{content:'';position:absolute;width:60px;height:60px;background:#D6EAF5;border-radius:50%;top:-22px;left:20px;}
-.cloud-br::after{content:'';position:absolute;width:42px;height:42px;background:#D6EAF5;border-radius:50%;top:-10px;left:58px;}
+/* 趋势 + 建议并排 */
+.two-col { display: flex; gap: 10px; margin-bottom: 12px; }
+.two-col .mini-card {
+  flex: 1; background: #fff; border-radius: 14px;
+  padding: 12px 10px;
+  box-shadow: 0 2px 10px rgba(255,143,171,0.1);
+}
+.mini-title { font-size: 11px; font-weight: 700; color: #4A4A4A; margin-bottom: 8px; }
 
-/* 标题区 */
-.breath-title{font-size:13px;color:var(--sub);letter-spacing:.5px;margin-bottom:4px;position:relative;z-index:2;}
-.breath-h1{font-size:28px;font-weight:900;color:var(--text);line-height:1.2;margin-bottom:8px;position:relative;z-index:2;}
-.breath-sub{font-size:12px;color:var(--sub);line-height:1.8;margin-bottom:24px;position:relative;z-index:2;}
+/* 迷你趋势图 */
+.mini-chart { height: 50px; display: flex; align-items: flex-end; gap: 3px; padding: 0 2px; }
+.bar {
+  flex: 1; border-radius: 4px 4px 0 0;
+  background: linear-gradient(to top, #FFB5C8, #FF8FAB);
+  opacity: 0.7;
+}
+.bar.today { opacity: 1; background: linear-gradient(to top, #FF8FAB, #FF5C8A); }
 
-/* 打坐爱心插画 SVG */
-.breath-avatar{position:relative;z-index:2;margin:0 auto 0;width:200px;height:200px;}
-.breath-avatar svg{width:100%;height:100%;}
+/* 能量小卡 */
+.energy-mini {
+  text-align: center; padding: 4px 0;
+}
+.energy-num { font-size: 28px; font-weight: 800; color: #FF8FAB; line-height: 1; }
+.energy-label { font-size: 9px; color: #bbb; margin-top: 3px; }
+.energy-bar-wrap { height: 6px; background: #F0E6E6; border-radius: 50px; margin-top: 8px; }
+.energy-bar { height: 6px; background: linear-gradient(to right, #FFB5C8, #FF8FAB); border-radius: 50px; width: 78%; }
 
-/* 呼吸光圈 */
-.breath-aura{position:absolute;top:50%;left:50%;width:160px;height:160px;border-radius:50%;background:rgba(255,127,110,.12);transform:translate(-50%,-50%);transition:transform 4s ease-in-out,opacity 1s;z-index:1;}
-.breath-aura.expand{transform:translate(-50%,-50%) scale(1.4);opacity:.6;}
-.breath-aura.hold{transform:translate(-50%,-50%) scale(1.4);opacity:.6;}
-.breath-aura.shrink{transform:translate(-50%,-50%) scale(1);opacity:.2;}
+/* 建议卡 */
+.tip-card {
+  background: linear-gradient(135deg, #FFF0F5, #FFE4EE);
+  border-radius: 14px; padding: 13px;
+  border-left: 3px solid #FF8FAB;
+  margin-bottom: 12px;
+}
+.tip-emoji { font-size: 22px; margin-bottom: 6px; }
+.tip-text { font-size: 12px; line-height: 1.7; color: #6B3A4A; }
+.tip-action {
+  margin-top: 10px; display: inline-block;
+  background: #FF8FAB; color: #fff; font-size: 11px;
+  padding: 5px 14px; border-radius: 50px; font-weight: 600;
+}
 
-/* 状态文字 */
-.breath-state-wrap{position:relative;z-index:2;margin-top:20px;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.breath-state-word{font-size:32px;font-weight:900;color:var(--coral);letter-spacing:2px;}
-.breath-state-count{font-size:15px;color:var(--sub);margin-top:4px;}
-.breath-state-idle{font-size:14px;color:var(--sub);line-height:1.8;}
+/* 底部导航 */
+.tab-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: #fff;
+  border-top: 1px solid #F5EAEA;
+  display: flex;
+  padding: 8px 0 12px;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+}
+.tab-item {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  gap: 2px; font-size: 10px; color: #ccc;
+}
+.tab-item.act { color: #FF8FAB; }
+.tab-icon { font-size: 22px; }
 
-/* 进度条 */
-.breath-prog-area{padding:16px 24px 8px;position:relative;z-index:2;}
-.breath-prog-bar{height:5px;background:#EDE7E0;border-radius:50px;overflow:hidden;margin-bottom:6px;}
-.breath-prog-fill{height:100%;background:linear-gradient(90deg,var(--coral-l),var(--coral));border-radius:50px;transition:width .5s linear;width:0%;}
-.breath-prog-lbl{font-size:11px;color:var(--sub);text-align:center;}
+/* ── 广场页 ── */
+.post-card {
+  background: #fff; border-radius: 16px; padding: 13px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 10px rgba(255,143,171,0.08);
+}
+.post-top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.post-av {
+  width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, #FFD6E5, #FF8FAB);
+  display: flex; align-items: center; justify-content: center; font-size: 15px;
+}
+.post-name { font-size: 12px; font-weight: 600; color: #4A4A4A; }
+.post-time { font-size: 10px; color: #bbb; }
+.post-tag {
+  margin-left: auto; font-size: 10px; padding: 2px 8px; border-radius: 50px;
+  background: #FFE8EF; color: #C04F6E; border: 1px solid #FFB3C6;
+}
+.post-body { font-size: 12px; line-height: 1.7; color: #4A4A4A; margin-bottom: 10px; }
+.post-acts { display: flex; gap: 10px; }
+.act-item { font-size: 11px; color: #bbb; display: flex; align-items: center; gap: 3px; }
+.act-item.liked { color: #5CB88A; }
 
-/* 按钮区 */
-.breath-btn-area{padding:12px 24px 24px;display:flex;gap:12px;}
+.write-bar {
+  background: #fff; border-radius: 50px; padding: 10px 16px;
+  margin-bottom: 14px; border: 1.5px solid #F0E6E6;
+  font-size: 12px; color: #ccc;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.write-bar-btn {
+  background: #FF8FAB; color: #fff; font-size: 11px;
+  padding: 4px 12px; border-radius: 50px; font-weight: 600;
+}
 
-/* 分享弹窗 - 信封风格 */
-#shareModal{position:fixed;inset:0;background:rgba(61,53,48,.45);z-index:9000;display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px);}
-#shareModal.open{display:flex;}
-.share-card{background:#FBF6F0;border-radius:26px;overflow:hidden;width:100%;max-width:320px;box-shadow:0 24px 64px rgba(0,0,0,.18);position:relative;}
-.share-top{padding:32px 24px 20px;text-align:center;}
-.share-close{position:absolute;top:14px;right:14px;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--bd);background:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--sub);}
-.share-card h3{font-size:20px;font-weight:900;color:var(--text);margin-bottom:8px;}
-.share-card p{font-size:13px;color:var(--sub);line-height:1.75;margin-bottom:20px;}
-.share-input{border:1.5px solid var(--coral-l);border-radius:50px;padding:12px 18px;width:100%;font-family:inherit;font-size:13px;color:var(--text);background:#fff;outline:none;text-align:center;margin-bottom:12px;}
-.share-input::placeholder{color:var(--coral-l);}
-/* 信封底部 */
-.share-envelope{position:relative;height:100px;overflow:hidden;margin-top:-10px;}
-.env-body{position:absolute;bottom:0;left:0;right:0;height:80px;background:#2ECC71;}
-.env-flap-l{position:absolute;bottom:20px;left:0;width:0;height:0;border-style:solid;border-width:60px 0 0 160px;border-color:transparent transparent transparent #27AE60;}
-.env-flap-r{position:absolute;bottom:20px;right:0;width:0;height:0;border-style:solid;border-width:60px 160px 0 0;border-color:transparent #27AE60 transparent transparent;}
-.env-letter{position:absolute;bottom:50px;left:50%;transform:translateX(-50%);width:160px;height:60px;background:#fff;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:var(--coral);box-shadow:0 2px 12px rgba(0,0,0,.1);}
-.share-send-btn{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:var(--coral);color:#fff;border:none;border-radius:50px;padding:10px 32px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(255,127,110,.4);z-index:2;white-space:nowrap;}
+/* ── 能量页 ── */
+.fortune-header {
+  background: linear-gradient(160deg, #6B3FA0 0%, #4A2080 100%);
+  padding: 16px 18px;
+  text-align: center; color: #fff;
+}
+.fortune-title { font-size: 17px; font-weight: 800; margin-bottom: 4px; }
+.fortune-sub   { font-size: 11px; opacity: .7; }
 
-/* 木鱼敲击动画 */
-@keyframes muyuPress{0%{transform:scale(1);}40%{transform:scale(.88);}100%{transform:scale(1);}}
-@keyframes muyuMerit{0%{opacity:1;transform:translateX(-50%) translateY(0);}100%{opacity:0;transform:translateX(-50%) translateY(-36px);}}
-@keyframes hammerSwing{0%{transform:rotate(0deg);}40%{transform:rotate(-28deg);}100%{transform:rotate(0deg);}}
-.muyu-hit{animation:muyuPress .18s ease-out;}
-.muyu-merit-fly{animation:muyuMerit .6s ease-out forwards;}
-.hammer-swing{animation:hammerSwing .18s ease-out;}
+.input-card {
+  background: #fff; border-radius: 18px; padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 12px rgba(107,63,160,0.08);
+}
+.input-row {
+  background: #F8F3FF; border-radius: 10px; padding: 10px 12px;
+  margin-bottom: 10px; font-size: 12px; color: #bbb;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.input-val { color: #4A4A4A; font-weight: 500; }
+.go-btn {
+  background: linear-gradient(135deg, #9B6ED4, #6B3FA0);
+  color: #fff; font-size: 13px; font-weight: 700;
+  padding: 11px; border-radius: 50px; text-align: center;
+}
 
-/* ── 能量 ── */
-.ftop{background:linear-gradient(160deg,#6B3FA0,#4A2080);padding:24px 18px 20px;border-radius:0 0 24px 24px;color:#fff;}
-.ftop h1{font-size:21px;font-weight:800;margin-bottom:4px;}
-.ftop p{font-size:12px;opacity:.7;}
-.ftabs{display:flex;gap:0;margin-bottom:16px;border-radius:14px;overflow:hidden;border:1.5px solid rgba(255,255,255,.18);background:rgba(0,0,0,.1);}
-.ftab{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;border:none;background:transparent;color:rgba(255,255,255,.6);font-family:inherit;transition:all .2s;}
-.ftab.act{background:rgba(255,255,255,.22);color:#fff;}
-.chat-wrap{display:flex;flex-direction:column;gap:10px;margin-bottom:14px;max-height:320px;overflow-y:auto;}
-.chat-msg{max-width:82%;padding:11px 15px;border-radius:18px;font-size:13px;line-height:1.75;}
-.chat-msg.ai{background:rgba(255,255,255,.15);color:#fff;border-bottom-left-radius:4px;align-self:flex-start;}
-.chat-msg.user{background:rgba(255,255,255,.92);color:var(--text);border-bottom-right-radius:4px;align-self:flex-end;}
-.chat-input{display:flex;gap:8px;margin-top:8px;}
-.chat-input input{flex:1;border-radius:50px;border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);color:#fff;padding:10px 16px;font-family:inherit;font-size:13px;outline:none;}
-.chat-input input::placeholder{color:rgba(255,255,255,.45);}
-.chat-input button{padding:10px 16px;border-radius:50px;border:none;background:rgba(255,255,255,.9);color:#6B3FA0;font-weight:700;cursor:pointer;font-family:inherit;font-size:13px;}
-.fcard{background:linear-gradient(160deg,#2D1B69,#6B2FA0);border-radius:var(--r);padding:20px;color:#fff;margin-bottom:14px;}
-.fring{text-align:center;margin:8px 0 14px;}
-.fbadge{display:inline-block;padding:4px 14px;border-radius:50px;background:rgba(255,255,255,.2);font-size:12px;font-weight:600;margin-bottom:14px;}
-.fgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px;}
-.fsec{background:rgba(255,255,255,.12);border-radius:12px;padding:10px 6px;text-align:center;}
-.fsic{font-size:18px;margin-bottom:4px;}
-.fsnm{font-size:9px;opacity:.7;margin-bottom:2px;}
-.fsst{font-size:11px;color:#FFD700;}
-.flucky{display:flex;justify-content:space-around;margin-bottom:12px;}
-.fli{text-align:center;}
-.fll{font-size:10px;opacity:.6;}
-.flv{font-size:13px;font-weight:700;margin-top:2px;}
-.fquote{background:rgba(255,255,255,.1);border-radius:10px;padding:12px;font-size:12px;line-height:1.85;border-left:2px solid rgba(255,215,0,.5);}
+.result-card {
+  background: linear-gradient(160deg, #2D1B69 0%, #6B2FA0 100%);
+  border-radius: 18px; padding: 18px; color: #fff;
+}
+.wx-badge {
+  display: inline-block; padding: 4px 12px; border-radius: 50px;
+  background: rgba(255,255,255,.2); font-size: 12px; font-weight: 600;
+  margin-bottom: 14px;
+}
+.result-ring { text-align: center; margin: 10px 0 16px; }
+.ring-big { font-size: 40px; font-weight: 800; }
+.ring-sub { font-size: 11px; opacity: .6; }
+.result-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.rg-item {
+  background: rgba(255,255,255,.1); border-radius: 10px;
+  padding: 10px 6px; text-align: center;
+}
+.rg-icon  { font-size: 18px; margin-bottom: 4px; }
+.rg-name  { font-size: 9px; opacity: .7; }
+.rg-stars { font-size: 11px; color: #FFD700; }
+.result-quote {
+  background: rgba(255,255,255,.1); border-radius: 10px; padding: 12px;
+  font-size: 11px; line-height: 1.8;
+  border-left: 2px solid rgba(255,215,0,.5);
+}
 
-/* ── 我的 ── */
-.myprofile{background:var(--pg);padding:32px 18px 24px;text-align:center;color:#fff;border-radius:0 0 28px 28px;}
-.myav{font-size:54px;margin-bottom:10px;}
-.mynamel{font-size:21px;font-weight:800;margin-bottom:4px;}
-.mysub{font-size:12px;opacity:.8;}
-.mystats{display:flex;justify-content:space-around;margin-top:16px;background:rgba(255,255,255,.18);border-radius:18px;padding:14px 0;}
-.stitem{text-align:center;}
-.stnum{font-size:24px;font-weight:800;}
-.stlbl{font-size:10px;opacity:.8;margin-top:2px;}
-.mitem{display:flex;align-items:center;justify-content:space-between;padding:15px 0;border-bottom:1px solid var(--bd);cursor:pointer;}
-.mitem:last-child{border-bottom:none;}
-.mleft{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text);}
-.mic{font-size:18px;width:28px;text-align:center;}
+/* ── 标注层 ── */
+.annotation {
+  position: absolute;
+  background: #FFE066;
+  color: #333;
+  font-size: 10px;
+  padding: 3px 8px;
+  border-radius: 50px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  z-index: 100;
+  pointer-events: none;
+}
+.annotation::before {
+  content: '→';
+  margin-right: 3px;
+}
+
+/* ── 顶部说明 ── */
+.intro {
+  max-width: 960px; margin: 0 auto 32px;
+  background: #fff; border-radius: 20px; padding: 24px 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+.intro h2 { font-size: 20px; color: #FF8FAB; margin-bottom: 8px; font-weight: 800; }
+.intro p  { font-size: 13px; color: #666; line-height: 1.8; }
+.intro .flow {
+  display: flex; align-items: center; gap: 10px; margin-top: 16px;
+  flex-wrap: wrap;
+}
+.flow-step {
+  background: #FFF0F5; border-radius: 10px; padding: 8px 14px;
+  font-size: 12px; color: #C04F6E; font-weight: 600;
+}
+.flow-arrow { color: #FF8FAB; font-size: 16px; }
 </style>
 </head>
 <body>
 
-<!-- 引导页 -->
-<div id="ob">
-  <div class="obcard">
-    <div style="text-align:center;font-size:36px;margin-bottom:10px">🌸</div>
-    <h2>你好，我是阿贝贝</h2>
-    <p class="obsub">你的情绪伴侣，先认识一下吧～</p>
-    <p class="oblabel">选一个头像</p>
-    <div class="avgrid">
-      <button class="avbtn sel" data-av="🦊" onclick="pickAv(this)">🦊</button>
-      <button class="avbtn" data-av="🐰" onclick="pickAv(this)">🐰</button>
-      <button class="avbtn" data-av="🐼" onclick="pickAv(this)">🐼</button>
-      <button class="avbtn" data-av="🐸" onclick="pickAv(this)">🐸</button>
-      <button class="avbtn" data-av="🦋" onclick="pickAv(this)">🦋</button>
-      <button class="avbtn" data-av="🌸" onclick="pickAv(this)">🌸</button>
-      <button class="avbtn" data-av="⭐" onclick="pickAv(this)">⭐</button>
-      <button class="avbtn" data-av="🍀" onclick="pickAv(this)">🍀</button>
-    </div>
-    <div class="obrow">
-      <p class="oblabel">起个昵称</p>
-      <input type="text" id="obname" placeholder="比如：打工人小李..." maxlength="10">
-    </div>
-    <div class="obrow">
-      <p class="oblabel">出生日期（用于能量占卜）</p>
-      <input type="date" id="obbdate" max="2010-01-01">
-    </div>
-    <div class="obrow">
-      <p class="oblabel">出生时辰（可选）</p>
-      <input type="time" id="obbtime">
-    </div>
-    <div class="obrow">
-      <p class="oblabel">出生地（可选）</p>
-      <input type="text" id="obbplace" placeholder="比如：北京、上海...">
-    </div>
-    <button class="btn" onclick="finishOb()">进入阿贝贝 🌸</button>
+<p style="text-align:center;color:#aaa;font-size:12px;margin-bottom:20px;letter-spacing:1px;">
+  阿贝贝 · 产品原型草图 v0.1 · PM出品
+</p>
+
+<!-- 说明 -->
+<div class="intro">
+  <h2>🌸 阿贝贝 — 你的情绪阿贝贝</h2>
+  <p>专为刚入职场的新人设计。每天花5分钟，记录今天的心情，阿贝贝陪你看见自己的状态变化、给你温暖建议，让你知道你不孤单。</p>
+  <div class="flow">
+    <div class="flow-step">📝 记录今日情绪</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">💌 收到阿贝贝建议</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">📊 看情绪趋势</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">🍀 去广场感受陪伴</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">🔮 顺手看能量</div>
   </div>
 </div>
 
-<!-- 今日 -->
-<div id="pg-today" class="pg act">
-  <div class="topbar">
-    <div class="toprow">
-      <div><h1>🌸 阿贝贝</h1><p id="topdate"></p></div>
-      <button class="uchip" onclick="goTab('my')">
-        <span class="uav" id="topav">🦊</span>
-        <span class="unm" id="topnm">我</span>
-      </button>
-    </div>
-  </div>
-  <div style="padding:16px 16px 0">
-    <div class="card">
-      <p class="clabel">今日签到</p>
-      <p class="ctitle">今天感觉怎么样？</p>
-      <div class="moodrow">
-        <button class="mbtn" onclick="pickMood(1,this)"><span class="em">😔</span>低落</button>
-        <button class="mbtn" onclick="pickMood(2,this)"><span class="em">😕</span>有点难</button>
-        <button class="mbtn" onclick="pickMood(3,this)"><span class="em">😐</span>还好</button>
-        <button class="mbtn" onclick="pickMood(4,this)"><span class="em">🙂</span>不错</button>
-        <button class="mbtn" onclick="pickMood(5,this)"><span class="em">😊</span>很棒</button>
-      </div>
-      <textarea id="mnote" placeholder="今天发生了什么，写下来吧..."></textarea>
-      <div style="height:12px"></div>
-      <button class="btn" onclick="saveMood()">告诉阿贝贝 ✨</button>
-    </div>
-    <div class="card">
-      <p class="clabel">情绪趋势</p>
-      <p class="ctitle">最近7天</p>
-      <canvas id="chart" height="140"></canvas>
-    </div>
-    <div class="card">
-      <p class="clabel">阿贝贝说</p>
-      <div class="tipbox" id="tipbox">
-        <div class="tipmeta">💌 今日小建议</div>先记录今天的心情，阿贝贝会给你专属建议～
-      </div>
-    </div>
-  </div>
-</div>
+<div class="screens">
 
-<!-- 广场 -->
-<div id="pg-community" class="pg">
-  <div class="topbar">
-    <div class="toprow"><div><h1>🍀 治愈广场</h1><p>你不是一个人</p></div></div>
-  </div>
-  <div style="padding:16px 16px 0">
-    <button class="writebar" onclick="openPM()">
-      <span class="wph">说说今天的感受...</span>
-      <span class="wbtn">发布</span>
-    </button>
-    <div class="tagsrow" id="filterrow">
-      <button class="ftag t-all sel" onclick="filterTag('all',this)"><span>全部</span></button>
-      <button class="ftag t-迷茫" onclick="filterTag('迷茫',this)"><span>迷茫</span></button>
-      <button class="ftag t-压力" onclick="filterTag('压力',this)"><span>压力</span></button>
-      <button class="ftag t-疲惫" onclick="filterTag('疲惫',this)"><span>疲惫</span></button>
-      <button class="ftag t-寻求平衡" onclick="filterTag('寻求平衡',this)"><span>寻求平衡</span></button>
-      <button class="ftag t-小确幸" onclick="filterTag('小确幸',this)"><span>小确幸</span></button>
-    </div>
-    <div id="postlist"></div>
-  </div>
-</div>
+  <!-- ══ 屏幕1：今日 ══ -->
+  <div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen" style="background:#FFF8F3;">
 
-<!-- 发帖弹窗 -->
-<div id="pmodal" onclick="closePM(event)">
-  <div class="pmsheet">
-    <p class="pmtitle">说说你的心情</p>
-    <div class="pmtags" id="pmtags">
-      <button class="ftag t-迷茫" onclick="pmPickTag(this,'迷茫')"><span>迷茫</span></button>
-      <button class="ftag t-压力" onclick="pmPickTag(this,'压力')"><span>压力</span></button>
-      <button class="ftag t-疲惫" onclick="pmPickTag(this,'疲惫')"><span>疲惫</span></button>
-      <button class="ftag t-寻求平衡" onclick="pmPickTag(this,'寻求平衡')"><span>寻求平衡</span></button>
-      <button class="ftag t-小确幸" onclick="pmPickTag(this,'小确幸')"><span>小确幸</span></button>
-    </div>
-    <textarea id="pmtext" placeholder="说出你的感受，这里的人都懂你..." rows="4" style="margin-bottom:14px"></textarea>
-    <button class="btn" onclick="submitPost()">发布 🍀</button>
-  </div>
-</div>
-
-<!-- 呼吸训练 -->
-<div id="pg-breath" class="pg">
-  <div class="breath-scene">
-    <!-- 云朵装饰 -->
-    <div class="cloud cloud-tl"></div>
-    <div class="cloud cloud-tr"></div>
-    <div class="cloud cloud-bl"></div>
-    <div class="cloud cloud-br"></div>
-
-    <!-- 标题 -->
-    <p class="breath-title">4 · 2 · 6</p>
-    <h1 class="breath-h1">呼吸练习</h1>
-    <p class="breath-sub">吸气4秒 · 屏息2秒 · 呼气6秒<br>给自己2分钟</p>
-
-    <!-- 打坐爱心人 SVG插画 -->
-    <div class="breath-avatar">
-      <div class="breath-aura" id="bAura"></div>
-      <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- 身体（心形+打坐） -->
-        <!-- 心形身体 -->
-        <path d="M100 158 C60 130 30 110 30 80 C30 58 48 44 68 44 C82 44 94 52 100 62 C106 52 118 44 132 44 C152 44 170 58 170 80 C170 110 140 130 100 158Z" fill="#FF7F6E"/>
-        <!-- 闭眼 左 -->
-        <path d="M78 82 Q83 78 88 82" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/>
-        <!-- 闭眼 右 -->
-        <path d="M112 82 Q117 78 122 82" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/>
-        <!-- 微笑 -->
-        <path d="M90 96 Q100 104 110 96" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <!-- 左臂 -->
-        <path d="M50 105 Q38 118 42 132 Q46 142 56 138" stroke="#FF7F6E" stroke-width="10" stroke-linecap="round" fill="none"/>
-        <!-- 右臂 -->
-        <path d="M150 105 Q162 118 158 132 Q154 142 144 138" stroke="#FF7F6E" stroke-width="10" stroke-linecap="round" fill="none"/>
-        <!-- 左手 (禅定手势) -->
-        <circle cx="48" cy="136" r="8" fill="#FF9A8B"/>
-        <!-- 右手 -->
-        <circle cx="152" cy="136" r="8" fill="#FF9A8B"/>
-        <!-- 左腿 -->
-        <path d="M68 155 Q58 168 72 174 Q86 180 92 165" stroke="#FF7F6E" stroke-width="10" stroke-linecap="round" fill="none"/>
-        <!-- 右腿 -->
-        <path d="M132 155 Q142 168 128 174 Q114 180 108 165" stroke="#FF7F6E" stroke-width="10" stroke-linecap="round" fill="none"/>
-        <!-- 左脚 -->
-        <ellipse cx="82" cy="170" rx="10" ry="6" fill="#FF9A8B"/>
-        <!-- 右脚 -->
-        <ellipse cx="118" cy="170" rx="10" ry="6" fill="#FF9A8B"/>
-      </svg>
-    </div>
-
-    <!-- 状态文字 -->
-    <div class="breath-state-wrap">
-      <div id="bStateIdle" class="breath-state-idle">点击开始，跟着节奏呼吸 🌬️</div>
-      <div id="bStateActive" style="display:none;text-align:center">
-        <div class="breath-state-word" id="bWord">吸气</div>
-        <div class="breath-state-count" id="bCount">4s</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 进度 + 按钮 -->
-  <div class="breath-prog-area">
-    <div class="breath-prog-bar"><div class="breath-prog-fill" id="bProgFill"></div></div>
-    <div class="breath-prog-lbl" id="bProgLbl">0 / 10 轮</div>
-  </div>
-  <div class="breath-btn-area">
-    <button class="btn btn-blue" id="bStartBtn" onclick="breathStart()">开始练习 🌬️</button>
-    <button class="btn" id="bStopBtn" onclick="breathStop()" style="display:none;background:#EDE7E0;box-shadow:none;color:var(--sub);flex:0 0 80px">停止</button>
-  </div>
-  <div style="padding:0 24px 24px">
-    <div class="card" style="text-align:center;padding:16px 14px;background:#fff">
-      <p style="font-size:12px;color:var(--sub);line-height:1.9">4-2-6 呼吸法激活副交感神经<br>帮你平复焦虑、放松身心 🌿<br>建议每天练习 1-2 次</p>
-    </div>
-  </div>
-
-  <!-- 木鱼区块 -->
-  <div style="padding:0 16px 32px">
-    <div class="card" style="text-align:center;padding:24px 20px 20px">
-      <p class="clabel" style="margin-bottom:2px">功德无量</p>
-      <p class="ctitle" style="text-align:center;margin-bottom:0">敲木鱼</p>
-      <p style="font-size:12px;color:var(--sub);margin-bottom:20px">心烦意乱时，咚咚咚</p>
-
-      <!-- 木鱼 SVG -->
-      <div style="position:relative;display:inline-block;margin-bottom:16px">
-        <!-- 功德飞起 -->
-        <div id="muyu-merit" style="position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:13px;font-weight:700;color:var(--coral);opacity:0;pointer-events:none;white-space:nowrap;transition:none">+1 功德</div>
-        <button id="muyuBtn" onclick="knockMuyu()" style="background:none;border:none;cursor:pointer;padding:0;display:block;transition:transform .08s;">
-          <svg width="140" height="140" viewBox="0 0 140 140" fill="none">
-            <!-- 木鱼身体 -->
-            <ellipse cx="70" cy="80" rx="54" ry="42" fill="#C8843A"/>
-            <ellipse cx="70" cy="78" rx="50" ry="38" fill="#D4943E"/>
-            <!-- 光泽 -->
-            <ellipse cx="58" cy="62" rx="16" ry="10" fill="rgba(255,255,255,.18)" transform="rotate(-20 58 62)"/>
-            <!-- 开口缝 -->
-            <path d="M38 80 Q70 88 102 80" stroke="#A06828" stroke-width="3" stroke-linecap="round" fill="none"/>
-            <!-- 眼睛 左 -->
-            <circle cx="52" cy="72" r="5" fill="#7A4A1A"/>
-            <circle cx="53" cy="71" r="2" fill="#fff" opacity=".5"/>
-            <!-- 眼睛 右 -->
-            <circle cx="88" cy="72" r="5" fill="#7A4A1A"/>
-            <circle cx="89" cy="71" r="2" fill="#fff" opacity=".5"/>
-            <!-- 木鱼柄/顶部 -->
-            <ellipse cx="70" cy="40" rx="10" ry="14" fill="#C8843A"/>
-            <ellipse cx="70" cy="38" rx="8" ry="11" fill="#D4943E"/>
-            <circle cx="70" cy="28" r="7" fill="#C8843A"/>
-            <!-- 木槌 -->
-            <g id="muyuHammer" style="transform-origin:30px 20px;transform:rotate(0deg);transition:transform .08s">
-              <line x1="100" y1="30" x2="118" y2="50" stroke="#8B6340" stroke-width="6" stroke-linecap="round"/>
-              <ellipse cx="122" cy="54" rx="10" ry="8" fill="#A07040" transform="rotate(40 122 54)"/>
-            </g>
-          </svg>
-        </button>
-      </div>
-
-      <!-- 计数显示 -->
-      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px">
-        <div style="text-align:center">
-          <div id="muyuCount" style="font-size:40px;font-weight:900;color:var(--coral);line-height:1">0</div>
-          <div style="font-size:11px;color:var(--sub);margin-top:2px">今日功德</div>
+        <!-- header -->
+        <div class="s-header">
+          <div class="s-header-top">
+            <div>
+              <div class="app-name">🌸 阿贝贝</div>
+              <div class="app-sub">你的情绪阿贝贝</div>
+            </div>
+            <div class="header-avatar">🦊</div>
+          </div>
+          <div class="date-bar">📅 3月19日 星期三</div>
         </div>
-        <div style="width:1px;height:40px;background:var(--bd)"></div>
-        <div style="text-align:center">
-          <div id="muyuTotal" style="font-size:24px;font-weight:700;color:var(--sub);line-height:1">0</div>
-          <div style="font-size:11px;color:var(--sub);margin-top:2px">累计功德</div>
+
+        <div class="s-body">
+
+          <!-- 情绪打卡 -->
+          <div class="card">
+            <div class="card-label">今日签到</div>
+            <div class="card-title">今天感觉怎么样？</div>
+            <div class="mood-row">
+              <div class="mood-item"><span class="mood-em">😔</span>低落</div>
+              <div class="mood-item"><span class="mood-em">😕</span>有点难</div>
+              <div class="mood-item sel"><span class="mood-em">😐</span>还好</div>
+              <div class="mood-item"><span class="mood-em">🙂</span>不错</div>
+              <div class="mood-item"><span class="mood-em">😊</span>很棒</div>
+            </div>
+            <div style="background:#F8F3FF;border-radius:10px;padding:10px 12px;font-size:11px;color:#bbb;margin-bottom:10px;">
+              今天开了个3小时的会，脑子转不动了...
+            </div>
+            <div style="background:#FF8FAB;color:#fff;font-size:12px;font-weight:700;padding:10px;border-radius:50px;text-align:center;">
+              ✨ 告诉阿贝贝
+            </div>
+          </div>
+
+          <!-- 趋势 + 能量 -->
+          <div class="two-col">
+            <div class="mini-card">
+              <div class="mini-title">📊 近7天情绪</div>
+              <div class="mini-chart">
+                <div class="bar" style="height:40%"></div>
+                <div class="bar" style="height:60%"></div>
+                <div class="bar" style="height:30%"></div>
+                <div class="bar" style="height:70%"></div>
+                <div class="bar" style="height:50%"></div>
+                <div class="bar" style="height:65%"></div>
+                <div class="bar today" style="height:55%"></div>
+              </div>
+              <div style="font-size:9px;color:#bbb;margin-top:4px;text-align:right;">今天</div>
+            </div>
+            <div class="mini-card">
+              <div class="mini-title">🔮 今日能量</div>
+              <div class="energy-mini">
+                <div class="energy-num">78</div>
+                <div class="energy-label">木命 · 本周能量</div>
+                <div class="energy-bar-wrap">
+                  <div class="energy-bar"></div>
+                </div>
+              </div>
+              <div style="font-size:9px;color:#FF8FAB;margin-top:8px;text-align:center;font-weight:600;">
+                查看完整解读 →
+              </div>
+            </div>
+          </div>
+
+          <!-- 建议 -->
+          <div class="tip-card">
+            <div class="tip-emoji">💌</div>
+            <div style="font-size:11px;color:#C04F6E;font-weight:700;margin-bottom:5px;">阿贝贝说</div>
+            <div class="tip-text">
+              平稳的一天也很珍贵。傍晚散步15分钟吧，不用带目的，让思绪随风飘一会儿～
+            </div>
+            <div class="tip-action">去看看 🌿</div>
+          </div>
+
         </div>
-      </div>
-      <div id="muyuTitle" style="font-size:12px;color:var(--coral);font-weight:600;min-height:18px"></div>
-    </div>
-  </div>
-</div>
 
-<!-- 完成分享弹窗 -->
-<div id="shareModal" onclick="closeShare(event)">
-  <div class="share-card">
-    <button class="share-close" onclick="closeShare()">×</button>
-    <div class="share-top">
-      <h3>分享给需要的人</h3>
-      <p>如果这个练习帮你平静了下来<br>把它传递给身边的人吧 🌸</p>
-      <input class="share-input" placeholder="输入朋友的微信昵称..." readonly onfocus="this.blur()">
-    </div>
-    <div class="share-envelope">
-      <div class="env-body"></div>
-      <div class="env-flap-l"></div>
-      <div class="env-flap-r"></div>
-      <div class="env-letter">🌸 传递</div>
-      <button class="share-send-btn" onclick="shareBreath()">分享到广场</button>
-    </div>
-  </div>
-</div>
-
-<!-- 能量 -->
-<div id="pg-fortune" class="pg">
-  <div class="ftop">
-    <h1>🔮 今日能量</h1>
-    <p>东方命理 · 读懂你的当下</p>
-  </div>
-  <div style="padding:16px 16px 0">
-    <div class="fcard">
-      <div class="ftabs">
-        <button class="ftab act" id="ftab-chat" onclick="switchFTab('chat')">✨ AI占卜对话</button>
-        <button class="ftab" id="ftab-daily" onclick="switchFTab('daily')">📅 每日运势</button>
-      </div>
-      <div id="fchat">
-        <div class="chat-wrap" id="chatWrap"></div>
-        <div class="chat-input">
-          <input type="text" id="chatInput" placeholder="问问阿贝贝..." onkeydown="if(event.key==='Enter')sendChat()">
-          <button onclick="sendChat()">发送</button>
+        <!-- 底部导航 -->
+        <div class="tab-bar">
+          <div class="tab-item act"><span class="tab-icon">🌸</span>今日</div>
+          <div class="tab-item"><span class="tab-icon">🍀</span>广场</div>
+          <div class="tab-item"><span class="tab-icon">🔮</span>能量</div>
+          <div class="tab-item"><span class="tab-icon">👤</span>我的</div>
         </div>
-      </div>
-      <div id="fdaily" style="display:none">
-        <div id="fdailyContent"></div>
-        <button class="btn" style="background:rgba(255,255,255,.18);box-shadow:none;margin-top:4px" onclick="genDaily()">重新解读 🔄</button>
+
       </div>
     </div>
+    <div class="phone-label">① 今日 · 核心页</div>
   </div>
+
+  <!-- ══ 屏幕2：广场 ══ -->
+  <div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen" style="background:#FFF8F3;">
+
+        <div class="s-header">
+          <div class="s-header-top">
+            <div>
+              <div class="app-name">🍀 治愈广场</div>
+              <div class="app-sub">你不是一个人</div>
+            </div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.9);background:rgba(255,255,255,0.2);padding:4px 10px;border-radius:50px;">
+              + 说说
+            </div>
+          </div>
+        </div>
+
+        <div class="s-body">
+
+          <!-- 写帖子入口 -->
+          <div class="write-bar">
+            <span>说说今天的感受...</span>
+            <span class="write-bar-btn">发布</span>
+          </div>
+
+          <!-- 标签筛选 -->
+          <div style="display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:4px;">
+            <span style="padding:4px 12px;border-radius:50px;background:#FF8FAB;color:#fff;font-size:11px;white-space:nowrap;font-weight:600;">全部</span>
+            <span style="padding:4px 12px;border-radius:50px;background:#fff;border:1px solid #F0E6E6;color:#bbb;font-size:11px;white-space:nowrap;">迷茫</span>
+            <span style="padding:4px 12px;border-radius:50px;background:#fff;border:1px solid #F0E6E6;color:#bbb;font-size:11px;white-space:nowrap;">压力</span>
+            <span style="padding:4px 12px;border-radius:50px;background:#fff;border:1px solid #F0E6E6;color:#bbb;font-size:11px;white-space:nowrap;">疲惫</span>
+            <span style="padding:4px 12px;border-radius:50px;background:#fff;border:1px solid #F0E6E6;color:#bbb;font-size:11px;white-space:nowrap;">小确幸</span>
+          </div>
+
+          <!-- 帖子1 -->
+          <div class="post-card">
+            <div class="post-top">
+              <div class="post-av">🦊</div>
+              <div>
+                <div class="post-name">努力打工人</div>
+                <div class="post-time">2小时前</div>
+              </div>
+              <div class="post-tag">疲惫</div>
+            </div>
+            <div class="post-body">又加班到10点，坐地铁回家，突然想问我这么拼到底是为了什么...</div>
+            <div class="post-acts">
+              <div class="act-item liked">🍀 幸运草 34</div>
+              <div class="act-item">💚 治愈 12</div>
+            </div>
+          </div>
+
+          <!-- 帖子2 -->
+          <div class="post-card">
+            <div class="post-top">
+              <div class="post-av">🐰</div>
+              <div>
+                <div class="post-name">迷途小鹿</div>
+                <div class="post-time">5小时前</div>
+              </div>
+              <div class="post-tag" style="background:#F5EEFF;color:#7B5EA7;border-color:#D4BBFF;">迷茫</div>
+            </div>
+            <div class="post-body">室友都拿到offer了，我投了几十份还没有回音。感觉自己是不是太差了...</div>
+            <div class="post-acts">
+              <div class="act-item">🍀 幸运草 56</div>
+              <div class="act-item">💚 治愈 23</div>
+            </div>
+          </div>
+
+          <!-- 帖子3 -->
+          <div class="post-card">
+            <div class="post-top">
+              <div class="post-av">⭐</div>
+              <div>
+                <div class="post-name">薪资焦虑猫</div>
+                <div class="post-time">昨天</div>
+              </div>
+              <div class="post-tag" style="background:#E8F8F0;color:#2D8A60;border-color:#B5E5CF;">小确幸</div>
+            </div>
+            <div class="post-body">买了束9块9的小雏菊放工位，整个下午心情都好好 🌼</div>
+            <div class="post-acts">
+              <div class="act-item">🍀 幸运草 103</div>
+              <div class="act-item">💚 治愈 52</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="tab-bar">
+          <div class="tab-item"><span class="tab-icon">🌸</span>今日</div>
+          <div class="tab-item act"><span class="tab-icon">🍀</span>广场</div>
+          <div class="tab-item"><span class="tab-icon">🔮</span>能量</div>
+          <div class="tab-item"><span class="tab-icon">👤</span>我的</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="phone-label">② 治愈广场</div>
+  </div>
+
+  <!-- ══ 屏幕3：能量占卜 ══ -->
+  <div>
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="phone-screen" style="background:#F5F0FF;">
+
+        <div class="fortune-header">
+          <div class="fortune-title">🔮 今日能量</div>
+          <div class="fortune-sub">奇门遁甲 · 读懂你的当下</div>
+        </div>
+
+        <div class="s-body" style="padding-top:14px;" id="fortune-body">
+
+          <!-- 输入卡（登录信息已预填）-->
+          <div class="input-card">
+            <div class="card-label">已读取你的档案</div>
+            <div class="input-row">
+              <span>出生日期</span>
+              <span class="input-val" id="f-birthday">1999年8月15日</span>
+            </div>
+            <div class="input-row" style="margin-bottom:12px;">
+              <span>最近困扰</span>
+              <select id="f-concern" style="border:none;background:transparent;font-size:12px;color:#4A4A4A;font-weight:500;outline:none;cursor:pointer;">
+                <option value="职业迷茫">职业迷茫 ▾</option>
+                <option value="感情困惑">感情困惑</option>
+                <option value="财务压力">财务压力</option>
+                <option value="人际关系">人际关系</option>
+                <option value="健康状态">健康状态</option>
+                <option value="整体运势">整体运势</option>
+              </select>
+            </div>
+            <div class="go-btn" id="fortune-btn" onclick="startFortune()" style="cursor:pointer;">✨ 解读我的能量</div>
+          </div>
+
+          <!-- 加载中状态（默认隐藏）-->
+          <div id="fortune-loading" style="display:none;text-align:center;padding:30px 0;">
+            <div style="font-size:32px;margin-bottom:12px;" id="loading-spinner">🔮</div>
+            <div style="font-size:13px;color:#9B6ED4;font-weight:600;" id="loading-text">奇门遁甲推算中...</div>
+            <div style="font-size:11px;color:#bbb;margin-top:6px;">正在排盘，请稍候</div>
+          </div>
+
+          <!-- 结果卡（默认隐藏）-->
+          <div class="result-card" id="fortune-result" style="display:none;">
+            <div style="font-size:12px;opacity:.7;margin-bottom:6px;" id="r-year"></div>
+            <div class="wx-badge" id="r-element"></div>
+
+            <div class="result-ring">
+              <div style="font-size:11px;opacity:.7;margin-bottom:4px;">今日整体能量</div>
+              <div class="ring-big" id="r-score">--</div>
+              <div class="ring-sub" id="r-phase">/ 100</div>
+            </div>
+
+            <div class="result-grid">
+              <div class="rg-item">
+                <div class="rg-icon">💼</div>
+                <div class="rg-name">事业运</div>
+                <div class="rg-stars" id="r-career">★★★☆☆</div>
+              </div>
+              <div class="rg-item">
+                <div class="rg-icon">💖</div>
+                <div class="rg-name">情感运</div>
+                <div class="rg-stars" id="r-love">★★★☆☆</div>
+              </div>
+              <div class="rg-item">
+                <div class="rg-icon">💰</div>
+                <div class="rg-name">财运</div>
+                <div class="rg-stars" id="r-wealth">★★★☆☆</div>
+              </div>
+            </div>
+
+            <div class="result-quote" id="r-quote" style="white-space:pre-line;line-height:1.9;font-size:11px;"></div>
+
+            <!-- 免责声明 -->
+            <div style="margin-top:14px;padding:10px 12px;background:rgba(255,255,255,0.08);border-radius:10px;font-size:9.5px;color:rgba(255,255,255,0.5);line-height:1.7;text-align:center;">
+              ⚠️ 以上内容基于奇门遁甲命理推算，仅供娱乐参考，不构成任何决策建议。玄学有其局限性，请理性看待，重大事项请结合自身实际情况判断。
+            </div>
+          </div>
+
+          <!-- 错误提示（默认隐藏）-->
+          <div id="fortune-error" style="display:none;background:#fff;border-radius:14px;padding:20px;text-align:center;margin-top:8px;">
+            <div style="font-size:24px;margin-bottom:8px;">😔</div>
+            <div style="font-size:12px;color:#C04F6E;font-weight:600;margin-bottom:4px;">推算失败</div>
+            <div style="font-size:11px;color:#bbb;" id="error-msg">请检查网络后重试</div>
+            <div style="margin-top:12px;background:#9B6ED4;color:#fff;font-size:11px;padding:8px 20px;border-radius:50px;display:inline-block;cursor:pointer;" onclick="resetFortune()">重新推算</div>
+          </div>
+
+        </div>
+
+        <div class="tab-bar" style="background:#fff;">
+          <div class="tab-item"><span class="tab-icon">🌸</span>今日</div>
+          <div class="tab-item"><span class="tab-icon">🍀</span>广场</div>
+          <div class="tab-item act" style="color:#9B6ED4;"><span class="tab-icon">🔮</span>能量</div>
+          <div class="tab-item"><span class="tab-icon">👤</span>我的</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="phone-label">③ 今日能量</div>
+  </div>
+
 </div>
 
-<!-- 我的 -->
-<div id="pg-my" class="pg">
-  <div class="myprofile">
-    <div class="myav" id="myav">🦊</div>
-    <div class="mynamel" id="mynm">昵称</div>
-    <div class="mysub">阿贝贝的朋友</div>
-    <div class="mystats">
-      <div class="stitem"><div class="stnum" id="stdays">0</div><div class="stlbl">记录天数</div></div>
-      <div class="stitem"><div class="stnum" id="stposts">0</div><div class="stlbl">我的发帖</div></div>
-      <div class="stitem"><div class="stnum" id="stavg">-</div><div class="stlbl">平均情绪</div></div>
+<div style="max-width:960px;margin:32px auto 0;background:#fff;border-radius:20px;padding:22px 28px;box-shadow:0 4px 20px rgba(0,0,0,0.06);">
+  <p style="font-size:13px;font-weight:700;color:#4A4A4A;margin-bottom:12px;">📋 设计说明</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;">
+    <div>
+      <p style="font-size:12px;font-weight:700;color:#FF8FAB;margin-bottom:6px;">① 今日页（核心）</p>
+      <p style="font-size:11px;color:#888;line-height:1.8;">
+        · 情绪打卡是第一入口<br>
+        · 趋势图+能量值小卡并排<br>
+        · 阿贝贝建议卡在下方<br>
+        · 底部导航4个tab
+      </p>
+    </div>
+    <div>
+      <p style="font-size:12px;font-weight:700;color:#5CB88A;margin-bottom:6px;">② 治愈广场</p>
+      <p style="font-size:11px;color:#888;line-height:1.8;">
+        · 顶部快速发帖入口<br>
+        · 情绪标签可筛选<br>
+        · 🍀幸运草=点赞<br>
+        · 💚治愈=评论/鼓励
+      </p>
+    </div>
+    <div>
+      <p style="font-size:12px;font-weight:700;color:#9B6ED4;margin-bottom:6px;">③ 今日能量</p>
+      <p style="font-size:11px;color:#888;line-height:1.8;">
+        · 输入生日+困扰方向<br>
+        · 五行属性+能量值<br>
+        · 三维运势+命理寄语<br>
+        · 每天可重新解读
+      </p>
     </div>
   </div>
-  <div style="padding:16px">
-    <div class="card">
-      <div class="mitem" onclick="editProfile()">
-        <div class="mleft"><span class="mic">✏️</span>编辑资料</div>
-        <span style="color:var(--sub)">›</span>
-      </div>
-      <div class="mitem" onclick="goTab('breath')">
-        <div class="mleft"><span class="mic">🌬️</span>去呼吸练习</div>
-        <span style="color:var(--sub)">›</span>
-      </div>
-      <div class="mitem" onclick="clearData()">
-        <div class="mleft"><span class="mic">🗑️</span>清空所有数据</div>
-        <span style="color:var(--sub)">›</span>
-      </div>
-    </div>
-    <p style="text-align:center;font-size:12px;color:#C5B8B0;margin-top:10px">阿贝贝 v2.1 · 你的情绪伴侣 🌸</p>
-  </div>
 </div>
-
-<!-- 底部导航 -->
-<div class="tabbar">
-  <button class="ti act" id="ti-today" onclick="goTab('today')"><span class="ico">🌸</span>今日</button>
-  <button class="ti" id="ti-community" onclick="goTab('community')"><span class="ico">🍀</span>广场</button>
-  <button class="ti" id="ti-breath" onclick="goTab('breath')"><span class="ico">🌬️</span>呼吸</button>
-  <button class="ti" id="ti-fortune" onclick="goTab('fortune')"><span class="ico">🔮</span>能量</button>
-  <button class="ti" id="ti-my" onclick="goTab('my')"><span class="ico">👤</span>我的</button>
-</div>
-<div id="toast"></div>
 
 <script>
-function $(id){return document.getElementById(id);}
-function toast(msg){var el=$('toast');el.textContent=msg;el.classList.add('show');setTimeout(function(){el.classList.remove('show');},2400);}
-function todayStr(){return new Date().toISOString().slice(0,10);}
-function timeAgo(ts){var s=(Date.now()-ts)/1000;if(s<60)return'刚刚';if(s<3600)return Math.floor(s/60)+'分钟前';if(s<86400)return Math.floor(s/3600)+'小时前';return Math.floor(s/86400)+'天前';}
+// ── 模拟登录用户信息 ──
+const USER_PROFILE = {
+  name: "小鹿",
+  birthday: "1999-08-15",
+  birthdayDisplay: "1999年8月15日"
+};
 
-// ── 用户 ──
-var user=JSON.parse(localStorage.getItem('u')||'null');
-var selAv='🦊';
+// ── DeepSeek API 配置 ──
+const DEEPSEEK_API_KEY = "sk-ad5a02cf2c0842bdbe27d69e9b8c9b21";
+const DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions";
 
-function pickAv(btn){
-  document.querySelectorAll('.avbtn').forEach(function(b){b.classList.remove('sel');});
-  btn.classList.add('sel');
-  selAv=btn.getAttribute('data-av');
+// ── 工具函数：获取今日干支 ──
+function getTodayGanZhi() {
+  const now = new Date();
+  const gan  = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+  const zhi  = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+  // 以2000-01-07甲子为基准（天文基准日）
+  const base = new Date(2000, 0, 7);
+  const diff = Math.floor((now - base) / 86400000);
+  const ganIdx = ((diff % 10) + 10) % 10;
+  const zhiIdx = ((diff % 12) + 12) % 12;
+  return `${gan[ganIdx]}${zhi[zhiIdx]}日`;
 }
 
-function finishOb(){
-  var nm=$('obname').value.trim();
-  if(!nm){toast('给自己起个昵称吧 🌸');return;}
-  user={av:selAv,name:nm,bdate:$('obbdate').value,btime:$('obbtime').value,bplace:$('obbplace').value.trim()};
-  localStorage.setItem('u',JSON.stringify(user));
-  $('ob').classList.add('hidden');
-  refreshUser();
-  initChat();
+// ── 工具函数：获取年份天干地支 ──
+function getYearGanZhi(year) {
+  const gan = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+  const zhi = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+  const ganIdx = (year - 4) % 10;
+  const zhiIdx = (year - 4) % 12;
+  return `${gan[((ganIdx%10)+10)%10]}${zhi[((zhiIdx%12)+12)%12]}`;
 }
 
-function refreshUser(){
-  if(!user)return;
-  $('topav').textContent=user.av;$('topnm').textContent=user.name;
-  $('myav').textContent=user.av;$('mynm').textContent=user.name;
-  var moods=getMoods();
-  $('stdays').textContent=moods.length;
-  $('stposts').textContent=getPosts().filter(function(p){return p.isMe;}).length;
-  if(moods.length){$('stavg').textContent=(moods.reduce(function(s,x){return s+x.val;},0)/moods.length).toFixed(1);}
-}
-
-function editProfile(){
-  $('ob').classList.remove('hidden');
-  if(user){
-    $('obname').value=user.name||'';
-    $('obbdate').value=user.bdate||'';
-    $('obbtime').value=user.btime||'';
-    $('obbplace').value=user.bplace||'';
-    document.querySelectorAll('.avbtn').forEach(function(b){b.classList.toggle('sel',b.getAttribute('data-av')===user.av);});
-    selAv=user.av;
-  }
-}
-
-if(user){$('ob').classList.add('hidden');}
-
-// ── Tab ──
-var TABS=['today','community','breath','fortune','my'];
-function goTab(name){
-  TABS.forEach(function(n){
-    $('pg-'+n).classList.toggle('act',n===name);
-    $('ti-'+n).classList.toggle('act',n===name);
-  });
-  if(name==='today')drawChart();
-  if(name==='community')renderPosts();
-  if(name==='my')refreshUser();
-  if(name==='fortune'){initChat();genDaily();}
-  window.scrollTo(0,0);
-}
-
-(function(){
-  var d=new Date();var wk=['日','一','二','三','四','五','六'];
-  $('topdate').textContent=d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日 · 星期'+wk[d.getDay()];
-})();
-
-// ── 情绪 ──
-var selMood=0;
-
-function genTip(val,note){
-  var base={
-    1:['今天感觉很低落，这很正常。\n\n先照顾好自己的身体——喝杯热水，吃点东西。不需要今天解决所有问题，能撑过今天就很好了。🌸',
-       '低落的时候，试着做一件很小的事：整理桌面，或者出门走5分钟。不是为了振作，只是换换空气。🌿'],
-    2:['有点难熬的一天。那些让你困扰的事，今晚可以先放一放。\n\n泡杯热茶，给自己20分钟的休息时间。🍵',
-       '卡住的感觉很折磨人。但很多时候，休息之后再看，事情没有想象的那么难。🌙'],
-    3:['平稳的一天，这种感觉也很好。\n\n傍晚如果有时间，出门走走吧，感受一下风和空气。🌿',
-       '普通的日子也值得好好过。今天有没有一件小事让你觉得还不错？把它记下来。⭐'],
-    4:['今天状态不错！把让你开心的事记下来，低谷时翻出来看，是你给未来自己的礼物。⭐',
-       '好状态的时候，做一件平时没勇气做的小事——发消息给想联系的朋友。🌟'],
-    5:['今天很棒！好好记住这种感觉。\n\n把这份快乐分享出去，给朋友发条消息，今天是个好日子。🎉',
-       '状态满满！趁着这股劲，做一件一直想尝试的事。🚀']
+// ── 工具函数：五行属性 ──
+function getWuXing(year) {
+  const map = {0:"金",1:"金",2:"水",3:"水",4:"木",5:"木",6:"火",7:"火",8:"土",9:"土"};
+  const traits = {
+    "金":"果断刚毅、重情重义",
+    "木":"富有创意、温和包容",
+    "水":"智慧灵动、适应力强",
+    "火":"热情奔放、行动力强",
+    "土":"踏实稳重、诚信可靠"
   };
-  var tips=base[val];
-  var tip=tips[Math.floor(Math.random()*tips.length)];
-  if(note){
-    var n=note;
-    if(n.match(/生病|发烧|头疼|不舒服|难受|感冒/)){tip='身体不舒服真的很消耗人。\n\n今天最重要的事是好好休息，多喝水。先把身体养好，其他的都可以等。希望你快点好起来 🌸';}
-    else if(n.match(/加班|工作|领导|同事|项目|deadline|ddl/)){tip='工作上的压力很重，你已经很努力了。\n\n今天下班后给自己划一条线——离开工位就不再想工作的事。哪怕2小时放松，也能让明天的你状态更好。💪';}
-    else if(n.match(/分手|失恋|感情|喜欢|暗恋|心动/)){tip='感情上的事最消耗心力。\n\n先照顾好自己。吃点好吃的，看部轻松的电影。你值得被好好对待。🌸';}
-    else if(n.match(/焦虑|迷茫|不知道|迷失|方向|未来/)){tip='迷茫是很多人都会有的感受，不是你一个人这样。\n\n不需要今天就找到答案。把注意力放回今天，做好一件小事就够了。🌿';}
-    else if(n.match(/开心|快乐|高兴|好消息|成功|做到|完成/)){tip='看到你今天有好事发生，真的替你开心！\n\n好好庆祝自己的小成就，你值得为自己骄傲。🎉';}
-    else if(n.match(/累|疲惫|疲倦|没力气|撑不住/)){tip='你已经很累了，身体在告诉你需要休息。\n\n今晚早点睡，不要带着手机上床。好好睡一觉 🌙';}
-  }
-  return tip;
+  const emoji = {"金":"⚙️","木":"🌱","水":"💧","火":"🔥","土":"🌍"};
+  const wx = map[(year - 4) % 10 < 0 ? ((year - 4) % 10 + 10) : (year - 4) % 10];
+  return { wx, trait: traits[wx], emoji: emoji[wx] };
 }
 
-function pickMood(val,btn){
-  selMood=val;
-  document.querySelectorAll('.mbtn').forEach(function(b){b.classList.remove('sel');});
-  btn.classList.add('sel');
-  $('tipbox').innerHTML='<div class="tipmeta">💌 今日小建议</div>'+genTip(val,$('mnote').value.trim());
-}
-
-$('mnote').addEventListener('input',function(){
-  if(selMood)$('tipbox').innerHTML='<div class="tipmeta">💌 今日小建议</div>'+genTip(selMood,this.value.trim());
+// ── 初始化页面 ──
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("f-birthday").textContent = USER_PROFILE.birthdayDisplay;
 });
 
-function getMoods(){return JSON.parse(localStorage.getItem('moods')||'[]');}
-
-function saveMood(){
-  if(!selMood){toast('先选一个今天的心情吧 💭');return;}
-  var list=getMoods();var note=$('mnote').value.trim();var t=todayStr();
-  var idx=list.findIndex(function(x){return x.date===t;});
-  if(idx>=0)list[idx]={date:t,val:selMood,note:note};
-  else list.push({date:t,val:selMood,note:note});
-  list.sort(function(a,b){return a.date>b.date?1:-1;});
-  if(list.length>30)list.splice(0,list.length-30);
-  localStorage.setItem('moods',JSON.stringify(list));
-  toast('已记录 🌸');$('mnote').value='';drawChart();refreshUser();
-}
-
-function drawChart(){
-  var canvas=$('chart');if(!canvas)return;
-  var ctx=canvas.getContext('2d');var dpr=window.devicePixelRatio||1;
-  var W=canvas.parentElement.clientWidth-36;var H=140;
-  canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
-  ctx.scale(dpr,dpr);
-  var moods=getMoods();var days=[];
-  for(var i=6;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var key=d.toISOString().slice(0,10);var rec=moods.find(function(x){return x.date===key;});days.push({val:rec?rec.val:null,label:(d.getMonth()+1)+'/'+d.getDate()});}
-  var pl=28,pr=10,pt=10,pb=26,gw=W-pl-pr,gh=H-pt-pb;
-  ctx.clearRect(0,0,W,H);
-  for(var j=1;j<=5;j++){var y=pt+gh-((j-1)/4)*gh;ctx.strokeStyle='#EDE7E0';ctx.lineWidth=1;ctx.setLineDash([3,3]);ctx.beginPath();ctx.moveTo(pl,y);ctx.lineTo(W-pr,y);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#C5B8B0';ctx.font='9px sans-serif';ctx.textAlign='right';ctx.fillText(j,pl-3,y+3);}
-  ctx.fillStyle='#C5B8B0';ctx.font='9px sans-serif';ctx.textAlign='center';
-  days.forEach(function(d,i){ctx.fillText(d.label,pl+(i/6)*gw,H-5);});
-  var pts=days.map(function(d,i){return{x:pl+(i/6)*gw,y:d.val!=null?pt+gh-((d.val-1)/4)*gh:null,v:d.val};});
-  var valid=pts.filter(function(p){return p.y!=null;});
-  if(!valid.length){ctx.fillStyle='#C5B8B0';ctx.font='12px sans-serif';ctx.textAlign='center';ctx.fillText('记录几天后这里会出现趋势图 ✨',W/2,H/2);return;}
-  if(valid.length>1){var g=ctx.createLinearGradient(0,pt,0,H-pb);g.addColorStop(0,'rgba(255,127,110,.22)');g.addColorStop(1,'rgba(255,127,110,0)');ctx.beginPath();ctx.moveTo(valid[0].x,H-pb);valid.forEach(function(p){ctx.lineTo(p.x,p.y);});ctx.lineTo(valid[valid.length-1].x,H-pb);ctx.closePath();ctx.fillStyle=g;ctx.fill();ctx.beginPath();valid.forEach(function(p,i){if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y);});ctx.strokeStyle='#FF7F6E';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();}
-  valid.forEach(function(p){ctx.beginPath();ctx.arc(p.x,p.y,4.5,0,Math.PI*2);ctx.fillStyle=p.v>=4?'#7BBFEA':p.v<=2?'#FF7F6E':'#FFCC80';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();});
-}
-
-// ── 广场 ──
-var SEED=[
-  {id:1,av:'🦊',nick:'努力打工人',tag:'疲惫',t:Date.now()-7200000,body:'又加班到10点。坐地铁回家，看着窗外夜景，突然想问，我这么拼到底是为了什么？',likes:34,comments:[{av:'🐟',nick:'平静的咸鱼',text:'感同身受，先好好休息，答案会慢慢来的 💚'}]},
-  {id:2,av:'🐰',nick:'迷途小鹿',tag:'迷茫',t:Date.now()-18000000,body:'室友都拿到offer了，我投了几十份简历还没有回音。焦虑到睡不着...',likes:56,comments:[{av:'🌸',nick:'小小冒险家',text:'不是你差，是市场在筛选。加油 🌸'},{av:'🐣',nick:'职场新手村',text:'我当时投了三个月才拿到，你不孤单！'}]},
-  {id:3,av:'🐼',nick:'周一恐惧症',tag:'压力',t:Date.now()-28800000,body:'领导当众批评了我。在厕所哭了五分钟，擦干眼泪继续开会。真的好累。',likes:89,comments:[{av:'🦊',nick:'努力打工人',text:'厕所里哭过的人，都是真正勇敢的人 💪'}]},
-  {id:4,av:'🌙',nick:'五点下班梦',tag:'寻求平衡',t:Date.now()-50400000,body:'入职两年了，突然意识到除了工作我什么都没有。上次好好吃顿饭是什么时候？',likes:67,comments:[]},
-  {id:5,av:'⭐',nick:'薪资焦虑猫',tag:'小确幸',t:Date.now()-72000000,body:'今天随手买了束9块9的小雏菊放工位，整个下午心情都好好。快乐可以这么简单 🌼',likes:103,comments:[{av:'🐰',nick:'迷途小鹿',text:'我也要去买！！'}]},
+// ── 加载动画 ──
+const loadingTexts = [
+  "奇门遁甲排盘中...",
+  "推算今日时局...",
+  "解读你的命理格局...",
+  "整合能量信息..."
 ];
-var curFilter='all';var pmTag='';
-function getPosts(){return JSON.parse(localStorage.getItem('posts')||'null')||SEED;}
-function setPosts(p){localStorage.setItem('posts',JSON.stringify(p));}
-function filterTag(tag,btn){curFilter=tag;document.querySelectorAll('#filterrow .ftag').forEach(function(b){b.classList.remove('sel');});btn.classList.add('sel');renderPosts();}
-function renderPosts(){
-  var all=getPosts();var list=curFilter==='all'?all:all.filter(function(p){return p.tag===curFilter;});
-  var wrap=$('postlist');wrap.innerHTML='';
-  [].concat(list).reverse().forEach(function(p){
-    var div=document.createElement('div');div.className='pc';
-    div.innerHTML='<div class="ptop"><div class="pav">'+p.av+'</div><div><div class="pname">'+p.nick+'</div><div class="ptime">'+timeAgo(p.t)+'</div></div><span class="ptag t-'+p.tag+'" style="pointer-events:none;border-color:currentColor">'+p.tag+'</span></div><div class="pbody">'+p.body+'</div><div class="pacts"><button class="pabtn'+(p.liked?' liked':'')+'" onclick="doLike('+p.id+')">🍀 '+p.likes+'</button><button class="pabtn'+(p.open?' commented':'')+'" onclick="toggleCmt('+p.id+')">💬 评论 '+p.comments.length+'</button></div><div class="cmts'+(p.open?' open':'')+'" id="cmt-'+p.id+'"><div>'+p.comments.map(function(c){return'<div class="citem"><span class="cauthor">'+c.av+' '+c.nick+'：</span>'+c.text+'</div>';}).join('')+'</div><div class="crow"><input type="text" id="ci-'+p.id+'" placeholder="写下你的评论..."><button class="csend" onclick="sendCmt('+p.id+')">发送</button></div></div>';
-    wrap.appendChild(div);
-  });
-}
-function doLike(id){var posts=getPosts();var p=posts.find(function(x){return x.id===id;});if(!p)return;if(p.liked){p.likes--;p.liked=false;}else{p.likes++;p.liked=true;}setPosts(posts);renderPosts();}
-function toggleCmt(id){var posts=getPosts();var p=posts.find(function(x){return x.id===id;});if(!p)return;p.open=!p.open;setPosts(posts);renderPosts();}
-function sendCmt(id){var inp=$('ci-'+id);var txt=inp?inp.value.trim():'';if(!txt)return;var posts=getPosts();var p=posts.find(function(x){return x.id===id;});if(!p)return;p.comments.push({av:user?user.av:'🌸',nick:user?user.name:'匿名',text:txt});setPosts(posts);renderPosts();}
-function openPM(){$('pmodal').classList.add('open');}
-function closePM(e){if(e.target===$('pmodal'))$('pmodal').classList.remove('open');}
-function pmPickTag(btn,tag){document.querySelectorAll('#pmtags .ftag').forEach(function(b){b.classList.remove('sel');});btn.classList.add('sel');pmTag=tag;}
-function submitPost(){
-  var body=$('pmtext').value.trim();if(!body){toast('说说你的感受吧 💭');return;}if(!pmTag){toast('请选一个标签');return;}
-  var posts=getPosts();posts.push({id:Date.now(),av:user?user.av:'🌸',nick:user?user.name:'匿名',tag:pmTag,t:Date.now(),body:body,likes:0,comments:[],isMe:true});
-  setPosts(posts);$('pmtext').value='';pmTag='';document.querySelectorAll('#pmtags .ftag').forEach(function(b){b.classList.remove('sel');});$('pmodal').classList.remove('open');toast('发布成功 🍀');renderPosts();refreshUser();
+let loadingTimer = null;
+let loadingIdx = 0;
+
+function startLoadingAnim() {
+  loadingIdx = 0;
+  document.getElementById("loading-text").textContent = loadingTexts[0];
+  loadingTimer = setInterval(() => {
+    loadingIdx = (loadingIdx + 1) % loadingTexts.length;
+    document.getElementById("loading-text").textContent = loadingTexts[loadingIdx];
+  }, 1200);
 }
 
-// ── 呼吸训练 ──
-var BREATH_TOTAL=120;
-var BREATH_CYCLE=12;
-var BREATH_ROUNDS=Math.floor(BREATH_TOTAL/BREATH_CYCLE);
-var bTimerID=null,bElapsed=0,bRunning=false;
-
-function breathStart(){
-  if(bRunning)return;
-  bRunning=true;bElapsed=0;
-  $('bStartBtn').style.display='none';
-  $('bStopBtn').style.display='block';
-  $('bStateIdle').style.display='none';
-  $('bStateActive').style.display='block';
-  bTick();
-  bTimerID=setInterval(bTick,100);
+function stopLoadingAnim() {
+  if (loadingTimer) { clearInterval(loadingTimer); loadingTimer = null; }
 }
 
-function breathStop(){
-  if(bTimerID)clearInterval(bTimerID);
-  bRunning=false;bElapsed=0;
-  $('bStartBtn').style.display='block';
-  $('bStopBtn').style.display='none';
-  $('bStateIdle').style.display='block';
-  $('bStateActive').style.display='none';
-  $('bProgFill').style.width='0%';
-  $('bProgLbl').textContent='0 / '+BREATH_ROUNDS+' 轮';
-  var aura=$('bAura');
-  aura.className='breath-aura';
+// ── 星级渲染 ──
+function renderStars(n) {
+  return "★".repeat(n) + "☆".repeat(5 - n);
 }
 
-function bTick(){
-  var roundDone=Math.floor(bElapsed/10/BREATH_CYCLE);
-  $('bProgFill').style.width=(roundDone/BREATH_ROUNDS*100)+'%';
-  $('bProgLbl').textContent=roundDone+' / '+BREATH_ROUNDS+' 轮';
-  var pos=(bElapsed/10)%BREATH_CYCLE;
-  var aura=$('bAura');
-  if(pos<4){
-    if(aura.dataset.phase!=='in'){aura.dataset.phase='in';aura.className='breath-aura expand';}
-    $('bWord').textContent='吸　气';$('bCount').textContent=Math.ceil(4-pos)+'s';
-  }else if(pos<6){
-    if(aura.dataset.phase!=='hold'){aura.dataset.phase='hold';aura.className='breath-aura hold';}
-    $('bWord').textContent='屏　息';$('bCount').textContent=Math.ceil(6-pos)+'s';
-  }else{
-    if(aura.dataset.phase!=='out'){aura.dataset.phase='out';aura.className='breath-aura shrink';}
-    $('bWord').textContent='呼　气';$('bCount').textContent=Math.ceil(12-pos)+'s';
+// ── 主流程 ──
+async function startFortune() {
+  const concern = document.getElementById("f-concern").value;
+  const birthday = USER_PROFILE.birthday;
+  const year = parseInt(birthday.split("-")[0]);
+  const month = parseInt(birthday.split("-")[1]);
+  const day = parseInt(birthday.split("-")[2]);
+
+  const yearGZ = getYearGanZhi(year);
+  const todayGZ = getTodayGanZhi();
+  const { wx, trait, emoji } = getWuXing(year);
+  const today = new Date();
+  const todayStr = `${today.getFullYear()}年${today.getMonth()+1}月${today.getDate()}日`;
+
+  // UI 切换
+  document.getElementById("fortune-btn").style.opacity = "0.5";
+  document.getElementById("fortune-btn").style.pointerEvents = "none";
+  document.getElementById("fortune-result").style.display = "none";
+  document.getElementById("fortune-error").style.display = "none";
+  document.getElementById("fortune-loading").style.display = "block";
+  startLoadingAnim();
+
+  const prompt = `你是一位精通奇门遁甲、八字命理的专业命理师，同时兼具温暖、现代的表达风格，擅长将传统玄学与现代职场、情感生活结合。
+
+请根据以下信息，用奇门遁甲结合八字，为用户进行今日能量解读：
+
+用户信息：
+- 出生日期：${year}年${month}月${day}日
+- 生辰年份干支：${yearGZ}年
+- 五行属性：${wx}命（${trait}）
+- 今日干支：${todayGZ}（${todayStr}）
+- 当前困扰方向：${concern}
+
+请严格按照以下 JSON 格式返回，不要输出任何其他内容：
+{
+  "score": <整体能量值，整数，范围55-95>,
+  "phase": "<能量状态，如：能量上扬期 / 稳定蓄力期 / 需谨慎期 等4字以内>",
+  "career_stars": <事业运星级，1-5的整数>,
+  "love_stars": <情感运星级，1-5的整数>,
+  "wealth_stars": <财运星级，1-5的整数>,
+  "quote": "<命理解读正文，150字以内，分两段：第一段结合奇门遁甲和用户困扰方向做专业解读（引用具体的奇门概念如值使、值符、九宫方位等），第二段给出1-2条具体可行的今日行动建议，用📜和🌟开头区分两段>"
+}`;
+
+  try {
+    const resp = await fetch(DEEPSEEK_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${DEEPSEEK_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "deepseek-chat",
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.8,
+        max_tokens: 600
+      })
+    });
+
+    if (!resp.ok) {
+      const errText = await resp.text();
+      throw new Error(`API错误 ${resp.status}: ${errText}`);
+    }
+
+    const data = await resp.json();
+    const raw = data.choices[0].message.content.trim();
+
+    // 提取 JSON（兼容模型在前后加 markdown 代码块的情况）
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error("返回格式解析失败");
+    const result = JSON.parse(jsonMatch[0]);
+
+    stopLoadingAnim();
+    document.getElementById("fortune-loading").style.display = "none";
+
+    // 填充结果
+    document.getElementById("r-year").textContent = `${year}年出生 · ${yearGZ}年`;
+    document.getElementById("r-element").textContent = `${emoji} ${wx}命 · ${trait}`;
+    document.getElementById("r-score").textContent = result.score;
+    document.getElementById("r-phase").textContent = `/ 100 · ${result.phase}`;
+    document.getElementById("r-career").textContent = renderStars(result.career_stars);
+    document.getElementById("r-love").textContent = renderStars(result.love_stars);
+    document.getElementById("r-wealth").textContent = renderStars(result.wealth_stars);
+    document.getElementById("r-quote").textContent = result.quote;
+
+    document.getElementById("fortune-result").style.display = "block";
+
+    // 重置按钮（让用户可以切换困扰再算一次）
+    document.getElementById("fortune-btn").textContent = "🔄 重新解读";
+    document.getElementById("fortune-btn").style.opacity = "1";
+    document.getElementById("fortune-btn").style.pointerEvents = "auto";
+
+  } catch (err) {
+    stopLoadingAnim();
+    document.getElementById("fortune-loading").style.display = "none";
+    document.getElementById("error-msg").textContent = err.message || "网络异常，请重试";
+    document.getElementById("fortune-error").style.display = "block";
+
+    document.getElementById("fortune-btn").style.opacity = "1";
+    document.getElementById("fortune-btn").style.pointerEvents = "auto";
   }
-  bElapsed++;
-  if(bElapsed/10>=BREATH_TOTAL){
-    clearInterval(bTimerID);bRunning=false;
-    breathStop();
-    $('shareModal').classList.add('open');
-  }
 }
 
-function closeShare(e){if(!e||e.target===$('shareModal'))$('shareModal').classList.remove('open');}
-function shareBreath(){
-  closeShare();
-  var posts=getPosts();
-  posts.push({id:Date.now(),av:user?user.av:'🌸',nick:user?user.name:'匿名',tag:'小确幸',t:Date.now(),body:'刚完成了2分钟的呼吸练习 🌬️ 整个人平静了很多，推荐大家试试！',likes:0,comments:[],isMe:true});
-  setPosts(posts);goTab('community');toast('已分享到广场 🍀');
+function resetFortune() {
+  document.getElementById("fortune-error").style.display = "none";
+  document.getElementById("fortune-result").style.display = "none";
+  document.getElementById("fortune-btn").textContent = "✨ 解读我的能量";
 }
-
-// ── 能量占卜 ──
-var WX={0:'金',1:'木',2:'水',3:'火',4:'土',5:'土',6:'金',7:'金',8:'木',9:'木'};
-var WXI={'金':{c:'#FFD700',e:'⚙️',t:'坚毅果断、逻辑清晰',desc:'你天生具备决断力，做事雷厉风行。'},'木':{c:'#5CB88A',e:'🌱',t:'富有创意、温和包容',desc:'你内心充满生命力，善于生长和延伸。'},'水':{c:'#74B9FF',e:'💧',t:'智慧灵动、洞察力强',desc:'你像水一样灵活，能适应各种环境。'},'火':{c:'#FF7675',e:'🔥',t:'热情奔放、行动力强',desc:'你充满热情和感染力，能点燃周围的人。'},'土':{c:'#FDCB6E',e:'🏔️',t:'稳重踏实、值得信赖',desc:'你是大家的定海神针，稳定可靠。'}};
-var chatInited=false;
-
-function getWxInfo(){
-  if(!user||!user.bdate)return null;
-  var yr=parseInt(user.bdate.slice(0,4));
-  return{wx:WX[yr%10],inf:WXI[WX[yr%10]],yr:yr};
-}
-
-var AI_RESPONSES=[function(q){
-  var info=getWxInfo();
-  var wx=info?info.wx:'木';var inf=info?info.inf:WXI['木'];
-  if(q.match(/运势|今天|最近|如何/)){return'根据你的'+wx+'命能量，今天整体运势平稳中带有上升趋势。\n\n'+inf.e+' '+inf.desc+'\n\n建议你今天多关注自己内心的声音，有一个决定可以放心去做了。';}
-  if(q.match(/工作|事业|职场|升职|跳槽/)){return'从命理角度，'+wx+'命之人在职场上'+inf.t+'。\n\n近期工作上可能有一个小转机在靠近，保持耐心，你的努力已经被看见了。';}
-  if(q.match(/感情|恋爱|喜欢|暗恋|分手|失恋/)){return wx+'命之人在感情上重情重义。\n\n感情这件事，急不得。现在最重要的是把自己过好，让自己发光。真正适合你的人会被你的光吸引过来。🌸';}
-  if(q.match(/财运|钱|工资|赚钱/)){return'财运方面，'+wx+'命近期偏稳健。不适合冒险投资，细水长流胜过一夜暴富。幸运数字是'+(Math.floor(Math.random()*9)+1)+'。';}
-  if(q.match(/迷茫|方向|未来|不知道|怎么办/)){return'迷茫是'+wx+'命之人成长阶段的必经旅程。\n\n不需要今天就找到答案。试着问自己：什么事情做起来不累？顺着这个感觉走。🌿';}
-  return null;
-}];
-
-var FALLBACK=[
-  '从你的命格来看，这个问题的答案其实已经在你心里了。你觉得呢？',
-  '星象告诉我，你现在需要的不是答案，而是给自己一点时间和空间。',
-  '阿贝贝感受到你内心有些纠结。不管结果如何，你的出发点是好的，这就够了。🌸',
-  '命理能给出方向，但最终的答案在你自己手里。你内心已经知道该怎么做了。'
-];
-
-function addChatMsg(text,role){
-  var wrap=$('chatWrap');var div=document.createElement('div');
-  div.className='chat-msg '+role;div.textContent=text;
-  wrap.appendChild(div);wrap.scrollTop=wrap.scrollHeight;
-}
-
-function initChat(){
-  if(chatInited)return;chatInited=true;
-  var info=getWxInfo();var name=user?user.name:'朋友';
-  var g='你好，'+name+'！我是阿贝贝的命理助手。✨\n\n';
-  if(info)g+='我看到你是'+info.yr+'年生的'+info.wx+'命之人——'+info.inf.t+'。\n\n';
-  g+='你可以问我关于运势、感情、工作、财运的问题，也可以倾诉最近的困惑。';
-  setTimeout(function(){addChatMsg(g,'ai');},300);
-}
-
-function sendChat(){
-  var inp=$('chatInput');var q=inp.value.trim();if(!q)return;inp.value='';
-  addChatMsg(q,'user');
-  var th=document.createElement('div');th.className='chat-msg ai';th.textContent='正在解读命盘...✨';th.id='thinking';
-  $('chatWrap').appendChild(th);$('chatWrap').scrollTop=$('chatWrap').scrollHeight;
-  setTimeout(function(){
-    var el=$('thinking');if(el)el.remove();
-    var ans=null;for(var i=0;i<AI_RESPONSES.length;i++){ans=AI_RESPONSES[i](q);if(ans)break;}
-    if(!ans)ans=FALLBACK[Math.floor(Math.random()*FALLBACK.length)];
-    addChatMsg(ans,'ai');
-  },1200);
-}
-
-function switchFTab(tab){
-  $('ftab-chat').classList.toggle('act',tab==='chat');
-  $('ftab-daily').classList.toggle('act',tab==='daily');
-  $('fchat').style.display=tab==='chat'?'block':'none';
-  $('fdaily').style.display=tab==='daily'?'block':'none';
-  if(tab==='daily')genDaily();
-}
-
-var LC=['珊瑚粉🌸','薄荷绿🌿','奶油黄🌼','星空蓝🌌','暖橙色🍊','丁香紫💜'];
-var LD=['东南方','正东方','西北方','正南方','东北方','正西方'];
-function genDaily(){
-  var info=getWxInfo();var wx=info?info.wx:'木';var inf=info?info.inf:WXI['木'];var yr=info?info.yr:2000;
-  var eng=65+Math.floor(Math.random()*31);
-  var st=function(n){return'★'.repeat(n)+'☆'.repeat(5-n);};
-  var cs=2+Math.floor(Math.random()*3);var ls=2+Math.floor(Math.random()*3);var ms=2+Math.floor(Math.random()*3);
-  var lc=LC[Math.floor(Math.random()*LC.length)];var ln=Math.floor(Math.random()*9)+1;var ld=LD[Math.floor(Math.random()*LD.length)];
-  var circ=2*Math.PI*40;var off=circ*(1-eng/100);
-  var dt=['今天是积蓄能量的好时机，不需要大动作，做好眼前的事就足够了。','命盘显示今天适合沟通和连接，主动联系一个许久未见的朋友吧。','今天的你有一种特别的洞察力，相信自己的第一直觉。','稳中求进是今天的关键词，按自己的节奏来。','今天会有一个小惊喜，保持开放的心态去接受。'];
-  var dailyText=dt[Math.floor(Math.random()*dt.length)];
-  $('fdailyContent').innerHTML='<div style="font-size:11px;opacity:.7;margin-bottom:8px">'+yr+'年生 · '+wx+'命之人 · 今日运势</div><div class="fbadge">'+inf.e+' '+wx+'命</div><div style="text-align:center;margin:10px 0 14px"><div style="font-size:11px;opacity:.7;margin-bottom:6px">今日整体能量</div><svg width="90" height="90" viewBox="0 0 100 100" style="display:block;margin:0 auto;transform:rotate(-90deg)"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="8"/><circle cx="50" cy="50" r="40" fill="none" stroke="'+inf.c+'" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+circ+'" stroke-dashoffset="'+circ+'" id="drc"/></svg><div style="margin-top:-54px;position:relative;z-index:1;padding-bottom:38px;text-align:center"><div style="font-size:30px;font-weight:800;line-height:1" id="drn">0</div><div style="font-size:10px;opacity:.6;margin-top:2px">/ 100</div></div></div><div class="fgrid"><div class="fsec"><div class="fsic">💼</div><div class="fsnm">事业运</div><div class="fsst">'+st(cs)+'</div></div><div class="fsec"><div class="fsic">💖</div><div class="fsnm">情感运</div><div class="fsst">'+st(ls)+'</div></div><div class="fsec"><div class="fsic">💰</div><div class="fsnm">财运</div><div class="fsst">'+st(ms)+'</div></div></div><div class="flucky"><div class="fli"><div class="fll">幸运色</div><div class="flv">'+lc+'</div></div><div class="fli"><div class="fll">幸运数字</div><div class="flv">'+ln+'</div></div><div class="fli"><div class="fll">幸运方位</div><div class="flv">'+ld+'</div></div></div><div class="fquote">📜 '+dailyText+'</div>';
-  requestAnimationFrame(function(){var c=$('drc');if(c){c.style.transition='stroke-dashoffset 1.2s ease';c.style.strokeDashoffset=off;}});
-  var cur=0;var tm=setInterval(function(){cur=Math.min(cur+2,eng);var el=$('drn');if(el)el.textContent=cur;if(cur>=eng)clearInterval(tm);},24);
-}
-
-function clearData(){if(!confirm('确定清空所有数据吗？'))return;localStorage.clear();location.reload();}
-
-// ── 木鱼 ──
-var muyuAC=null;
-function getMuyuAC(){if(!muyuAC)muyuAC=new(window.AudioContext||window.webkitAudioContext)();return muyuAC;}
-
-function playMuyu(){
-  try{
-    var ac=getMuyuAC();
-    // 主体"咚"— 低频正弦衰减
-    var osc=ac.createOscillator();
-    var gain=ac.createGain();
-    osc.connect(gain);gain.connect(ac.destination);
-    osc.type='sine';
-    osc.frequency.setValueAtTime(220,ac.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(80,ac.currentTime+0.3);
-    gain.gain.setValueAtTime(0.8,ac.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+0.5);
-    osc.start(ac.currentTime);osc.stop(ac.currentTime+0.5);
-    // 敲击瞬态"咔"— 短噪音
-    var buf=ac.createBuffer(1,ac.sampleRate*0.04,ac.sampleRate);
-    var data=buf.getChannelData(0);
-    for(var i=0;i<data.length;i++)data[i]=(Math.random()*2-1)*Math.pow(1-i/data.length,2);
-    var src=ac.createBufferSource();
-    var g2=ac.createGain();
-    src.buffer=buf;src.connect(g2);g2.connect(ac.destination);
-    g2.gain.setValueAtTime(0.3,ac.currentTime);
-    src.start(ac.currentTime);
-  }catch(e){}
-}
-
-var muyuCount=parseInt(localStorage.getItem('muyu_today_count')||'0');
-var muyuDate=localStorage.getItem('muyu_today_date')||'';
-var muyuTotal=parseInt(localStorage.getItem('muyu_total')||'0');
-var MUYU_TITLES=['','初心功德','静心一刻','心如止水','功德圆满','佛光普照','木鱼大师','得道高僧'];
-
-// 今日计数跨天重置
-if(muyuDate!==todayStr()){muyuCount=0;localStorage.setItem('muyu_today_count','0');localStorage.setItem('muyu_today_date',todayStr());}
-
-function updateMuyuUI(){
-  $('muyuCount').textContent=muyuCount;
-  $('muyuTotal').textContent=muyuTotal;
-  var lvl=Math.min(Math.floor(muyuCount/10),MUYU_TITLES.length-1);
-  $('muyuTitle').textContent=lvl>0?MUYU_TITLES[lvl]:'';
-}
-
-function knockMuyu(){
-  // 音效
-  playMuyu();
-  // 动画——木鱼压缩
-  var btn=$('muyuBtn');
-  btn.classList.remove('muyu-hit');
-  void btn.offsetWidth;
-  btn.classList.add('muyu-hit');
-  btn.addEventListener('animationend',function(){btn.classList.remove('muyu-hit');},{once:true});
-  // 木槌挥动
-  var hammer=$('muyuHammer');
-  hammer.classList.remove('hammer-swing');
-  void hammer.offsetWidth;
-  hammer.classList.add('hammer-swing');
-  hammer.addEventListener('animationend',function(){hammer.classList.remove('hammer-swing');},{once:true});
-  // 功德飞起
-  var merit=$('muyu-merit');
-  merit.classList.remove('muyu-merit-fly');
-  void merit.offsetWidth;
-  merit.classList.add('muyu-merit-fly');
-  merit.addEventListener('animationend',function(){merit.classList.remove('muyu-merit-fly');},{once:true});
-  // 手机震动
-  if(navigator.vibrate)navigator.vibrate(18);
-  // 计数
-  muyuCount++;muyuTotal++;
-  localStorage.setItem('muyu_today_count',muyuCount);
-  localStorage.setItem('muyu_today_date',todayStr());
-  localStorage.setItem('muyu_total',muyuTotal);
-  updateMuyuUI();
-}
-updateMuyuUI();
-
-if(user)refreshUser();
-drawChart();
-renderPosts();
-if(user)initChat();
 </script>
 </body>
 </html>
